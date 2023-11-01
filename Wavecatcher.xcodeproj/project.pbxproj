@@ -13,6 +13,7 @@
 		A2B6F1182AF20A5200B48C66 /* WavecatcherUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2B6F1172AF20A5200B48C66 /* WavecatcherUITests.swift */; };
 		A2B6F11A2AF20A5200B48C66 /* WavecatcherUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2B6F1192AF20A5200B48C66 /* WavecatcherUITestsLaunchTests.swift */; };
 		A2B6F1292AF2107600B48C66 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = A2B6F1282AF2107600B48C66 /* ComposableArchitecture */; };
+		A2B6F1322AF21D2800B48C66 /* Tagged in Frameworks */ = {isa = PBXBuildFile; productRef = A2B6F1312AF21D2800B48C66 /* Tagged */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +50,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A2B6F1322AF21D2800B48C66 /* Tagged in Frameworks */,
 				A2B6F1292AF2107600B48C66 /* ComposableArchitecture in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -135,6 +137,7 @@
 			name = Wavecatcher;
 			packageProductDependencies = (
 				A2B6F1282AF2107600B48C66 /* ComposableArchitecture */,
+				A2B6F1312AF21D2800B48C66 /* Tagged */,
 			);
 			productName = Wavecatcher;
 			productReference = A2B6F0F82AF20A5100B48C66 /* Wavecatcher.app */;
@@ -210,6 +213,7 @@
 			mainGroup = A2B6F0EF2AF20A5100B48C66;
 			packageReferences = (
 				A2B6F1272AF2107600B48C66 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */,
+				A2B6F12D2AF21A1F00B48C66 /* XCRemoteSwiftPackageReference "swift-tagged" */,
 			);
 			productRefGroup = A2B6F0F92AF20A5100B48C66 /* Products */;
 			projectDirPath = "";
@@ -609,6 +613,14 @@
 				minimumVersion = 1.3.0;
 			};
 		};
+		A2B6F12D2AF21A1F00B48C66 /* XCRemoteSwiftPackageReference "swift-tagged" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/pointfreeco/swift-tagged";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.10.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -616,6 +628,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = A2B6F1272AF2107600B48C66 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */;
 			productName = ComposableArchitecture;
+		};
+		A2B6F1312AF21D2800B48C66 /* Tagged */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A2B6F12D2AF21A1F00B48C66 /* XCRemoteSwiftPackageReference "swift-tagged" */;
+			productName = Tagged;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
