@@ -13,6 +13,8 @@
 		A2B6F1182AF20A5200B48C66 /* WavecatcherUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2B6F1172AF20A5200B48C66 /* WavecatcherUITests.swift */; };
 		A2B6F11A2AF20A5200B48C66 /* WavecatcherUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2B6F1192AF20A5200B48C66 /* WavecatcherUITestsLaunchTests.swift */; };
 		A2B6F1292AF2107600B48C66 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = A2B6F1282AF2107600B48C66 /* ComposableArchitecture */; };
+		A2B6F12C2AF2142B00B48C66 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2B6F12B2AF2142B00B48C66 /* Location.swift */; };
+		A2B6F12F2AF21C3600B48C66 /* WeatherData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2B6F12E2AF21C3600B48C66 /* WeatherData.swift */; };
 		A2B6F1322AF21D2800B48C66 /* Tagged in Frameworks */ = {isa = PBXBuildFile; productRef = A2B6F1312AF21D2800B48C66 /* Tagged */; };
 /* End PBXBuildFile section */
 
@@ -43,6 +45,8 @@
 		A2B6F1132AF20A5200B48C66 /* WavecatcherUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WavecatcherUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A2B6F1172AF20A5200B48C66 /* WavecatcherUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WavecatcherUITests.swift; sourceTree = "<group>"; };
 		A2B6F1192AF20A5200B48C66 /* WavecatcherUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WavecatcherUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		A2B6F12B2AF2142B00B48C66 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
+		A2B6F12E2AF21C3600B48C66 /* WeatherData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,6 +100,7 @@
 			isa = PBXGroup;
 			children = (
 				A2B6F0FB2AF20A5100B48C66 /* WavecatcherApp.swift */,
+				A2B6F12A2AF213FA00B48C66 /* Models */,
 				A2B6F0FF2AF20A5200B48C66 /* Assets.xcassets */,
 				A2B6F1012AF20A5200B48C66 /* Wavecatcher.entitlements */,
 			);
@@ -117,6 +122,15 @@
 				A2B6F1192AF20A5200B48C66 /* WavecatcherUITestsLaunchTests.swift */,
 			);
 			path = WavecatcherUITests;
+			sourceTree = "<group>";
+		};
+		A2B6F12A2AF213FA00B48C66 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				A2B6F12B2AF2142B00B48C66 /* Location.swift */,
+				A2B6F12E2AF21C3600B48C66 /* WeatherData.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -256,6 +270,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A2B6F12C2AF2142B00B48C66 /* Location.swift in Sources */,
+				A2B6F12F2AF21C3600B48C66 /* WeatherData.swift in Sources */,
 				A2B6F0FC2AF20A5100B48C66 /* WavecatcherApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
