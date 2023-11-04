@@ -18,6 +18,8 @@ struct WeatherData: Equatable, Codable {
     let swellDirection: Double?
     let swellPeriod: Double?
     let swellHeight: Double?
+    
+    let tideHeight: Double?
 }
 
 extension WeatherData {
@@ -31,7 +33,8 @@ extension WeatherData {
                         windSpeed: Double.random(in: 5...25),
                         swellDirection: Double.random(in: 0...359),
                         swellPeriod: Double.random(in: 8...15),
-                        swellHeight: Double.random(in: 1...2.5))
+                        swellHeight: Double.random(in: 1...2.5),
+                        tideHeight: Double.random(in: 0.5...3.0))
         }
     }()
 }
