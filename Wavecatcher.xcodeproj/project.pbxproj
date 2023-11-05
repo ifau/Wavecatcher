@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		A2770C0B2AF350CC00EFFA22 /* TideForecastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2770C0A2AF350CC00EFFA22 /* TideForecastView.swift */; };
 		A27A2AF12AF7420F00C56FA9 /* WindForecastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27A2AF02AF7420F00C56FA9 /* WindForecastView.swift */; };
+		A27A2AFC2AF7522B00C56FA9 /* LocalStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27A2AFB2AF7522B00C56FA9 /* LocalStorage.swift */; };
+		A27A2AFE2AF7545900C56FA9 /* CoreDataStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27A2AFD2AF7545900C56FA9 /* CoreDataStorage.swift */; };
+		A27FDD332AF78666000C60D1 /* CoreDataStorageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27FDD322AF78666000C60D1 /* CoreDataStorageTests.swift */; };
 		A2B6F0FC2AF20A5100B48C66 /* WavecatcherApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2B6F0FB2AF20A5100B48C66 /* WavecatcherApp.swift */; };
 		A2B6F1002AF20A5200B48C66 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A2B6F0FF2AF20A5200B48C66 /* Assets.xcassets */; };
 		A2B6F10E2AF20A5200B48C66 /* WavecatcherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2B6F10D2AF20A5200B48C66 /* WavecatcherTests.swift */; };
@@ -40,6 +43,9 @@
 /* Begin PBXFileReference section */
 		A2770C0A2AF350CC00EFFA22 /* TideForecastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TideForecastView.swift; sourceTree = "<group>"; };
 		A27A2AF02AF7420F00C56FA9 /* WindForecastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindForecastView.swift; sourceTree = "<group>"; };
+		A27A2AFB2AF7522B00C56FA9 /* LocalStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalStorage.swift; sourceTree = "<group>"; };
+		A27A2AFD2AF7545900C56FA9 /* CoreDataStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStorage.swift; sourceTree = "<group>"; };
+		A27FDD322AF78666000C60D1 /* CoreDataStorageTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStorageTests.swift; sourceTree = "<group>"; };
 		A2B6F0F82AF20A5100B48C66 /* Wavecatcher.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Wavecatcher.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A2B6F0FB2AF20A5100B48C66 /* WavecatcherApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WavecatcherApp.swift; sourceTree = "<group>"; };
 		A2B6F0FF2AF20A5200B48C66 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -80,6 +86,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A27A2AFA2AF750F100C56FA9 /* Dependencies */ = {
+			isa = PBXGroup;
+			children = (
+				A27A2AFB2AF7522B00C56FA9 /* LocalStorage.swift */,
+				A27A2AFD2AF7545900C56FA9 /* CoreDataStorage.swift */,
+			);
+			path = Dependencies;
+			sourceTree = "<group>";
+		};
+		A27FDD312AF78650000C60D1 /* Dependencies */ = {
+			isa = PBXGroup;
+			children = (
+				A27FDD322AF78666000C60D1 /* CoreDataStorageTests.swift */,
+			);
+			path = Dependencies;
+			sourceTree = "<group>";
+		};
 		A2B6F0EF2AF20A5100B48C66 = {
 			isa = PBXGroup;
 			children = (
@@ -108,6 +131,7 @@
 				A2B6F12A2AF213FA00B48C66 /* Models */,
 				A2B6F0FF2AF20A5200B48C66 /* Assets.xcassets */,
 				A2B6F1012AF20A5200B48C66 /* Wavecatcher.entitlements */,
+				A27A2AFA2AF750F100C56FA9 /* Dependencies */,
 			);
 			path = Wavecatcher;
 			sourceTree = "<group>";
@@ -115,6 +139,7 @@
 		A2B6F10C2AF20A5200B48C66 /* WavecatcherTests */ = {
 			isa = PBXGroup;
 			children = (
+				A27FDD312AF78650000C60D1 /* Dependencies */,
 				A2B6F10D2AF20A5200B48C66 /* WavecatcherTests.swift */,
 			);
 			path = WavecatcherTests;
@@ -284,6 +309,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A27A2AFE2AF7545900C56FA9 /* CoreDataStorage.swift in Sources */,
+				A27A2AFC2AF7522B00C56FA9 /* LocalStorage.swift in Sources */,
 				A27A2AF12AF7420F00C56FA9 /* WindForecastView.swift in Sources */,
 				A2B6F12C2AF2142B00B48C66 /* Location.swift in Sources */,
 				A2B6F12F2AF21C3600B48C66 /* WeatherData.swift in Sources */,
@@ -296,6 +323,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A27FDD332AF78666000C60D1 /* CoreDataStorageTests.swift in Sources */,
 				A2B6F10E2AF20A5200B48C66 /* WavecatcherTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
