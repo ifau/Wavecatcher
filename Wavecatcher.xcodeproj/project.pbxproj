@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		A2770C0B2AF350CC00EFFA22 /* TideForecastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2770C0A2AF350CC00EFFA22 /* TideForecastView.swift */; };
+		A27A2AF12AF7420F00C56FA9 /* WindForecastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27A2AF02AF7420F00C56FA9 /* WindForecastView.swift */; };
 		A2B6F0FC2AF20A5100B48C66 /* WavecatcherApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2B6F0FB2AF20A5100B48C66 /* WavecatcherApp.swift */; };
 		A2B6F1002AF20A5200B48C66 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A2B6F0FF2AF20A5200B48C66 /* Assets.xcassets */; };
 		A2B6F10E2AF20A5200B48C66 /* WavecatcherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2B6F10D2AF20A5200B48C66 /* WavecatcherTests.swift */; };
@@ -38,6 +39,7 @@
 
 /* Begin PBXFileReference section */
 		A2770C0A2AF350CC00EFFA22 /* TideForecastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TideForecastView.swift; sourceTree = "<group>"; };
+		A27A2AF02AF7420F00C56FA9 /* WindForecastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindForecastView.swift; sourceTree = "<group>"; };
 		A2B6F0F82AF20A5100B48C66 /* Wavecatcher.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Wavecatcher.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A2B6F0FB2AF20A5100B48C66 /* WavecatcherApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WavecatcherApp.swift; sourceTree = "<group>"; };
 		A2B6F0FF2AF20A5200B48C66 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -140,6 +142,7 @@
 			isa = PBXGroup;
 			children = (
 				A2770C0A2AF350CC00EFFA22 /* TideForecastView.swift */,
+				A27A2AF02AF7420F00C56FA9 /* WindForecastView.swift */,
 			);
 			path = LocationForecast;
 			sourceTree = "<group>";
@@ -281,6 +284,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A27A2AF12AF7420F00C56FA9 /* WindForecastView.swift in Sources */,
 				A2B6F12C2AF2142B00B48C66 /* Location.swift in Sources */,
 				A2B6F12F2AF21C3600B48C66 /* WeatherData.swift in Sources */,
 				A2B6F0FC2AF20A5100B48C66 /* WavecatcherApp.swift in Sources */,
