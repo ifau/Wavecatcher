@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A2018FA32AF9FF9100089C29 /* WeatherData+Extract.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2018FA22AF9FF9100089C29 /* WeatherData+Extract.swift */; };
+		A2018FA52AFA006B00089C29 /* WeatherDataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2018FA42AFA006B00089C29 /* WeatherDataTests.swift */; };
 		A2770C0B2AF350CC00EFFA22 /* TideForecastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2770C0A2AF350CC00EFFA22 /* TideForecastView.swift */; };
 		A27A2AF12AF7420F00C56FA9 /* WindForecastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27A2AF02AF7420F00C56FA9 /* WindForecastView.swift */; };
 		A27A2AFC2AF7522B00C56FA9 /* LocalStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27A2AFB2AF7522B00C56FA9 /* LocalStorage.swift */; };
@@ -14,7 +16,6 @@
 		A27FDD332AF78666000C60D1 /* CoreDataStorageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27FDD322AF78666000C60D1 /* CoreDataStorageTests.swift */; };
 		A2B6F0FC2AF20A5100B48C66 /* WavecatcherApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2B6F0FB2AF20A5100B48C66 /* WavecatcherApp.swift */; };
 		A2B6F1002AF20A5200B48C66 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A2B6F0FF2AF20A5200B48C66 /* Assets.xcassets */; };
-		A2B6F10E2AF20A5200B48C66 /* WavecatcherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2B6F10D2AF20A5200B48C66 /* WavecatcherTests.swift */; };
 		A2B6F1182AF20A5200B48C66 /* WavecatcherUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2B6F1172AF20A5200B48C66 /* WavecatcherUITests.swift */; };
 		A2B6F11A2AF20A5200B48C66 /* WavecatcherUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2B6F1192AF20A5200B48C66 /* WavecatcherUITestsLaunchTests.swift */; };
 		A2B6F1292AF2107600B48C66 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = A2B6F1282AF2107600B48C66 /* ComposableArchitecture */; };
@@ -42,6 +43,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		A2018FA22AF9FF9100089C29 /* WeatherData+Extract.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WeatherData+Extract.swift"; sourceTree = "<group>"; };
+		A2018FA42AFA006B00089C29 /* WeatherDataTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherDataTests.swift; sourceTree = "<group>"; };
 		A2770C0A2AF350CC00EFFA22 /* TideForecastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TideForecastView.swift; sourceTree = "<group>"; };
 		A27A2AF02AF7420F00C56FA9 /* WindForecastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindForecastView.swift; sourceTree = "<group>"; };
 		A27A2AFB2AF7522B00C56FA9 /* LocalStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalStorage.swift; sourceTree = "<group>"; };
@@ -52,7 +55,6 @@
 		A2B6F0FF2AF20A5200B48C66 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A2B6F1012AF20A5200B48C66 /* Wavecatcher.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Wavecatcher.entitlements; sourceTree = "<group>"; };
 		A2B6F1092AF20A5200B48C66 /* WavecatcherTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WavecatcherTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		A2B6F10D2AF20A5200B48C66 /* WavecatcherTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WavecatcherTests.swift; sourceTree = "<group>"; };
 		A2B6F1132AF20A5200B48C66 /* WavecatcherUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WavecatcherUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A2B6F1172AF20A5200B48C66 /* WavecatcherUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WavecatcherUITests.swift; sourceTree = "<group>"; };
 		A2B6F1192AF20A5200B48C66 /* WavecatcherUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WavecatcherUITestsLaunchTests.swift; sourceTree = "<group>"; };
@@ -88,6 +90,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A2018FA12AF9FF6C00089C29 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				A2018FA42AFA006B00089C29 /* WeatherDataTests.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		A27A2AF72AF74D0300C56FA9 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				A2018FA22AF9FF9100089C29 /* WeatherData+Extract.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		A27A2AFA2AF750F100C56FA9 /* Dependencies */ = {
 			isa = PBXGroup;
 			children = (
@@ -134,6 +152,7 @@
 				A2B6F0FF2AF20A5200B48C66 /* Assets.xcassets */,
 				A2B6F1012AF20A5200B48C66 /* Wavecatcher.entitlements */,
 				A27A2AFA2AF750F100C56FA9 /* Dependencies */,
+				A27A2AF72AF74D0300C56FA9 /* Extensions */,
 			);
 			path = Wavecatcher;
 			sourceTree = "<group>";
@@ -142,7 +161,7 @@
 			isa = PBXGroup;
 			children = (
 				A27FDD312AF78650000C60D1 /* Dependencies */,
-				A2B6F10D2AF20A5200B48C66 /* WavecatcherTests.swift */,
+				A2018FA12AF9FF6C00089C29 /* Extensions */,
 			);
 			path = WavecatcherTests;
 			sourceTree = "<group>";
@@ -314,6 +333,7 @@
 			files = (
 				A27A2AFE2AF7545900C56FA9 /* CoreDataStorage.swift in Sources */,
 				A27A2AFC2AF7522B00C56FA9 /* LocalStorage.swift in Sources */,
+				A2018FA32AF9FF9100089C29 /* WeatherData+Extract.swift in Sources */,
 				A27A2AF12AF7420F00C56FA9 /* WindForecastView.swift in Sources */,
 				A2B6F12C2AF2142B00B48C66 /* Location.swift in Sources */,
 				A2B6F12F2AF21C3600B48C66 /* WeatherData.swift in Sources */,
@@ -327,8 +347,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A2018FA52AFA006B00089C29 /* WeatherDataTests.swift in Sources */,
 				A27FDD332AF78666000C60D1 /* CoreDataStorageTests.swift in Sources */,
-				A2B6F10E2AF20A5200B48C66 /* WavecatcherTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

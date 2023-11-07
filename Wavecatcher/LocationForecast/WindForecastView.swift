@@ -14,7 +14,7 @@ struct WindForecastView: View {
             VStack(alignment: .leading) {
                 HStack {
                     Image(systemName: "location.north.fill")
-                        .rotationEffect(.degrees(nowData?.windDirection ?? 0))
+                        .rotationEffect(.degrees(weatherData.nowData()?.windDirection ?? 0))
                         .font(.subheadline)
                     Text(valueDescription)
                         .font(.title)
@@ -35,17 +35,13 @@ struct WindForecastView: View {
         }
     }
     
-    private var nowData: WeatherData? {
-        weatherData.first(where: { Calendar.current.isDate($0.date, equalTo: .now, toGranularity: .hour) } )
-    }
-    
     private var valueDescription: String {
-        let value = nowData?.windSpeed ?? 0.0
+        let value = weatherData.nowData()?.windSpeed ?? 0.0
         return "\(value.formatted(.number.precision(.fractionLength(0...1))))km/h"
     }
     
     private var gustDescription: String {
-        let value = nowData?.windGust ?? 0.0
+        let value = weatherData.nowData()?.windGust ?? 0.0
         return "\(value.formatted(.number.precision(.fractionLength(0...1))))km/h gust"
     }
     

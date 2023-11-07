@@ -20,6 +20,26 @@ struct WeatherData: Equatable, Codable {
     let swellHeight: Double?
     
     let tideHeight: Double?
+    
+    init(date: Date,
+         airTemperature: Double? = nil,
+         windDirection: Double? = nil,
+         windSpeed: Double? = nil,
+         windGust: Double? = nil,
+         swellDirection: Double? = nil,
+         swellPeriod: Double? = nil,
+         swellHeight: Double? = nil,
+         tideHeight: Double? = nil) {
+        self.date = date
+        self.airTemperature = airTemperature
+        self.windDirection = windDirection
+        self.windSpeed = windSpeed
+        self.windGust = windGust
+        self.swellDirection = swellDirection
+        self.swellPeriod = swellPeriod
+        self.swellHeight = swellHeight
+        self.tideHeight = tideHeight
+    }
 }
 
 extension WeatherData {

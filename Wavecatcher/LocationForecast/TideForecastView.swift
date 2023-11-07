@@ -42,7 +42,7 @@ struct TideForecastView: View {
     
     private var chart: some View {
         Chart {
-            ForEach(Array(todayData.enumerated()), id: \.offset) { index, data in
+            ForEach(Array(weatherData.todayData().enumerated()), id: \.offset) { index, data in
                 LineMark(x: .value("hour", data.date),
                          y: .value("height", data.tideHeight ?? 0.0))
                 .interpolationMethod(.catmullRom)
@@ -77,12 +77,6 @@ struct TideForecastView: View {
         weatherData.first(where: { Calendar.current.isDate($0.date, equalTo: .now, toGranularity: .hour) } )
     }
     
-    private var todayData: [WeatherData] {
-        weatherData
-            .filter { Calendar.current.isDateInToday($0.date) }
-            .sorted { $0.date < $1.date }
-    }
-    
     private var lineGradient: LinearGradient {
         let mainColor: Color = (colorScheme == .dark ? .white : .black)
         let oppositeColor: Color = (colorScheme == .dark ? .black : Color(red: 0.7, green: 0.7, blue: 0.7))
@@ -98,44 +92,13 @@ struct TideForecastView: View {
         return LinearGradient(stops: stops, startPoint: .leading, endPoint: .trailing)
     }
     
-    private var nextMaximumTide: WeatherData? {
-        var data = self.todayData // sorted
-        guard let nowData = self.nowData else { return nil }
-        guard let nowTide = nowData.tideHeight else { return nil }
-        guard let startIndex = data.lastIndex(of: nowData) else { return nil }
-        data = Array(data.suffix(from: startIndex).filter({ $0.tideHeight != nil }))
-        guard data.count >= 2 else { return nil }
-        
-        let findMinimum = (data[1].tideHeight ?? 0.0) < nowTide
-        var result = data[1]
-        
-        guard data.count > 2 else { return result }
-        for i in 2...data.count {
-            guard let currentTide = data[i].tideHeight, let previousTide = data[i-1].tideHeight else { return result }
-            
-            if findMinimum, currentTide < previousTide {
-                result = data[i]
-            } else if findMinimum {
-                return data[i-1]
-            }
-            
-            if !findMinimum, currentTide > previousTide {
-                result = data[i]
-            } else if !findMinimum {
-                return data[i-1]
-            }
-        }
-        
-        return result
-    }
-    
     private var isRising: Bool {
-        guard let nowData = self.nowData, let nextMaximumTide = self.nextMaximumTide else { return false }
+        guard let nowData = weatherData.nowData(), let nextMaximumTide = weatherData.dataOfNextMaximumTide() else { return false }
         return (nowData.tideHeight ?? 0.0) < (nextMaximumTide.tideHeight ?? 0.0)
     }
     
     private var nextMaximumTideDescription: String {
-        guard let nextMaximumTide = self.nextMaximumTide else { return "" }
+        guard let nextMaximumTide = weatherData.dataOfNextMaximumTide() else { return "" }
         let meters = (nextMaximumTide.tideHeight ?? 0.0).formatted(.number.precision(.fractionLength(0...1)))
         let quality = isRising ? "high" : "low"
         let time = nextMaximumTide.date.formatted(date: .omitted, time: .shortened)
