@@ -21,6 +21,7 @@
 		A2B6F12C2AF2142B00B48C66 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2B6F12B2AF2142B00B48C66 /* Location.swift */; };
 		A2B6F12F2AF21C3600B48C66 /* WeatherData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2B6F12E2AF21C3600B48C66 /* WeatherData.swift */; };
 		A2B6F1322AF21D2800B48C66 /* Tagged in Frameworks */ = {isa = PBXBuildFile; productRef = A2B6F1312AF21D2800B48C66 /* Tagged */; };
+		A2CD150A2AF8A05B001AEDE5 /* SavedLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2CD15092AF8A05B001AEDE5 /* SavedLocation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +58,7 @@
 		A2B6F1192AF20A5200B48C66 /* WavecatcherUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WavecatcherUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		A2B6F12B2AF2142B00B48C66 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		A2B6F12E2AF21C3600B48C66 /* WeatherData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherData.swift; sourceTree = "<group>"; };
+		A2CD15092AF8A05B001AEDE5 /* SavedLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedLocation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -158,6 +160,7 @@
 			isa = PBXGroup;
 			children = (
 				A2B6F12B2AF2142B00B48C66 /* Location.swift */,
+				A2CD15092AF8A05B001AEDE5 /* SavedLocation.swift */,
 				A2B6F12E2AF21C3600B48C66 /* WeatherData.swift */,
 			);
 			path = Models;
@@ -315,6 +318,7 @@
 				A2B6F12C2AF2142B00B48C66 /* Location.swift in Sources */,
 				A2B6F12F2AF21C3600B48C66 /* WeatherData.swift in Sources */,
 				A2B6F0FC2AF20A5100B48C66 /* WavecatcherApp.swift in Sources */,
+				A2CD150A2AF8A05B001AEDE5 /* SavedLocation.swift in Sources */,
 				A2770C0B2AF350CC00EFFA22 /* TideForecastView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

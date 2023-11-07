@@ -54,34 +54,54 @@ final class CoreDataStorage {
 
 extension CoreDataStorage {
     
-    func fetchLocations() async throws -> [Location] {
+    func fetchLocations() async throws -> [SavedLocation] {
         if case .failure(let loadStoreError) = await loadStoreTask.result { throw loadStoreError }
         
-        let fetchRequest: NSFetchRequest<LocationMO> = NSFetchRequest(entityName: LocationMO.entityName)
-        fetchRequest.sortDescriptors = [NSSortDescriptor(key: LocationMO.Attributes.dateCreated, ascending: false)]
+        let fetchRequest: NSFetchRequest<SavedLocationMO> = NSFetchRequest(entityName: SavedLocationMO.entityName)
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: SavedLocationMO.Attributes.dateCreated, ascending: false)]
         
         let result = try mainContext.fetch(fetchRequest).compactMap { $0.plainStruct }
         return result
     }
     
-    func insertOrUpdate(location: Location) async throws {
+    func insertOrUpdate(savedLocation: SavedLocation) async throws {
         if case .failure(let loadStoreError) = await loadStoreTask.result { throw loadStoreError }
             
         let backgroundContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
         backgroundContext.parent = rootSavingContext
             
         try await backgroundContext.perform {
-            let fetchRequest: NSFetchRequest<LocationMO> = NSFetchRequest(entityName: LocationMO.entityName)
-            fetchRequest.predicate = NSPredicate(format: "%K == %@", argumentArray: [LocationMO.Attributes.identifier, location.id.rawValue])
+            let fetchRequest: NSFetchRequest<SavedLocationMO> = NSFetchRequest(entityName: SavedLocationMO.entityName)
+            fetchRequest.predicate = NSPredicate(format: "%K.%K == %@", argumentArray: [SavedLocationMO.Relationships.location, LocationMO.Attributes.identifier, savedLocation.location.id.rawValue])
             fetchRequest.fetchLimit = 1
             
-            var locationMO: LocationMO? = try backgroundContext.fetch(fetchRequest).first
+            var savedLocationMO: SavedLocationMO? = try backgroundContext.fetch(fetchRequest).first
+            if case .none = savedLocationMO {
+                savedLocationMO = NSEntityDescription.insertNewObject(forEntityName: SavedLocationMO.entityName, into: backgroundContext) as? SavedLocationMO
+            }
+            guard let savedLocationMO else { return }
+            
+            var locationMO = savedLocationMO.location
             if case .none = locationMO {
                 locationMO = NSEntityDescription.insertNewObject(forEntityName: LocationMO.entityName, into: backgroundContext) as? LocationMO
-                locationMO?.dateCreated = Date.now
             }
-            guard let locationMO else { return }
-            locationMO.fill(from: location)
+            locationMO?.fill(from: savedLocation.location)
+            
+            savedLocationMO.weather?
+                .compactMap { $0 as? WeatherDataMO }
+                .forEach { backgroundContext.delete($0) }
+            
+            let weatherMO = savedLocation.weather
+                .compactMap { weatherData -> WeatherDataMO? in
+                    let weatherDataMO = NSEntityDescription.insertNewObject(forEntityName: WeatherDataMO.entityName, into: backgroundContext) as? WeatherDataMO
+                    weatherDataMO?.fill(from: weatherData)
+                    return weatherDataMO
+                }
+            
+            savedLocationMO.location = locationMO
+            savedLocationMO.weather = NSSet(array: weatherMO)
+            savedLocationMO.dateCreated = savedLocation.dateCreated
+            savedLocationMO.dateUpdated = savedLocation.dateUpdated
             
             guard backgroundContext.hasChanges else { return }
             try backgroundContext.save()
@@ -92,59 +112,19 @@ extension CoreDataStorage {
         try rootSavingContext.save()
     }
     
-    func delete(location: Location) async throws {
+    func delete(savedLocation: SavedLocation) async throws {
         if case .failure(let loadStoreError) = await loadStoreTask.result { throw loadStoreError }
         
         let backgroundContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
         backgroundContext.parent = rootSavingContext
             
         try await backgroundContext.perform {
-            let fetchRequest: NSFetchRequest<LocationMO> = NSFetchRequest(entityName: LocationMO.entityName)
-            fetchRequest.predicate = NSPredicate(format: "%K == %@", argumentArray: [LocationMO.Attributes.identifier, location.id.rawValue])
+            let fetchRequest: NSFetchRequest<SavedLocationMO> = NSFetchRequest(entityName: SavedLocationMO.entityName)
+            fetchRequest.predicate = NSPredicate(format: "%K.%K == %@", argumentArray: [SavedLocationMO.Relationships.location, LocationMO.Attributes.identifier, savedLocation.location.id.rawValue])
             fetchRequest.fetchLimit = 1
             
-            guard let locationMO: LocationMO = try backgroundContext.fetch(fetchRequest).first else { return }
-            backgroundContext.delete(locationMO)
-            
-            guard backgroundContext.hasChanges else { return }
-            try backgroundContext.save()
-            backgroundContext.reset()
-        }
-        
-        guard rootSavingContext.hasChanges else { return }
-        try rootSavingContext.save()
-    }
-    
-    func fetchWeather(for location: Location) async throws -> [WeatherData] {
-        if case .failure(let loadStoreError) = await loadStoreTask.result { throw loadStoreError }
-        
-        let fetchRequest: NSFetchRequest<WeatherDataMO> = NSFetchRequest(entityName: WeatherDataMO.entityName)
-        fetchRequest.predicate = NSPredicate(format: "%K == %@", argumentArray: [WeatherDataMO.Attributes.locationId, location.id.rawValue])
-        
-        let result = try mainContext.fetch(fetchRequest).compactMap { $0.plainStruct }
-        return result
-    }
-    
-    func deleteAndInsertWeather(_ weatherData: [WeatherData], for location: Location) async throws {
-        if case .failure(let loadStoreError) = await loadStoreTask.result { throw loadStoreError }
-        
-        let backgroundContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
-        backgroundContext.parent = rootSavingContext
-            
-        try await backgroundContext.perform {
-            
-            let deleteFetchRequest: NSFetchRequest<WeatherDataMO> = NSFetchRequest(entityName: WeatherDataMO.entityName)
-            deleteFetchRequest.predicate = NSPredicate(format: "%K == %@", argumentArray: [WeatherDataMO.Attributes.locationId, location.id.rawValue])
-            
-            // Doesn't work for .inMemory store type
-            // try backgroundContext.execute(NSBatchDeleteRequest(fetchRequest: deleteFetchRequest))
-            let objectsForDelete = try backgroundContext.fetch(deleteFetchRequest)
-            objectsForDelete.forEach { backgroundContext.delete($0) }
-            
-            weatherData.forEach { weather in
-                let weatherDataMO = NSEntityDescription.insertNewObject(forEntityName: WeatherDataMO.entityName, into: backgroundContext) as? WeatherDataMO
-                weatherDataMO?.fill(from: weather)
-            }
+            guard let savedLocationMO: SavedLocationMO = try backgroundContext.fetch(fetchRequest).first else { return }
+            backgroundContext.delete(savedLocationMO)
             
             guard backgroundContext.hasChanges else { return }
             try backgroundContext.save()
@@ -174,14 +154,12 @@ extension CoreDataStorage {
             case .v1:
                 let locationEntity = NSEntityDescription.description(className: LocationMO.entityName, attributes: [
                     LocationMO.Attributes.identifier:.string,
-                    LocationMO.Attributes.dateCreated:.date,
                     LocationMO.Attributes.latitude:.double,
                     LocationMO.Attributes.longitude:.double,
                     LocationMO.Attributes.title:.string
                 ])
                 
                 let weatherDataEntity = NSEntityDescription.description(className: WeatherDataMO.entityName, attributes: [
-                    WeatherDataMO.Attributes.locationId:.string,
                     WeatherDataMO.Attributes.date:.date,
                     WeatherDataMO.Attributes.airTemperature:.double,
                     WeatherDataMO.Attributes.windDirection:.double,
@@ -193,8 +171,16 @@ extension CoreDataStorage {
                     WeatherDataMO.Attributes.tideHeight:.double
                 ])
                 
+                let savedLocationEntity = NSEntityDescription.description(className: SavedLocationMO.entityName, attributes: [
+                    SavedLocationMO.Attributes.dateCreated:.date,
+                    SavedLocationMO.Attributes.dateUpdated:.date
+                ], relationships: [
+                    (SavedLocationMO.Relationships.location, entity: locationEntity, maxCount: 1, deleteRule: .cascadeDeleteRule),
+                    (SavedLocationMO.Relationships.weather, entity: weatherDataEntity, maxCount: 0, deleteRule: .cascadeDeleteRule)
+                ])
+                
                 let objectModel = NSManagedObjectModel()
-                objectModel.entities = [locationEntity, weatherDataEntity]
+                objectModel.entities = [locationEntity, weatherDataEntity, savedLocationEntity]
                 return objectModel
             }
         }
@@ -203,8 +189,6 @@ extension CoreDataStorage {
     @objc(LocationMO)
     class LocationMO: NSManagedObject {
         @NSManaged var identifier: String?
-        @NSManaged var dateCreated: Date?
-        
         @NSManaged var latitude: NSNumber?
         @NSManaged var longitude: NSNumber?
         @NSManaged var title: String?
@@ -212,7 +196,6 @@ extension CoreDataStorage {
         static var entityName: String { "LocationMO" }
         enum Attributes {
             static let identifier = "identifier"
-            static let dateCreated = "dateCreated"
             static let latitude = "latitude"
             static let longitude = "longitude"
             static let title = "title"
@@ -221,7 +204,6 @@ extension CoreDataStorage {
     
     @objc(WeatherDataMO)
     class WeatherDataMO: NSManagedObject {
-        @NSManaged var locationId: String?
         @NSManaged var date: Date?
         
         @NSManaged var airTemperature: NSNumber?
@@ -237,7 +219,6 @@ extension CoreDataStorage {
         
         static var entityName: String { "WeatherDataMO" }
         enum Attributes {
-            static let locationId = "locationId"
             static let date = "date"
             static let airTemperature = "airTemperature"
             static let windDirection = "windDirection"
@@ -249,13 +230,33 @@ extension CoreDataStorage {
             static let tideHeight = "tideHeight"
         }
     }
+    
+    @objc(SavedLocationMO)
+    class SavedLocationMO: NSManagedObject {
+        @NSManaged var location: LocationMO?
+        @NSManaged var dateCreated: Date?
+        @NSManaged var dateUpdated: Date?
+        @NSManaged var weather: NSSet?
+        
+        static var entityName: String { "SavedLocationMO" }
+        enum Attributes {
+            static let dateCreated = "dateCreated"
+            static let dateUpdated = "dateUpdated"
+        }
+        enum Relationships {
+            static let location = "location"
+            static let weather = "weather"
+        }
+    }
 }
 
 // MARK: - Helpers
 
 extension NSEntityDescription {
     
-    static func description(className: String, attributes: [String:NSAttributeDescription.AttributeType]) -> NSEntityDescription {
+    static func description(className: String,
+                            attributes: [String:NSAttributeDescription.AttributeType],
+                            relationships: [(String, entity: NSEntityDescription, maxCount: Int, deleteRule: NSDeleteRule)] = []) -> NSEntityDescription {
         
         let entity = NSEntityDescription()
         entity.name = className
@@ -266,6 +267,15 @@ extension NSEntityDescription {
             attributeDescription.name = attribute.key
             attributeDescription.type = attribute.value
             entity.properties.append(attributeDescription)
+        }
+        
+        relationships.forEach { relationship in
+            let relationshipDescription = NSRelationshipDescription()
+            relationshipDescription.name = relationship.0
+            relationshipDescription.destinationEntity = relationship.entity
+            relationshipDescription.maxCount = relationship.maxCount
+            relationshipDescription.deleteRule = relationship.deleteRule
+            entity.properties.append(relationshipDescription)
         }
         
         return entity
@@ -293,14 +303,12 @@ extension CoreDataStorage.LocationMO {
 extension CoreDataStorage.WeatherDataMO {
     
     var plainStruct: WeatherData? {
-        guard let locationId else { return nil }
         guard let date else { return nil }
         
-        return WeatherData(locationId: Location.ID(rawValue: locationId), date: date, airTemperature: airTemperature?.doubleValue, windDirection: windDirection?.doubleValue, windSpeed: windSpeed?.doubleValue, windGust: windGust?.doubleValue, swellDirection: swellDirection?.doubleValue, swellPeriod: swellPeriod?.doubleValue, swellHeight: swellHeight?.doubleValue, tideHeight: tideHeight?.doubleValue)
+        return WeatherData(date: date, airTemperature: airTemperature?.doubleValue, windDirection: windDirection?.doubleValue, windSpeed: windSpeed?.doubleValue, windGust: windGust?.doubleValue, swellDirection: swellDirection?.doubleValue, swellPeriod: swellPeriod?.doubleValue, swellHeight: swellHeight?.doubleValue, tideHeight: tideHeight?.doubleValue)
     }
     
     func fill(from weatherData: WeatherData) {
-        locationId = weatherData.locationId.rawValue
         date = weatherData.date
         
         if let value = weatherData.airTemperature {
@@ -350,5 +358,20 @@ extension CoreDataStorage.WeatherDataMO {
         } else {
             tideHeight = nil
         }
+    }
+}
+
+extension CoreDataStorage.SavedLocationMO {
+    
+    var plainStruct: SavedLocation? {
+        guard let location = location?.plainStruct else { return nil }
+        guard let dateCreated else { return nil }
+        guard let dateUpdated else { return nil }
+        
+        let weather = (self.weather ?? NSSet())
+            .map { $0 as? CoreDataStorage.WeatherDataMO }
+            .compactMap { $0?.plainStruct }
+        
+        return SavedLocation(location: location, dateCreated: dateCreated, dateUpdated: dateUpdated, weather: weather)
     }
 }
