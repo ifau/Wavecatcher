@@ -9,11 +9,13 @@
 /* Begin PBXBuildFile section */
 		A2018FA32AF9FF9100089C29 /* WeatherData+Extract.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2018FA22AF9FF9100089C29 /* WeatherData+Extract.swift */; };
 		A2018FA52AFA006B00089C29 /* WeatherDataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2018FA42AFA006B00089C29 /* WeatherDataTests.swift */; };
+		A2236A4D2AFA5261002AA8C6 /* FormatStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2236A4C2AFA5261002AA8C6 /* FormatStyle.swift */; };
 		A2770C0B2AF350CC00EFFA22 /* TideForecastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2770C0A2AF350CC00EFFA22 /* TideForecastView.swift */; };
 		A27A2AF12AF7420F00C56FA9 /* WindForecastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27A2AF02AF7420F00C56FA9 /* WindForecastView.swift */; };
 		A27A2AFC2AF7522B00C56FA9 /* LocalStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27A2AFB2AF7522B00C56FA9 /* LocalStorage.swift */; };
 		A27A2AFE2AF7545900C56FA9 /* CoreDataStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27A2AFD2AF7545900C56FA9 /* CoreDataStorage.swift */; };
 		A27FDD332AF78666000C60D1 /* CoreDataStorageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27FDD322AF78666000C60D1 /* CoreDataStorageTests.swift */; };
+		A2A336E72AFC74EF00518A2D /* FormatStyleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2A336E62AFC74EF00518A2D /* FormatStyleTests.swift */; };
 		A2B6F0FC2AF20A5100B48C66 /* WavecatcherApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2B6F0FB2AF20A5100B48C66 /* WavecatcherApp.swift */; };
 		A2B6F1002AF20A5200B48C66 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A2B6F0FF2AF20A5200B48C66 /* Assets.xcassets */; };
 		A2B6F1182AF20A5200B48C66 /* WavecatcherUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2B6F1172AF20A5200B48C66 /* WavecatcherUITests.swift */; };
@@ -45,11 +47,14 @@
 /* Begin PBXFileReference section */
 		A2018FA22AF9FF9100089C29 /* WeatherData+Extract.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WeatherData+Extract.swift"; sourceTree = "<group>"; };
 		A2018FA42AFA006B00089C29 /* WeatherDataTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherDataTests.swift; sourceTree = "<group>"; };
+		A2236A4C2AFA5261002AA8C6 /* FormatStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormatStyle.swift; sourceTree = "<group>"; };
 		A2770C0A2AF350CC00EFFA22 /* TideForecastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TideForecastView.swift; sourceTree = "<group>"; };
 		A27A2AF02AF7420F00C56FA9 /* WindForecastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindForecastView.swift; sourceTree = "<group>"; };
+		A27A2AF52AF745D000C56FA9 /* LocationForecastFeatureTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationForecastFeatureTests.swift; sourceTree = "<group>"; };
 		A27A2AFB2AF7522B00C56FA9 /* LocalStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalStorage.swift; sourceTree = "<group>"; };
 		A27A2AFD2AF7545900C56FA9 /* CoreDataStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStorage.swift; sourceTree = "<group>"; };
 		A27FDD322AF78666000C60D1 /* CoreDataStorageTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStorageTests.swift; sourceTree = "<group>"; };
+		A2A336E62AFC74EF00518A2D /* FormatStyleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormatStyleTests.swift; sourceTree = "<group>"; };
 		A2B6F0F82AF20A5100B48C66 /* Wavecatcher.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Wavecatcher.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A2B6F0FB2AF20A5100B48C66 /* WavecatcherApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WavecatcherApp.swift; sourceTree = "<group>"; };
 		A2B6F0FF2AF20A5200B48C66 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -94,6 +99,7 @@
 			isa = PBXGroup;
 			children = (
 				A2018FA42AFA006B00089C29 /* WeatherDataTests.swift */,
+				A2A336E62AFC74EF00518A2D /* FormatStyleTests.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -102,6 +108,7 @@
 			isa = PBXGroup;
 			children = (
 				A2018FA22AF9FF9100089C29 /* WeatherData+Extract.swift */,
+				A2236A4C2AFA5261002AA8C6 /* FormatStyle.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -332,6 +339,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A27A2AFE2AF7545900C56FA9 /* CoreDataStorage.swift in Sources */,
+				A2236A4D2AFA5261002AA8C6 /* FormatStyle.swift in Sources */,
 				A27A2AFC2AF7522B00C56FA9 /* LocalStorage.swift in Sources */,
 				A2018FA32AF9FF9100089C29 /* WeatherData+Extract.swift in Sources */,
 				A27A2AF12AF7420F00C56FA9 /* WindForecastView.swift in Sources */,
@@ -348,6 +356,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A2018FA52AFA006B00089C29 /* WeatherDataTests.swift in Sources */,
+				A2A336E72AFC74EF00518A2D /* FormatStyleTests.swift in Sources */,
 				A27FDD332AF78666000C60D1 /* CoreDataStorageTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
