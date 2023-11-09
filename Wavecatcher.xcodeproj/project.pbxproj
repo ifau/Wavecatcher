@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A2018FA02AF9FD6900089C29 /* View+roundedCorners.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2018F9F2AF9FD6900089C29 /* View+roundedCorners.swift */; };
 		A2018FA32AF9FF9100089C29 /* WeatherData+Extract.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2018FA22AF9FF9100089C29 /* WeatherData+Extract.swift */; };
 		A2018FA52AFA006B00089C29 /* WeatherDataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2018FA42AFA006B00089C29 /* WeatherDataTests.swift */; };
 		A2236A4D2AFA5261002AA8C6 /* FormatStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2236A4C2AFA5261002AA8C6 /* FormatStyle.swift */; };
@@ -51,6 +52,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		A2018F9F2AF9FD6900089C29 /* View+roundedCorners.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+roundedCorners.swift"; sourceTree = "<group>"; };
 		A2018FA22AF9FF9100089C29 /* WeatherData+Extract.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WeatherData+Extract.swift"; sourceTree = "<group>"; };
 		A2018FA42AFA006B00089C29 /* WeatherDataTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherDataTests.swift; sourceTree = "<group>"; };
 		A2236A4C2AFA5261002AA8C6 /* FormatStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormatStyle.swift; sourceTree = "<group>"; };
@@ -119,6 +121,7 @@
 			isa = PBXGroup;
 			children = (
 				A27A2AF82AF74D1500C56FA9 /* Error.swift */,
+				A2018F9F2AF9FD6900089C29 /* View+roundedCorners.swift */,
 				A2018FA22AF9FF9100089C29 /* WeatherData+Extract.swift */,
 				A2236A4C2AFA5261002AA8C6 /* FormatStyle.swift */,
 			);
@@ -369,6 +372,7 @@
 				A2B6F12F2AF21C3600B48C66 /* WeatherData.swift in Sources */,
 				A2B6F0FC2AF20A5100B48C66 /* WavecatcherApp.swift in Sources */,
 				A2CD150A2AF8A05B001AEDE5 /* SavedLocation.swift in Sources */,
+				A2018FA02AF9FD6900089C29 /* View+roundedCorners.swift in Sources */,
 				A2770C0B2AF350CC00EFFA22 /* TideForecastView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
