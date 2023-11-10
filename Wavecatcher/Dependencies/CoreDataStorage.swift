@@ -13,6 +13,12 @@ final class CoreDataStorage {
     private let mainContext: NSManagedObjectContext
     
     private var loadStoreTask: Task<Void, Error>
+    private var hasChangesContinuation: AsyncStream<Void>.Continuation?
+    lazy var hasChanges: AsyncStream<Void> = {
+        AsyncStream(bufferingPolicy: .bufferingNewest(1)) { [weak self] (continuation: AsyncStream<Void>.Continuation) -> Void in
+            self?.hasChangesContinuation = continuation
+        }
+    }()
     
     init(storeType: CoreDataStorage.PersistentStoreType, modelVersion: CoreDataStorage.ModelVersion = .actual) {
 
@@ -47,6 +53,10 @@ final class CoreDataStorage {
                 }
             }
         }
+    }
+    
+    deinit {
+        hasChangesContinuation?.finish()
     }
 }
 
@@ -110,6 +120,7 @@ extension CoreDataStorage {
         
         guard rootSavingContext.hasChanges else { return }
         try rootSavingContext.save()
+        hasChangesContinuation?.yield()
     }
     
     func delete(savedLocation: SavedLocation) async throws {
@@ -133,6 +144,7 @@ extension CoreDataStorage {
         
         guard rootSavingContext.hasChanges else { return }
         try rootSavingContext.save()
+        hasChangesContinuation?.yield()
     }
 }
 

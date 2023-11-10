@@ -10,6 +10,14 @@ struct LocationForecastView: View {
     
     let store: StoreOf<LocationForecastFeature>
     
+    init(store: StoreOf<LocationForecastFeature>) {
+        self.store = store
+    }
+    
+    init(state: LocationForecastFeature.State) {
+        self.store = Store(initialState: state, reducer: { LocationForecastFeature() })
+    }
+    
     var body: some View {
         WithViewStore(self.store, observe: { $0 }) { viewStore in
             ScrollView(.vertical, showsIndicators: false) {
@@ -173,16 +181,12 @@ struct LocationForecastView: View {
 
 struct LocationForecastView_Previews: PreviewProvider {
     static var previews: some View {
-        let loadingState = LocationForecastFeature.State(location: SavedLocation.previewData.first!, displayState: .loading)
-        let loadedState = LocationForecastFeature.State(location: SavedLocation.previewData.first!, displayState: .loaded)
-        let errorState = LocationForecastFeature.State(location: SavedLocation.previewData.first!, displayState: .failed(URLError(URLError.notConnectedToInternet)))
-        
         Group {
-            LocationForecastView(store: Store(initialState: loadingState) { LocationForecastFeature() })
+            LocationForecastView(state: .init(location: SavedLocation.previewData.first!, displayState: .loading))
                 .previewDisplayName("Loading")
-            LocationForecastView(store: Store(initialState: loadedState) { LocationForecastFeature() })
+            LocationForecastView(state: .init(location: SavedLocation.previewData.first!, displayState: .loaded))
                 .previewDisplayName("Loaded")
-            LocationForecastView(store: Store(initialState: errorState) { LocationForecastFeature() })
+            LocationForecastView(state: .init(location: SavedLocation.previewData.first!, displayState: .failed(URLError(URLError.notConnectedToInternet))))
                 .previewDisplayName("Error")
         }
     }

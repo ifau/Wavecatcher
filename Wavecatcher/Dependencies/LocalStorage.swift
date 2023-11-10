@@ -10,6 +10,7 @@ struct LocalStorage {
     var fetchLocations: () async throws -> [SavedLocation]
     var saveLocation: (_ location: SavedLocation) async throws -> Void
     var deleteLocation: (_ location: SavedLocation) async throws -> Void
+    var wasUpdated: @Sendable () async -> AsyncStream<Void>
 }
 
 extension DependencyValues {
@@ -25,17 +26,19 @@ extension LocalStorage: DependencyKey {
         // FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: <your_app_group>)
         let databaseFileURL = URL.documentsDirectory.appending(component: "db.sqlite")
         let coreDataStorage = CoreDataStorage(storeType: .file(databaseFileURL))
-        
+
         return LocalStorage(fetchLocations: coreDataStorage.fetchLocations,
                             saveLocation: coreDataStorage.insertOrUpdate(savedLocation:),
-                            deleteLocation: coreDataStorage.delete(savedLocation:)
+                            deleteLocation: coreDataStorage.delete(savedLocation:),
+                            wasUpdated: { coreDataStorage.hasChanges }
         )
     }()
     
     static let testValue: LocalStorage = {
         .init(fetchLocations: unimplemented("\(Self.self).fetchLocations"),
               saveLocation: unimplemented("\(Self.self).saveLocation"),
-              deleteLocation: unimplemented("\(Self.self).deleteLocation")
+              deleteLocation: unimplemented("\(Self.self).deleteLocation"),
+              wasUpdated: unimplemented("\(Self.self).fetchLocations")
         )
     }()
 }
