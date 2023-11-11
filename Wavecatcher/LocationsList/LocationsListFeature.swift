@@ -9,18 +9,21 @@ import ComposableArchitecture
 struct LocationsListFeature: Reducer {
     
     struct State: Equatable {
+        @PresentationState var destination: Destination.State?
         var locations: IdentifiedArrayOf<SavedLocation> = .init()
         var selectedLocationID: SavedLocation.ID? = nil
     }
     
     enum Action: Equatable {
         case task
+        case viewAppear
         case reloadLocations
         case reloadLocationsResponse(TaskResult<[SavedLocation]>)
         case selectLocation(SavedLocation.ID?)
         case deleteSelectedLocation
         case addLocation
         case openSettings
+        case destination(PresentationAction<Destination.Action>)
     }
     
     @Dependency(\.localStorage) var localStorage
@@ -30,10 +33,14 @@ struct LocationsListFeature: Reducer {
             switch action {
             case .task:
                 return .run { send in
-                    // await send(.reloadLocations)
                     for await _ in await self.localStorage.wasUpdated() {
                       await send(.reloadLocations)
                     }
+                }
+                
+            case .viewAppear:
+                return .run { send in
+                    await send(.reloadLocations)
                 }
                 
             case .reloadLocations:
@@ -66,10 +73,36 @@ struct LocationsListFeature: Reducer {
                 }
                 
             case .addLocation:
+                state.destination = .addLocation(.init())
                 return .none
                 
             case .openSettings:
                 return .none
+                
+            case .destination:
+                return .none
+            }
+        }
+        .ifLet(\.$destination, action: /Action.destination) {
+            Destination()
+        }
+    }
+}
+
+extension LocationsListFeature {
+    
+    struct Destination: Reducer {
+        enum State: Equatable {
+            case addLocation(AddLocationFeature.State)
+        }
+        
+        enum Action: Equatable {
+            case addLocation(AddLocationFeature.Action)
+        }
+        
+        var body: some ReducerOf<Self> {
+            Scope(state: /State.addLocation, action: /Action.addLocation) {
+                AddLocationFeature()
             }
         }
     }

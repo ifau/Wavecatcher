@@ -39,6 +39,14 @@ struct LocationsListView: View {
             .task {
                 await viewStore.send(.task).finish()
             }
+            .onAppear {
+                viewStore.send(.viewAppear)
+            }
+            .sheet(store: self.store.scope(state: \.$destination, action: { .destination($0) }),
+                   state: /LocationsListFeature.Destination.State.addLocation,
+                   action: LocationsListFeature.Destination.Action.addLocation) { addLocationStore in
+                AddLocationView(store: addLocationStore)
+            }
         }
     }
     
