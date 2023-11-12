@@ -58,8 +58,8 @@ struct LocationsListView: View {
             .foregroundStyle(.primary)
             
             Spacer()
-            // TODO: - Add page controll
-            // Spacer()
+            pageControl(state)
+            Spacer()
             
             Menu(content: {
                 Button(role: .destructive, action: { store.send(.deleteSelectedLocation) }, label: { Label("Delete Location", systemImage: "trash")})
@@ -71,6 +71,17 @@ struct LocationsListView: View {
         }
         .padding()
         .background(.ultraThinMaterial)
+    }
+    
+    private func pageControl(_ state: LocationsListFeature.State) -> some View {
+        HStack {
+            ForEach(state.locations) { location in
+                Circle()
+                    .frame(width: 8, height: 8)
+                    .foregroundColor((location.id == state.selectedLocationID) ? .white : .secondary)
+                    .onTapGesture(perform: { store.send(.selectLocation(location.id)) })
+            }
+        }
     }
 }
 

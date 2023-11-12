@@ -52,6 +52,12 @@ struct LocationsListFeature: Reducer {
                 
             case .reloadLocationsResponse(.success(let locations)):
                 state.locations = IdentifiedArrayOf<SavedLocation>(uniqueElements: locations)
+                if state.selectedLocationID == nil {
+                    state.selectedLocationID = locations.first?.id
+                }
+                if let selectedLocationID = state.selectedLocationID, state.locations[id: selectedLocationID] == nil {
+                    state.selectedLocationID = locations.first?.id
+                }
                 return .none
                 
             case .reloadLocationsResponse(.failure):
