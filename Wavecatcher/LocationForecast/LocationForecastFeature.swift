@@ -20,8 +20,10 @@ struct LocationForecastFeature: Reducer {
     enum Action: Equatable {
         case viewAppear
         case tryAgainButtonPressed
-        case updateLocationResponse(TaskResult<SavedLocation>)
+        case updateLocationResponse(TaskResult<EquatableVoid>)
     }
+    
+    struct EquatableVoid: Equatable {}
     
     @Dependency(\.weatherDataProvider) var weatherDataProvider
     private enum CancelID { case updateLocationRequest }
@@ -35,12 +37,12 @@ struct LocationForecastFeature: Reducer {
                 return .run { [location = state.location] send in
                     await send(.updateLocationResponse(TaskResult {
                         try await self.weatherDataProvider.updateWeatherDataForLocation(location)
+                        return EquatableVoid()
                     }))
                 }
                 .cancellable(id: CancelID.updateLocationRequest)
                 
-            case .updateLocationResponse(.success(let location)):
-                state.location = location
+            case .updateLocationResponse(.success):
                 state.displayState = .loaded
                 return .none
                 

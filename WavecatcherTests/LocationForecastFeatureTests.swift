@@ -12,23 +12,18 @@ final class LocationForecastFeatureTests: XCTestCase {
     
     func testRequestWeatherAndDisplayDataAfterViewAppear() async {
         
-        let initialLocation = SavedLocation.previewData.first!
-        var updatedLocation = SavedLocation.previewData.first!
-        updatedLocation.weather = [WeatherData(date: Date(timeIntervalSince1970: 10), airTemperature: 20)]
-        
         let state = LocationForecastFeature.State(location: SavedLocation.previewData.first!, displayState: .notRequested)
         let store = TestStore(initialState: state) {
             LocationForecastFeature()
         } withDependencies: {
-            $0.weatherDataProvider.updateWeatherDataForLocation = { _ in return updatedLocation }
+            $0.weatherDataProvider.updateWeatherDataForLocation = { _ in return }
         }
         
         await store.send(.viewAppear) {
             $0.displayState = .loading
         }
-        await store.receive(.updateLocationResponse(.success(updatedLocation))) {
+        await store.receive(.updateLocationResponse(.success(.init()))) {
             $0.displayState = .loaded
-            $0.location = updatedLocation
         }
     }
     

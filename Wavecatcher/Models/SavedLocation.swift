@@ -16,6 +16,8 @@ struct SavedLocation: Equatable, Codable {
 extension SavedLocation: Identifiable {
     var id: Location.ID { location.id }
     var title: String { location.title }
+    var latitude: Double { location.latitude }
+    var longitude: Double { location.longitude }
 }
 
 extension SavedLocation {
