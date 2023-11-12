@@ -26,7 +26,7 @@ struct LocationForecastView: View {
                     case .notRequested:
                         Rectangle()
                             .hidden()
-                            .task { viewStore.send(.viewAppear) }
+                            .onAppear { viewStore.send(.viewAppear) }
                         
                     case .failed(_):
                         errorHeader(viewStore.state)
@@ -129,12 +129,18 @@ struct LocationForecastView: View {
     
     private func content(_ state: LocationForecastFeature.State) -> some View {
         VStack {
+            LocationForecastSectionView(titleView: { sectionHeader(title: "Hourly forecast", systemImageName: "clock")}, contentView: {
+                HourlyForecastView(weatherData: state.location.weather)
+                    .padding([.horizontal, .bottom])
+            })
             HStack {
                 LocationForecastSectionView(titleView: { sectionHeader(title: "Tide", systemImageName: "water.waves")}, contentView: {
                     TideForecastView(weatherData: state.location.weather)
+                        .padding(.bottom)
                 })
                 LocationForecastSectionView(titleView: { sectionHeader(title: "Wind", systemImageName: "wind")}, contentView: {
                     WindForecastView(weatherData: state.location.weather)
+                        .padding(.bottom)
                 })
             }
         }
