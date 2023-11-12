@@ -10,16 +10,16 @@ struct HourlyForecastView: View {
     private let rowFrameHeight: CGFloat = 20.0
     
     let weatherData: [WeatherData]
+    private var visibleWeather: [WeatherData] {
+        let nowHour = Calendar.current.nextDate(after: .now, matching: .init(minute: 0, second: 0), matchingPolicy: .previousTimePreservingSmallerComponents, direction: .backward)!
+        
+        return weatherData
+            .filter { $0.date >= nowHour }
+            .sorted(by: { $0.date < $1.date })
+    }
     
     init(weatherData: [WeatherData]) {
-        var dates = Set<Date>()
         self.weatherData = weatherData
-            .sorted(by: { $0.date < $1.date })
-            .compactMap({ weatherData -> WeatherData? in
-                guard !dates.contains(weatherData.date) else { return nil }
-                dates.insert(weatherData.date)
-                return weatherData
-            })
     }
     
     var body: some View {
@@ -27,7 +27,7 @@ struct HourlyForecastView: View {
             HStack {
                 columnsDescriptions
                     .padding(.trailing)
-                ForEach(weatherData, id: \.date) { weatherData in
+                ForEach(visibleWeather, id: \.date) { weatherData in
                     VStack(alignment: .trailing) {
                         timeRow(date: weatherData.date)
                             .foregroundStyle(.secondary)
