@@ -139,7 +139,7 @@ struct LocationForecastView: View {
                         .padding(.bottom)
                 })
                 LocationForecastSectionView(titleView: { sectionHeader(title: "Wind", systemImageName: "wind")}, contentView: {
-                    WindForecastView(weatherData: state.location.weather)
+                    WindForecastView(weatherData: state.location.weather, offshorePerpendicular: state.location.offshorePerpendicular)
                         .padding(.bottom)
                 })
             }

@@ -8,19 +8,21 @@ import SwiftUI
 struct WindForecastView: View {
     
     let weatherData: [WeatherData]
+    let offshorePerpendicular: Double
     
     var body: some View {
         VStack(alignment: .leading, spacing: 8.0) {
-            VStack(alignment: .leading) {
-                HStack {
-                    Image(systemName: "location.north.fill")
-                        .rotationEffect(.degrees(weatherData.nowData()?.windDirection ?? 0))
-                        .font(.subheadline)
-                    Text(valueDescription)
-                        .font(.title)
-                }
-                Text(directionDescription)
-                    .font(.caption)
+            Text(directionDescription)
+                .font(.subheadline)
+                .foregroundStyle(.primary)
+                .padding(.horizontal)
+            
+            HStack {
+                Image(systemName: "location.north.fill")
+                    .rotationEffect(.degrees(weatherData.nowData()?.windDirection ?? 0))
+                    .font(.subheadline)
+                Text(valueDescription)
+                    .font(.title)
             }
             .foregroundStyle(.primary)
             .padding(.horizontal)
@@ -46,10 +48,19 @@ struct WindForecastView: View {
     }
     
     private var directionDescription: String {
-        "Cross-shore"
+        guard let windDirection = weatherData.nowData()?.windDirection else { return "" }
+        let diff = (windDirection - offshorePerpendicular + 360).truncatingRemainder(dividingBy: 360)
+        
+        if diff <= 45 || diff >= 315 {
+            return "Offshore wind"
+        } else if diff > 45 && diff < 135 {
+            return "Cross-shore wind"
+        } else {
+            return "Onshore wind"
+        }
     }
 }
 
 #Preview(traits: .fixedLayout(width: 300, height: 300)) {
-    WindForecastView(weatherData: WeatherData.previewData)
+    WindForecastView(weatherData: WeatherData.previewData, offshorePerpendicular: 90.0)
 }

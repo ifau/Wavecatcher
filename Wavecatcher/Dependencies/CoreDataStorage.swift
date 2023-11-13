@@ -168,6 +168,7 @@ extension CoreDataStorage {
                     LocationMO.Attributes.identifier:.string,
                     LocationMO.Attributes.latitude:.double,
                     LocationMO.Attributes.longitude:.double,
+                    LocationMO.Attributes.offshorePerpendicular:.double,
                     LocationMO.Attributes.title:.string
                 ])
                 
@@ -203,6 +204,7 @@ extension CoreDataStorage {
         @NSManaged var identifier: String?
         @NSManaged var latitude: NSNumber?
         @NSManaged var longitude: NSNumber?
+        @NSManaged var offshorePerpendicular: NSNumber?
         @NSManaged var title: String?
         
         static var entityName: String { "LocationMO" }
@@ -210,6 +212,7 @@ extension CoreDataStorage {
             static let identifier = "identifier"
             static let latitude = "latitude"
             static let longitude = "longitude"
+            static let offshorePerpendicular = "offshorePerpendicular"
             static let title = "title"
         }
     }
@@ -300,14 +303,16 @@ extension CoreDataStorage.LocationMO {
         guard let identifier else { return nil }
         guard let latitude else { return nil }
         guard let longitude else { return nil }
+        guard let offshorePerpendicular else { return nil }
         guard let title else { return nil }
-        return Location(id: Location.Id(rawValue: identifier), latitude: latitude.doubleValue, longitude: longitude.doubleValue, title: title)
+        return Location(id: Location.Id(rawValue: identifier), latitude: latitude.doubleValue, longitude: longitude.doubleValue, offshorePerpendicular: offshorePerpendicular.doubleValue, title: title)
     }
     
     func fill(from location: Location) {
         identifier = location.id.rawValue
         latitude = NSNumber(value: location.latitude)
         longitude = NSNumber(value: location.longitude)
+        offshorePerpendicular = NSNumber(value: location.offshorePerpendicular)
         title = location.title
     }
 }

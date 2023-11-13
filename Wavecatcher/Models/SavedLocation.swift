@@ -18,6 +18,7 @@ extension SavedLocation: Identifiable {
     var title: String { location.title }
     var latitude: Double { location.latitude }
     var longitude: Double { location.longitude }
+    var offshorePerpendicular: Double { location.offshorePerpendicular }
 }
 
 extension SavedLocation {
