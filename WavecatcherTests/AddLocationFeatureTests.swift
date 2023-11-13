@@ -52,13 +52,13 @@ final class AddLocationFeatureTests: XCTestCase {
     
     func testSearchStateChange() async {
         
-        let locationA1 = Location(id: .init("a1"), latitude: 0, longitude: 0, title: "AAAA")
-        let locationA2 = Location(id: .init("a2"), latitude: 0, longitude: 0, title: "aaaa")
+        let locationA1 = Location(id: .init("a1"), latitude: 0, longitude: 0, offshorePerpendicular: 80, title: "AAAA")
+        let locationA2 = Location(id: .init("a2"), latitude: 0, longitude: 0, offshorePerpendicular: 80, title: "aaaa")
         
-        let locationB1 = Location(id: .init("b1"), latitude: 0, longitude: 0, title: "BBBB")
-        let locationB2 = Location(id: .init("b2"), latitude: 0, longitude: 0, title: "bbbb")
+        let locationB1 = Location(id: .init("b1"), latitude: 0, longitude: 0, offshorePerpendicular: 80, title: "BBBB")
+        let locationB2 = Location(id: .init("b2"), latitude: 0, longitude: 0, offshorePerpendicular: 80, title: "bbbb")
         
-        let locationAB = Location(id: .init("ab"), latitude: 0, longitude: 0, title: "qAbC")
+        let locationAB = Location(id: .init("ab"), latitude: 0, longitude: 0, offshorePerpendicular: 80, title: "qAbC")
         
         let allLocations: IdentifiedArrayOf<Location> = .init(uniqueElements: [locationA1, locationA2, locationB1, locationB2, locationAB])
         let store = TestStore(initialState: AddLocationFeature.State.init(locations: allLocations)) {
@@ -79,7 +79,7 @@ final class AddLocationFeatureTests: XCTestCase {
     func testAddSelectedLocation() async {
         
         let nowDate = Date.now
-        let location = Location(id: .init("a1"), latitude: 0, longitude: 0, title: "AAAA")
+        let location = Location(id: .init("a1"), latitude: 0, longitude: 0, offshorePerpendicular: 80, title: "AAAA")
         
         let locationToSave = SavedLocation(location: location, dateCreated: nowDate, dateUpdated: Date(timeIntervalSince1970: 0), weather: [])
         

@@ -7,6 +7,7 @@ import Foundation
 import ComposableArchitecture
 
 struct WeatherDataProvider {
+    var needUpdateWeatherForLocation: (_ location: SavedLocation) -> Bool
     var updateWeatherDataForLocation: (_ location: SavedLocation) async throws -> Void
 }
 
@@ -22,10 +23,13 @@ extension WeatherDataProvider: DependencyKey {
     static let liveValue: WeatherDataProvider = {
         @Dependency(\.localStorage) var localStorage
         
-        return WeatherDataProvider { location in
-            
-            guard let tenHoursAgo = Calendar.current.date(byAdding: .hour, value: -10, to: .now) else { return }
-            guard location.dateUpdated < tenHoursAgo else { return }
+        return WeatherDataProvider(
+            needUpdateWeatherForLocation: { location in
+                guard location.weather.nowData() != nil else { return true }
+                guard let tenHoursAgo = Calendar.current.date(byAdding: .hour, value: -10, to: .now) else { return true }
+                return location.dateUpdated < tenHoursAgo
+            },
+            updateWeatherDataForLocation: { location in
             
             let openMeteoClient = OpenMeteoClient()
             let marineResponse = try await openMeteoClient.getMarineForecast(latitude: location.latitude, longitude: location.longitude)
@@ -68,6 +72,6 @@ extension WeatherDataProvider: DependencyKey {
             mutableLocation.dateUpdated = .now
             
             try await localStorage.saveLocation(mutableLocation)
-        }
+        })
     }()
 }

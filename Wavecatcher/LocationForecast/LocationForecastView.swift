@@ -23,11 +23,6 @@ struct LocationForecastView: View {
             ScrollView(.vertical, showsIndicators: false) {
                 VStack {
                     switch viewStore.displayState {
-                    case .notRequested:
-                        Rectangle()
-                            .hidden()
-                            .onAppear { viewStore.send(.viewAppear) }
-                        
                     case .failed(_):
                         errorHeader(viewStore.state)
                         errorView(viewStore.state)
@@ -40,6 +35,9 @@ struct LocationForecastView: View {
                 }
                 .padding(.top, 32)
                 .padding([.horizontal, .bottom])
+                .onAppear {
+                    viewStore.send(.viewAppear)
+                }
             }
         }
     }
