@@ -81,13 +81,13 @@ final class AddLocationFeatureTests: XCTestCase {
         let nowDate = Date.now
         let location = Location(id: .init("a1"), latitude: 0, longitude: 0, offshorePerpendicular: 80, title: "AAAA")
         
-        let locationToSave = SavedLocation(location: location, dateCreated: nowDate, dateUpdated: Date(timeIntervalSince1970: 0), weather: [])
+        let locationToSave = SavedLocation(location: location, dateCreated: nowDate, dateUpdated: Date(timeIntervalSince1970: 0), weather: [], customOrderIndex: 0)
         
         let store = TestStore(initialState: AddLocationFeature.State.init(locations: .init(uniqueElements: [location]), selectedLocationID: location.id)) {
             AddLocationFeature()
         } withDependencies: {
             $0.date = .init({ return nowDate })
-            $0.localStorage.saveLocation = { l in XCTAssertEqual(l, locationToSave) }
+            $0.localStorage.saveLocations = { l in XCTAssertEqual(l, [locationToSave]) }
         }
         
         await store.send(.addSelectedLocation)

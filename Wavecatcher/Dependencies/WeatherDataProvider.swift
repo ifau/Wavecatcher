@@ -71,7 +71,7 @@ extension WeatherDataProvider: DependencyKey {
             mutableLocation.weather = newWeather
             mutableLocation.dateUpdated = .now
             
-            try await localStorage.saveLocation(mutableLocation)
+            try await localStorage.saveLocations([mutableLocation])
         })
     }()
 }

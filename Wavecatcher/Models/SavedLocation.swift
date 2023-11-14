@@ -11,6 +11,7 @@ struct SavedLocation: Equatable, Codable {
     let dateCreated: Date
     var dateUpdated: Date
     var weather: [WeatherData]
+    var customOrderIndex: Int
 }
 
 extension SavedLocation: Identifiable {
@@ -24,7 +25,7 @@ extension SavedLocation: Identifiable {
 extension SavedLocation {
     static let previewData: [SavedLocation] = {
         Location.previewData.map {
-            SavedLocation(location: $0, dateCreated: Date(timeIntervalSinceNow: -60*60*24*8), dateUpdated: Date(timeIntervalSinceNow: -60*60*24*1), weather: WeatherData.previewData)
+            SavedLocation(location: $0, dateCreated: Date(timeIntervalSinceNow: -60*60*24*8), dateUpdated: Date(timeIntervalSinceNow: -60*60*24*1), weather: WeatherData.previewData, customOrderIndex: Int($0.id.rawValue) ?? 0)
         }
     }()
 }

@@ -83,6 +83,7 @@ struct LocationsListFeature: Reducer {
                 return .none
                 
             case .openSettings:
+                state.destination = .settings(.init(locations: state.locations))
                 return .none
                 
             case .destination:
@@ -99,14 +100,19 @@ extension LocationsListFeature {
     
     struct Destination: Reducer {
         enum State: Equatable {
+            case settings(SettingsFeature.State)
             case addLocation(AddLocationFeature.State)
         }
         
         enum Action: Equatable {
+            case settings(SettingsFeature.Action)
             case addLocation(AddLocationFeature.Action)
         }
         
         var body: some ReducerOf<Self> {
+            Scope(state: /State.settings, action: /Action.settings) {
+                SettingsFeature()
+            }
             Scope(state: /State.addLocation, action: /Action.addLocation) {
                 AddLocationFeature()
             }

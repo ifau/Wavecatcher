@@ -43,6 +43,11 @@ struct LocationsListView: View {
                 viewStore.send(.viewAppear)
             }
             .sheet(store: self.store.scope(state: \.$destination, action: { .destination($0) }),
+                   state: /LocationsListFeature.Destination.State.settings,
+                   action: LocationsListFeature.Destination.Action.settings) { settingsStore in
+                SettingsView(store: settingsStore)
+            }
+            .sheet(store: self.store.scope(state: \.$destination, action: { .destination($0) }),
                    state: /LocationsListFeature.Destination.State.addLocation,
                    action: LocationsListFeature.Destination.Action.addLocation) { addLocationStore in
                 AddLocationView(store: addLocationStore)

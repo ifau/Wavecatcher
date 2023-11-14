@@ -68,50 +68,54 @@ extension CoreDataStorage {
         if case .failure(let loadStoreError) = await loadStoreTask.result { throw loadStoreError }
         
         let fetchRequest: NSFetchRequest<SavedLocationMO> = NSFetchRequest(entityName: SavedLocationMO.entityName)
-        fetchRequest.sortDescriptors = [NSSortDescriptor(key: SavedLocationMO.Attributes.dateCreated, ascending: false)]
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: SavedLocationMO.Attributes.customOrderIndex, ascending: true)]
         
         let result = try mainContext.fetch(fetchRequest).compactMap { $0.plainStruct }
         return result
     }
     
-    func insertOrUpdate(savedLocation: SavedLocation) async throws {
+    func insertOrUpdate(savedLocations: [SavedLocation]) async throws {
         if case .failure(let loadStoreError) = await loadStoreTask.result { throw loadStoreError }
             
         let backgroundContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
         backgroundContext.parent = rootSavingContext
             
         try await backgroundContext.perform {
-            let fetchRequest: NSFetchRequest<SavedLocationMO> = NSFetchRequest(entityName: SavedLocationMO.entityName)
-            fetchRequest.predicate = NSPredicate(format: "%K.%K == %@", argumentArray: [SavedLocationMO.Relationships.location, LocationMO.Attributes.identifier, savedLocation.location.id.rawValue])
-            fetchRequest.fetchLimit = 1
-            
-            var savedLocationMO: SavedLocationMO? = try backgroundContext.fetch(fetchRequest).first
-            if case .none = savedLocationMO {
-                savedLocationMO = NSEntityDescription.insertNewObject(forEntityName: SavedLocationMO.entityName, into: backgroundContext) as? SavedLocationMO
-            }
-            guard let savedLocationMO else { return }
-            
-            var locationMO = savedLocationMO.location
-            if case .none = locationMO {
-                locationMO = NSEntityDescription.insertNewObject(forEntityName: LocationMO.entityName, into: backgroundContext) as? LocationMO
-            }
-            locationMO?.fill(from: savedLocation.location)
-            
-            savedLocationMO.weather?
-                .compactMap { $0 as? WeatherDataMO }
-                .forEach { backgroundContext.delete($0) }
-            
-            let weatherMO = savedLocation.weather
-                .compactMap { weatherData -> WeatherDataMO? in
-                    let weatherDataMO = NSEntityDescription.insertNewObject(forEntityName: WeatherDataMO.entityName, into: backgroundContext) as? WeatherDataMO
-                    weatherDataMO?.fill(from: weatherData)
-                    return weatherDataMO
+            for savedLocation in savedLocations {
+                
+                let fetchRequest: NSFetchRequest<SavedLocationMO> = NSFetchRequest(entityName: SavedLocationMO.entityName)
+                fetchRequest.predicate = NSPredicate(format: "%K.%K == %@", argumentArray: [SavedLocationMO.Relationships.location, LocationMO.Attributes.identifier, savedLocation.location.id.rawValue])
+                fetchRequest.fetchLimit = 1
+                
+                var savedLocationMO: SavedLocationMO? = try backgroundContext.fetch(fetchRequest).first
+                if case .none = savedLocationMO {
+                    savedLocationMO = NSEntityDescription.insertNewObject(forEntityName: SavedLocationMO.entityName, into: backgroundContext) as? SavedLocationMO
                 }
-            
-            savedLocationMO.location = locationMO
-            savedLocationMO.weather = NSSet(array: weatherMO)
-            savedLocationMO.dateCreated = savedLocation.dateCreated
-            savedLocationMO.dateUpdated = savedLocation.dateUpdated
+                guard let savedLocationMO else { return }
+                
+                var locationMO = savedLocationMO.location
+                if case .none = locationMO {
+                    locationMO = NSEntityDescription.insertNewObject(forEntityName: LocationMO.entityName, into: backgroundContext) as? LocationMO
+                }
+                locationMO?.fill(from: savedLocation.location)
+                
+                savedLocationMO.weather?
+                    .compactMap { $0 as? WeatherDataMO }
+                    .forEach { backgroundContext.delete($0) }
+                
+                let weatherMO = savedLocation.weather
+                    .compactMap { weatherData -> WeatherDataMO? in
+                        let weatherDataMO = NSEntityDescription.insertNewObject(forEntityName: WeatherDataMO.entityName, into: backgroundContext) as? WeatherDataMO
+                        weatherDataMO?.fill(from: weatherData)
+                        return weatherDataMO
+                    }
+                
+                savedLocationMO.location = locationMO
+                savedLocationMO.weather = NSSet(array: weatherMO)
+                savedLocationMO.dateCreated = savedLocation.dateCreated
+                savedLocationMO.dateUpdated = savedLocation.dateUpdated
+                savedLocationMO.customOrderIndex = NSNumber(value: savedLocation.customOrderIndex)
+            }
             
             guard backgroundContext.hasChanges else { return }
             try backgroundContext.save()
@@ -186,7 +190,8 @@ extension CoreDataStorage {
                 
                 let savedLocationEntity = NSEntityDescription.description(className: SavedLocationMO.entityName, attributes: [
                     SavedLocationMO.Attributes.dateCreated:.date,
-                    SavedLocationMO.Attributes.dateUpdated:.date
+                    SavedLocationMO.Attributes.dateUpdated:.date,
+                    SavedLocationMO.Attributes.customOrderIndex:.integer32
                 ], relationships: [
                     (SavedLocationMO.Relationships.location, entity: locationEntity, maxCount: 1, deleteRule: .cascadeDeleteRule),
                     (SavedLocationMO.Relationships.weather, entity: weatherDataEntity, maxCount: 0, deleteRule: .cascadeDeleteRule)
@@ -252,11 +257,13 @@ extension CoreDataStorage {
         @NSManaged var dateCreated: Date?
         @NSManaged var dateUpdated: Date?
         @NSManaged var weather: NSSet?
+        @NSManaged var customOrderIndex: NSNumber?
         
         static var entityName: String { "SavedLocationMO" }
         enum Attributes {
             static let dateCreated = "dateCreated"
             static let dateUpdated = "dateUpdated"
+            static let customOrderIndex = "customOrderIndex"
         }
         enum Relationships {
             static let location = "location"
@@ -384,11 +391,12 @@ extension CoreDataStorage.SavedLocationMO {
         guard let location = location?.plainStruct else { return nil }
         guard let dateCreated else { return nil }
         guard let dateUpdated else { return nil }
+        guard let customOrderIndex else { return nil }
         
         let weather = (self.weather ?? NSSet())
             .map { $0 as? CoreDataStorage.WeatherDataMO }
             .compactMap { $0?.plainStruct }
         
-        return SavedLocation(location: location, dateCreated: dateCreated, dateUpdated: dateUpdated, weather: weather)
+        return SavedLocation(location: location, dateCreated: dateCreated, dateUpdated: dateUpdated, weather: weather, customOrderIndex: customOrderIndex.intValue)
     }
 }

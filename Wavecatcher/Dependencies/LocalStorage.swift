@@ -8,7 +8,7 @@ import ComposableArchitecture
 
 struct LocalStorage {
     var fetchLocations: () async throws -> [SavedLocation]
-    var saveLocation: (_ location: SavedLocation) async throws -> Void
+    var saveLocations: (_ locations: [SavedLocation]) async throws -> Void
     var deleteLocation: (_ location: SavedLocation) async throws -> Void
     var wasUpdated: @Sendable () async -> AsyncStream<Void>
 }
@@ -28,7 +28,7 @@ extension LocalStorage: DependencyKey {
         let coreDataStorage = CoreDataStorage(storeType: .file(databaseFileURL))
 
         return LocalStorage(fetchLocations: coreDataStorage.fetchLocations,
-                            saveLocation: coreDataStorage.insertOrUpdate(savedLocation:),
+                            saveLocations: coreDataStorage.insertOrUpdate(savedLocations:),
                             deleteLocation: coreDataStorage.delete(savedLocation:),
                             wasUpdated: { coreDataStorage.hasChanges }
         )
@@ -36,7 +36,7 @@ extension LocalStorage: DependencyKey {
     
     static let testValue: LocalStorage = {
         .init(fetchLocations: unimplemented("\(Self.self).fetchLocations"),
-              saveLocation: unimplemented("\(Self.self).saveLocation"),
+              saveLocations: unimplemented("\(Self.self).saveLocations"),
               deleteLocation: unimplemented("\(Self.self).deleteLocation"),
               wasUpdated: unimplemented("\(Self.self).fetchLocations")
         )
