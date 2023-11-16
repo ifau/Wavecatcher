@@ -23,6 +23,9 @@
 		A2243BDC2AFE40620072EE8C /* AddLocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2243BDB2AFE40620072EE8C /* AddLocationView.swift */; };
 		A24CE81A2AF921A0002DA3A6 /* LocationForecastSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A24CE8192AF921A0002DA3A6 /* LocationForecastSectionView.swift */; };
 		A260AEA82B03443C00BEA778 /* SettingsFeatureTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A260AEA72B03443C00BEA778 /* SettingsFeatureTests.swift */; };
+		A26356A62B034C8A008DC7E6 /* BackgroundVariant.swift in Sources */ = {isa = PBXBuildFile; fileRef = A26356A52B034C8A008DC7E6 /* BackgroundVariant.swift */; };
+		A26356AB2B036843008DC7E6 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = A26356AA2B036843008DC7E6 /* Color.swift */; };
+		A26356AF2B036B86008DC7E6 /* AuroraBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A26356AE2B036B86008DC7E6 /* AuroraBackgroundView.swift */; };
 		A26B2B512AFF7BB500BE60EF /* LocationsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A26B2B502AFF7BB500BE60EF /* LocationsProvider.swift */; };
 		A26B2B532AFF894700BE60EF /* AddLocationFeatureTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A26B2B522AFF894700BE60EF /* AddLocationFeatureTests.swift */; };
 		A2770C0B2AF350CC00EFFA22 /* TideForecastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2770C0A2AF350CC00EFFA22 /* TideForecastView.swift */; };
@@ -34,6 +37,8 @@
 		A27A2AFE2AF7545900C56FA9 /* CoreDataStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27A2AFD2AF7545900C56FA9 /* CoreDataStorage.swift */; };
 		A27FDD332AF78666000C60D1 /* CoreDataStorageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27FDD322AF78666000C60D1 /* CoreDataStorageTests.swift */; };
 		A27FDD352AF79CC6000C60D1 /* WeatherDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27FDD342AF79CC6000C60D1 /* WeatherDataProvider.swift */; };
+		A28CC5472B049DE1005D829B /* VideoPlayerUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28CC5462B049DE1005D829B /* VideoPlayerUIView.swift */; };
+		A28CC5492B049E42005D829B /* VideoPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28CC5482B049E42005D829B /* VideoPlayerView.swift */; };
 		A2A336E72AFC74EF00518A2D /* FormatStyleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2A336E62AFC74EF00518A2D /* FormatStyleTests.swift */; };
 		A2B6F0FC2AF20A5100B48C66 /* WavecatcherApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2B6F0FB2AF20A5100B48C66 /* WavecatcherApp.swift */; };
 		A2B6F1002AF20A5200B48C66 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A2B6F0FF2AF20A5200B48C66 /* Assets.xcassets */; };
@@ -83,6 +88,9 @@
 		A2243BDB2AFE40620072EE8C /* AddLocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddLocationView.swift; sourceTree = "<group>"; };
 		A24CE8192AF921A0002DA3A6 /* LocationForecastSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationForecastSectionView.swift; sourceTree = "<group>"; };
 		A260AEA72B03443C00BEA778 /* SettingsFeatureTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsFeatureTests.swift; sourceTree = "<group>"; };
+		A26356A52B034C8A008DC7E6 /* BackgroundVariant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundVariant.swift; sourceTree = "<group>"; };
+		A26356AA2B036843008DC7E6 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
+		A26356AE2B036B86008DC7E6 /* AuroraBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuroraBackgroundView.swift; sourceTree = "<group>"; };
 		A26B2B502AFF7BB500BE60EF /* LocationsProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationsProvider.swift; sourceTree = "<group>"; };
 		A26B2B522AFF894700BE60EF /* AddLocationFeatureTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddLocationFeatureTests.swift; sourceTree = "<group>"; };
 		A2770C0A2AF350CC00EFFA22 /* TideForecastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TideForecastView.swift; sourceTree = "<group>"; };
@@ -94,6 +102,8 @@
 		A27A2AFD2AF7545900C56FA9 /* CoreDataStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStorage.swift; sourceTree = "<group>"; };
 		A27FDD322AF78666000C60D1 /* CoreDataStorageTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStorageTests.swift; sourceTree = "<group>"; };
 		A27FDD342AF79CC6000C60D1 /* WeatherDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherDataProvider.swift; sourceTree = "<group>"; };
+		A28CC5462B049DE1005D829B /* VideoPlayerUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerUIView.swift; sourceTree = "<group>"; };
+		A28CC5482B049E42005D829B /* VideoPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerView.swift; sourceTree = "<group>"; };
 		A2A336E62AFC74EF00518A2D /* FormatStyleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormatStyleTests.swift; sourceTree = "<group>"; };
 		A2B6F0F82AF20A5100B48C66 /* Wavecatcher.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Wavecatcher.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A2B6F0FB2AF20A5100B48C66 /* WavecatcherApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WavecatcherApp.swift; sourceTree = "<group>"; };
@@ -179,6 +189,7 @@
 			isa = PBXGroup;
 			children = (
 				A27A2AF82AF74D1500C56FA9 /* Error.swift */,
+				A26356AA2B036843008DC7E6 /* Color.swift */,
 				A2218FB72B00DEAE000BA838 /* Collection.swift */,
 				A2018F9F2AF9FD6900089C29 /* View+roundedCorners.swift */,
 				A2018FA22AF9FF9100089C29 /* WeatherData+Extract.swift */,
@@ -207,6 +218,16 @@
 			path = Dependencies;
 			sourceTree = "<group>";
 		};
+		A28CC5452B049D8F005D829B /* SharedViews */ = {
+			isa = PBXGroup;
+			children = (
+				A26356AE2B036B86008DC7E6 /* AuroraBackgroundView.swift */,
+				A28CC5482B049E42005D829B /* VideoPlayerView.swift */,
+				A28CC5462B049DE1005D829B /* VideoPlayerUIView.swift */,
+			);
+			path = SharedViews;
+			sourceTree = "<group>";
+		};
 		A2B6F0EF2AF20A5100B48C66 = {
 			isa = PBXGroup;
 			children = (
@@ -231,6 +252,7 @@
 			isa = PBXGroup;
 			children = (
 				A2B6F0FB2AF20A5100B48C66 /* WavecatcherApp.swift */,
+				A28CC5452B049D8F005D829B /* SharedViews */,
 				A2C22DB02B032749005A8F70 /* Settings */,
 				A2243BDA2AFE404D0072EE8C /* AddLocation */,
 				A21485192AFC984D00DF719F /* LocationsList */,
@@ -272,6 +294,7 @@
 				A2B6F12B2AF2142B00B48C66 /* Location.swift */,
 				A2CD15092AF8A05B001AEDE5 /* SavedLocation.swift */,
 				A2B6F12E2AF21C3600B48C66 /* WeatherData.swift */,
+				A26356A52B034C8A008DC7E6 /* BackgroundVariant.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -437,6 +460,7 @@
 			files = (
 				A27FDD352AF79CC6000C60D1 /* WeatherDataProvider.swift in Sources */,
 				A2218FB62B00D3C3000BA838 /* OpenMeteoClient+ForecastResponse.swift in Sources */,
+				A26356AF2B036B86008DC7E6 /* AuroraBackgroundView.swift in Sources */,
 				A2218FB42B00D155000BA838 /* OpenMeteoClient+MarineResponse.swift in Sources */,
 				A27A2AFE2AF7545900C56FA9 /* CoreDataStorage.swift in Sources */,
 				A2236A4D2AFA5261002AA8C6 /* FormatStyle.swift in Sources */,
@@ -444,16 +468,20 @@
 				A2218FAF2B00BCCC000BA838 /* HourlyForecastView.swift in Sources */,
 				A27A2AF92AF74D1500C56FA9 /* Error.swift in Sources */,
 				A2243BDC2AFE40620072EE8C /* AddLocationView.swift in Sources */,
+				A28CC5492B049E42005D829B /* VideoPlayerView.swift in Sources */,
 				A2218FB82B00DEAE000BA838 /* Collection.swift in Sources */,
 				A214851B2AFC987400DF719F /* LocationsListView.swift in Sources */,
 				A27A2AF32AF7448700C56FA9 /* LocationForecastFeature.swift in Sources */,
 				A2C22DB42B032799005A8F70 /* SettingsFeature.swift in Sources */,
 				A24CE81A2AF921A0002DA3A6 /* LocationForecastSectionView.swift in Sources */,
 				A2018FA32AF9FF9100089C29 /* WeatherData+Extract.swift in Sources */,
+				A26356A62B034C8A008DC7E6 /* BackgroundVariant.swift in Sources */,
+				A28CC5472B049DE1005D829B /* VideoPlayerUIView.swift in Sources */,
 				A214851D2AFC988900DF719F /* LocationsListFeature.swift in Sources */,
 				A2B6F1352AF2332A00B48C66 /* LocationForecastView.swift in Sources */,
 				A20DF9042AFF2B2F00B6C549 /* AddLocationFeature.swift in Sources */,
 				A2218FB22B00CDED000BA838 /* OpenMeteoClient.swift in Sources */,
+				A26356AB2B036843008DC7E6 /* Color.swift in Sources */,
 				A27A2AF12AF7420F00C56FA9 /* WindForecastView.swift in Sources */,
 				A2B6F12C2AF2142B00B48C66 /* Location.swift in Sources */,
 				A2B6F12F2AF21C3600B48C66 /* WeatherData.swift in Sources */,
