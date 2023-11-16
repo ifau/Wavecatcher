@@ -9,11 +9,14 @@ import ComposableArchitecture
 struct SettingsFeature: Reducer {
     
     struct State: Equatable {
+        @PresentationState var destination: Destination.State?
         var locations: IdentifiedArrayOf<SavedLocation>
     }
     
     enum Action: Equatable {
+        case locationTap(Location.ID)
         case changeLocationOrder(IndexSet, Int)
+        case destination(PresentationAction<Destination.Action>)
     }
     
     @Dependency(\.localStorage) var localStorage
@@ -22,6 +25,12 @@ struct SettingsFeature: Reducer {
         Reduce { state, action in
             
             switch action {
+            case .locationTap(let locationId):
+                if let location = state.locations[id: locationId] {
+                    state.destination = .locationSettings(.init(location: location, selectedBackground: location.customBackground))
+                }
+                return .none
+                
             case .changeLocationOrder(var source, var destination):
                 source = IndexSet(source
                     .map { state.locations[$0] }
@@ -45,6 +54,31 @@ struct SettingsFeature: Reducer {
                     
                     try? await localStorage.saveLocations(updatedLocations)
                 }
+                
+            case .destination:
+                return .none
+            }
+        }
+        .ifLet(\.$destination, action: /Action.destination) {
+            Destination()
+        }
+    }
+}
+
+extension SettingsFeature {
+    
+    struct Destination: Reducer {
+        enum State: Equatable {
+            case locationSettings(LocationSettingsFeature.State)
+        }
+        
+        enum Action: Equatable {
+            case locationSettings(LocationSettingsFeature.Action)
+        }
+        
+        var body: some ReducerOf<Self> {
+            Scope(state: /State.locationSettings, action: /Action.locationSettings) {
+                LocationSettingsFeature()
             }
         }
     }

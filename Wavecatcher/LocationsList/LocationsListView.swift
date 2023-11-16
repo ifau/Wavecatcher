@@ -34,7 +34,7 @@ struct LocationsListView: View {
                 bottomToolbar(viewStore.state)
             }
             .background {
-                Color.blue.ignoresSafeArea()
+                background(viewStore.state).ignoresSafeArea()
             }
             .task {
                 await viewStore.send(.task).finish()
@@ -86,6 +86,20 @@ struct LocationsListView: View {
                     .foregroundColor((location.id == state.selectedLocationID) ? .white : .secondary)
                     .onTapGesture(perform: { store.send(.selectLocation(location.id)) })
             }
+        }
+    }
+    
+    @ViewBuilder
+    private func background(_ state: LocationsListFeature.State) -> some View {
+        if let selectedLocationID = state.selectedLocationID,
+           let selectedLocation = state.locations[id: selectedLocationID] {
+            
+            switch selectedLocation.customBackground {
+            case .aurora(let variant): AuroraBackgroundView(variant: variant)
+            case .video(let video): VideoPlayerView(videoURL: video.fileURL)
+            }
+        } else {
+            Color.black
         }
     }
 }

@@ -81,7 +81,7 @@ final class AddLocationFeatureTests: XCTestCase {
         let nowDate = Date.now
         let location = Location(id: .init("a1"), latitude: 0, longitude: 0, offshorePerpendicular: 80, title: "AAAA")
         
-        let locationToSave = SavedLocation(location: location, dateCreated: nowDate, dateUpdated: Date(timeIntervalSince1970: 0), weather: [], customOrderIndex: 0)
+        let locationToSave = SavedLocation(location: location, dateCreated: nowDate, dateUpdated: Date(timeIntervalSince1970: 0), weather: [], customOrderIndex: 0, customBackground: .aurora(.variant1))
         
         let store = TestStore(initialState: AddLocationFeature.State.init(locations: .init(uniqueElements: [location]), selectedLocationID: location.id)) {
             AddLocationFeature()

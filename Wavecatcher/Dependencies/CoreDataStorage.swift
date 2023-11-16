@@ -115,6 +115,7 @@ extension CoreDataStorage {
                 savedLocationMO.dateCreated = savedLocation.dateCreated
                 savedLocationMO.dateUpdated = savedLocation.dateUpdated
                 savedLocationMO.customOrderIndex = NSNumber(value: savedLocation.customOrderIndex)
+                savedLocationMO.customBackgroundJSONEncoded = try JSONEncoder().encode(savedLocation.customBackground)
             }
             
             guard backgroundContext.hasChanges else { return }
@@ -191,7 +192,8 @@ extension CoreDataStorage {
                 let savedLocationEntity = NSEntityDescription.description(className: SavedLocationMO.entityName, attributes: [
                     SavedLocationMO.Attributes.dateCreated:.date,
                     SavedLocationMO.Attributes.dateUpdated:.date,
-                    SavedLocationMO.Attributes.customOrderIndex:.integer32
+                    SavedLocationMO.Attributes.customOrderIndex:.integer32,
+                    SavedLocationMO.Attributes.customBackgroundJSONEncoded: .binaryData
                 ], relationships: [
                     (SavedLocationMO.Relationships.location, entity: locationEntity, maxCount: 1, deleteRule: .cascadeDeleteRule),
                     (SavedLocationMO.Relationships.weather, entity: weatherDataEntity, maxCount: 0, deleteRule: .cascadeDeleteRule)
@@ -258,12 +260,14 @@ extension CoreDataStorage {
         @NSManaged var dateUpdated: Date?
         @NSManaged var weather: NSSet?
         @NSManaged var customOrderIndex: NSNumber?
+        @NSManaged var customBackgroundJSONEncoded: Data?
         
         static var entityName: String { "SavedLocationMO" }
         enum Attributes {
             static let dateCreated = "dateCreated"
             static let dateUpdated = "dateUpdated"
             static let customOrderIndex = "customOrderIndex"
+            static let customBackgroundJSONEncoded = "customBackgroundJSONEncoded"
         }
         enum Relationships {
             static let location = "location"
@@ -392,11 +396,12 @@ extension CoreDataStorage.SavedLocationMO {
         guard let dateCreated else { return nil }
         guard let dateUpdated else { return nil }
         guard let customOrderIndex else { return nil }
+        guard let customBackgroundJSONEncoded, let customBackground = try? JSONDecoder().decode(BackgroundVariant.self, from: customBackgroundJSONEncoded) else { return nil }
         
         let weather = (self.weather ?? NSSet())
             .map { $0 as? CoreDataStorage.WeatherDataMO }
             .compactMap { $0?.plainStruct }
         
-        return SavedLocation(location: location, dateCreated: dateCreated, dateUpdated: dateUpdated, weather: weather, customOrderIndex: customOrderIndex.intValue)
+        return SavedLocation(location: location, dateCreated: dateCreated, dateUpdated: dateUpdated, weather: weather, customOrderIndex: customOrderIndex.intValue, customBackground: customBackground)
     }
 }

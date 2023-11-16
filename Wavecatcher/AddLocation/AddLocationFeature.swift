@@ -98,8 +98,9 @@ struct AddLocationFeature: Reducer {
                 guard state.savedLocations[id: locationId] == nil else { return .none }
                 
                 let orderIndex = (state.savedLocations.map { $0.customOrderIndex }.max() ?? -1) + 1
+                let background = state.savedLocations.last?.customBackground ?? .aurora(.variant1)
                 
-                let locationToSave = SavedLocation(location: location, dateCreated: date.now, dateUpdated: Date(timeIntervalSince1970: 0), weather: [], customOrderIndex: orderIndex)
+                let locationToSave = SavedLocation(location: location, dateCreated: date.now, dateUpdated: Date(timeIntervalSince1970: 0), weather: [], customOrderIndex: orderIndex, customBackground: background)
                 return .run { _ in
                     try await localStorage.saveLocations([locationToSave])
                     guard isPresented else { return }

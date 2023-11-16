@@ -58,6 +58,10 @@ struct LocationsListFeature: Reducer {
                 if let selectedLocationID = state.selectedLocationID, state.locations[id: selectedLocationID] == nil {
                     state.selectedLocationID = locations.first?.id
                 }
+                if case .settings(var settingsState) = state.destination {
+                    settingsState.locations = state.locations
+                    state.destination = .settings(settingsState)
+                }
                 return .none
                 
             case .reloadLocationsResponse(.failure):

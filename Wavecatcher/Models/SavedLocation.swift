@@ -12,6 +12,7 @@ struct SavedLocation: Equatable, Codable {
     var dateUpdated: Date
     var weather: [WeatherData]
     var customOrderIndex: Int
+    var customBackground: BackgroundVariant
 }
 
 extension SavedLocation: Identifiable {
@@ -25,7 +26,7 @@ extension SavedLocation: Identifiable {
 extension SavedLocation {
     static let previewData: [SavedLocation] = {
         Location.previewData.map {
-            SavedLocation(location: $0, dateCreated: Date(timeIntervalSinceNow: -60*60*24*8), dateUpdated: Date(timeIntervalSinceNow: -60*60*24*1), weather: WeatherData.previewData, customOrderIndex: Int($0.id.rawValue) ?? 0)
+            SavedLocation(location: $0, dateCreated: Date(timeIntervalSinceNow: -60*60*24*8), dateUpdated: Date(timeIntervalSinceNow: -60*60*24*1), weather: WeatherData.previewData, customOrderIndex: Int($0.id.rawValue) ?? 0, customBackground: .aurora(.variant1))
         }
     }()
 }

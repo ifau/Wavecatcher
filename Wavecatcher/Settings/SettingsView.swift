@@ -25,11 +25,18 @@ struct SettingsView: View {
                     Section("Locations settings") {
                         ForEach(viewStore.locations) { location in
                             locationRow(location)
+                                .contentShape(Rectangle())
+                                .onTapGesture { viewStore.send(.locationTap(location.id)) }
                         }
                         .onMove { viewStore.send(.changeLocationOrder($0, $1)) }
                     }
                 }
                 .navigationTitle("Settings")
+                .navigationDestination(store: self.store.scope(state: \.$destination, action: { .destination($0) }),
+                       state: /SettingsFeature.Destination.State.locationSettings,
+                       action: SettingsFeature.Destination.Action.locationSettings) { locationSettingsStore in
+                    LocationSettingsView(store: locationSettingsStore)
+                }
             }
         }
     }

@@ -12,11 +12,11 @@ final class SettingsFeatureTests: XCTestCase {
     
     func testChangeLocationOrder() async {
         
-        let location1 = SavedLocation(location: Location(id: .init("1"), latitude: 0, longitude: 0, offshorePerpendicular: 0, title: "Location1"), dateCreated: .now, dateUpdated: .now, weather: [], customOrderIndex: 0)
+        let location1 = SavedLocation(location: Location(id: .init("1"), latitude: 0, longitude: 0, offshorePerpendicular: 0, title: "Location1"), dateCreated: .now, dateUpdated: .now, weather: [], customOrderIndex: 0, customBackground: .aurora(.variant1))
         
-        var location2 = SavedLocation(location: Location(id: .init("2"), latitude: 0, longitude: 0, offshorePerpendicular: 0, title: "Location2"), dateCreated: .now, dateUpdated: .now, weather: [], customOrderIndex: 1)
+        var location2 = SavedLocation(location: Location(id: .init("2"), latitude: 0, longitude: 0, offshorePerpendicular: 0, title: "Location2"), dateCreated: .now, dateUpdated: .now, weather: [], customOrderIndex: 1, customBackground: .aurora(.variant1))
         
-        let location3 = SavedLocation(location: Location(id: .init("3"), latitude: 0, longitude: 0, offshorePerpendicular: 0, title: "Location3"), dateCreated: .now, dateUpdated: .now, weather: [], customOrderIndex: 2)
+        let location3 = SavedLocation(location: Location(id: .init("3"), latitude: 0, longitude: 0, offshorePerpendicular: 0, title: "Location3"), dateCreated: .now, dateUpdated: .now, weather: [], customOrderIndex: 2, customBackground: .aurora(.variant1))
         
         let initialLocations: IdentifiedArrayOf<SavedLocation> = .init(uniqueElements: [location1, location2, location3])
         
