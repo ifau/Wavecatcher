@@ -56,6 +56,7 @@
 		A2C22DB22B032781005A8F70 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2C22DB12B032781005A8F70 /* SettingsView.swift */; };
 		A2C22DB42B032799005A8F70 /* SettingsFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2C22DB32B032799005A8F70 /* SettingsFeature.swift */; };
 		A2CD150A2AF8A05B001AEDE5 /* SavedLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2CD15092AF8A05B001AEDE5 /* SavedLocation.swift */; };
+		A2E27A6B2B0763AE006011A9 /* OpenMeteoClient+Tides.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2E27A6A2B0763AE006011A9 /* OpenMeteoClient+Tides.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -127,6 +128,7 @@
 		A2C22DB12B032781005A8F70 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		A2C22DB32B032799005A8F70 /* SettingsFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsFeature.swift; sourceTree = "<group>"; };
 		A2CD15092AF8A05B001AEDE5 /* SavedLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedLocation.swift; sourceTree = "<group>"; };
+		A2E27A6A2B0763AE006011A9 /* OpenMeteoClient+Tides.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OpenMeteoClient+Tides.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -180,6 +182,7 @@
 				A2218FB12B00CDED000BA838 /* OpenMeteoClient.swift */,
 				A2218FB32B00D155000BA838 /* OpenMeteoClient+MarineResponse.swift */,
 				A2218FB52B00D3C3000BA838 /* OpenMeteoClient+ForecastResponse.swift */,
+				A2E27A6A2B0763AE006011A9 /* OpenMeteoClient+Tides.swift */,
 			);
 			path = OpenMeteo;
 			sourceTree = "<group>";
@@ -483,6 +486,7 @@
 				A26356AF2B036B86008DC7E6 /* AuroraBackgroundView.swift in Sources */,
 				A2218FB42B00D155000BA838 /* OpenMeteoClient+MarineResponse.swift in Sources */,
 				A27A2AFE2AF7545900C56FA9 /* CoreDataStorage.swift in Sources */,
+				A2E27A6B2B0763AE006011A9 /* OpenMeteoClient+Tides.swift in Sources */,
 				A2236A4D2AFA5261002AA8C6 /* FormatStyle.swift in Sources */,
 				A27A2AFC2AF7522B00C56FA9 /* LocalStorage.swift in Sources */,
 				A26356A92B035EFA008DC7E6 /* LocationSettingsView.swift in Sources */,

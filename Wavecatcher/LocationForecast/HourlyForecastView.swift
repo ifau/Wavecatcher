@@ -14,6 +14,11 @@ struct HourlyForecastView: View {
         let nowHour = Calendar.current.nextDate(after: .now, matching: .init(minute: 0, second: 0), matchingPolicy: .previousTimePreservingSmallerComponents, direction: .backward)!
         
         return weatherData
+            .filter { weather in
+                let components = Calendar.current.dateComponents([.minute, .second], from: weather.date)
+                guard let minute = components.minute, let seconds = components.second else { return false }
+                return (minute == 0) && (seconds == 0)
+            }
             .filter { $0.date >= nowHour }
             .sorted(by: { $0.date < $1.date })
     }

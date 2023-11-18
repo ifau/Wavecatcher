@@ -7,7 +7,7 @@ import Foundation
 
 final class OpenMeteoClient {
     
-    private let urlSession = URLSession(configuration: .default)
+    let urlSession = URLSession(configuration: URLSessionConfiguration.ephemeral)
     
     func getMarineForecast(latitude: Double, longitude: Double) async throws -> MarineResponse {
 

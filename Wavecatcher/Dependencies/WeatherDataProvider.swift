@@ -34,6 +34,7 @@ extension WeatherDataProvider: DependencyKey {
                 let openMeteoClient = OpenMeteoClient()
                 let marineResponse = try await openMeteoClient.getMarineForecast(latitude: location.latitude, longitude: location.longitude)
                 let forecastResponse = try await openMeteoClient.getWeatherForecast(latitude: location.latitude, longitude: location.longitude)
+                let tidesForecast = (try? await openMeteoClient.getTidesForecast(latitude: location.latitude, longitude: location.longitude, name: location.title)) ?? [:]
                 
                 var newWeather: [WeatherData] = []
                 let dateFormatter = DateFormatter()
@@ -51,6 +52,7 @@ extension WeatherDataProvider: DependencyKey {
                     let swellDirection = Double(marineResponse.hourly.swellWaveDirection[safe: index] ?? 0)
                     let swellPeriod = marineResponse.hourly.swellWavePeriod[safe: index]
                     let swellHeight = marineResponse.hourly.swellWaveHeight[safe: index]
+                    let tideHeight = tidesForecast[Int(date.timeIntervalSince1970)] ?? 0.0
                     
                     newWeather.append(WeatherData(date: date,
                                                   airTemperature: airTemperature,
@@ -60,7 +62,24 @@ extension WeatherDataProvider: DependencyKey {
                                                   swellDirection: swellDirection,
                                                   swellPeriod: swellPeriod,
                                                   swellHeight: swellHeight,
-                                                  tideHeight: 0.0)) // TODO: Add tide value
+                                                  tideHeight: tideHeight))
+                }
+                
+                let weatherDatesSet: Set<Int> = Set(newWeather.map({ Int($0.date.timeIntervalSince1970) }))
+                let tideDatesSet: Set<Int> = Set(tidesForecast.keys)
+                let peakTideDates = tideDatesSet.subtracting(weatherDatesSet)
+                peakTideDates.forEach { timestamp in
+                    let peakTideDate = Date(timeIntervalSince1970: TimeInterval(timestamp))
+                    guard let nearestWeather = newWeather.first (where:{ $0.date.timeIntervalSince(peakTideDate) > 0 }) else { return }
+                    newWeather.append(WeatherData(date: peakTideDate,
+                                                  airTemperature: nearestWeather.airTemperature,
+                                                  windDirection: nearestWeather.windDirection,
+                                                  windSpeed: nearestWeather.windSpeed,
+                                                  windGust: nearestWeather.windGust,
+                                                  swellDirection: nearestWeather.swellDirection,
+                                                  swellPeriod: nearestWeather.swellPeriod,
+                                                  swellHeight: nearestWeather.swellHeight,
+                                                  tideHeight: tidesForecast[timestamp] ?? 0.0))
                 }
                 
                 guard !newWeather.isEmpty else {
