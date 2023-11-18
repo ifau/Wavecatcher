@@ -21,17 +21,23 @@ struct LocationsListView: View {
     var body: some View {
         WithViewStore(self.store, observe: { $0 }) { viewStore in
             VStack {
-                TabView(selection: viewStore.binding(get: \.selectedLocationID, send: LocationsListFeature.Action.selectLocation).animation(.smooth) ) {
-                    ForEach(viewStore.state.locations) { location in
-                        LocationForecastView(state: .init(location: location))
-                            .tag((location.id as SavedLocation.ID?))
+                if viewStore.isReady, viewStore.locations.isEmpty {
+                    Spacer()
+                    emptyStateView
+                    Spacer()
+                } else {
+                    TabView(selection: viewStore.binding(get: \.selectedLocationID, send: LocationsListFeature.Action.selectLocation).animation(.smooth) ) {
+                        ForEach(viewStore.state.locations) { location in
+                            LocationForecastView(state: .init(location: location))
+                                .tag((location.id as SavedLocation.ID?))
+                        }
                     }
+                    .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
+                    
+                    Spacer(minLength: 0.0)
+                    Divider()
+                    bottomToolbar(viewStore.state)
                 }
-                .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
-                
-                Spacer(minLength: 0.0)
-                Divider()
-                bottomToolbar(viewStore.state)
             }
             .background {
                 background(viewStore.state).ignoresSafeArea()
@@ -61,6 +67,7 @@ struct LocationsListView: View {
                 Image(systemName: "gear")
             })
             .foregroundStyle(.primary)
+            .disabled(!state.isReady)
             
             Spacer()
             pageControl(state)
@@ -73,6 +80,7 @@ struct LocationsListView: View {
                 Image(systemName: "ellipsis.circle")
             })
             .foregroundStyle(.primary)
+            .disabled(!state.isReady)
         }
         .padding()
         .background(.ultraThinMaterial)
@@ -101,6 +109,32 @@ struct LocationsListView: View {
         } else {
             Color.black
         }
+    }
+    
+    var emptyStateView: some View {
+        VStack(spacing: 8) {
+            Text("No locations")
+                .font(.title)
+                .foregroundStyle(.white)
+                .shadow(radius: 8)
+            
+            Text("Add a beach location to your list and stay tuned for the latest surfing forecast")
+                .multilineTextAlignment(.center)
+                .font(.title3)
+                .foregroundStyle(.white)
+                .shadow(radius: 8)
+                
+            Button(action: { store.send(.addLocation) }, label: {
+                Text("Add location")
+                    .font(.headline)
+                    .foregroundStyle(.primary)
+                    .frame(maxWidth: .infinity)
+                    .padding()
+                    .background(.thickMaterial, in: RoundedRectangle(cornerRadius: 12))
+            })
+            .padding(.top)
+        }
+        .padding()
     }
 }
 

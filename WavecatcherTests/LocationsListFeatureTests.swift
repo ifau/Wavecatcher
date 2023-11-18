@@ -29,6 +29,7 @@ final class LocationsListFeatureTests: XCTestCase {
         await store.receive(.reloadLocationsResponse(.success(fetchLocationsResponse))) {
             $0.locations = .init(uniqueElements: fetchLocationsResponse)
             $0.selectedLocationID = fetchLocationsResponse.first?.id
+            $0.isReady = true
         }
         
         await task.cancel()

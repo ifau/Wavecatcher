@@ -12,6 +12,7 @@ struct LocationsListFeature: Reducer {
         @PresentationState var destination: Destination.State?
         var locations: IdentifiedArrayOf<SavedLocation> = .init()
         var selectedLocationID: SavedLocation.ID? = nil
+        var isReady: Bool = false
     }
     
     enum Action: Equatable {
@@ -52,6 +53,8 @@ struct LocationsListFeature: Reducer {
                 
             case .reloadLocationsResponse(.success(let locations)):
                 state.locations = IdentifiedArrayOf<SavedLocation>(uniqueElements: locations)
+                state.isReady = true
+                
                 if state.selectedLocationID == nil {
                     state.selectedLocationID = locations.first?.id
                 }
@@ -65,6 +68,7 @@ struct LocationsListFeature: Reducer {
                 return .none
                 
             case .reloadLocationsResponse(.failure):
+                state.isReady = true
                 return .none
                 
             case .selectLocation(let locationID):
