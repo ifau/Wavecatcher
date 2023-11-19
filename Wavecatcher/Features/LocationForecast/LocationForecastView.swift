@@ -105,12 +105,12 @@ struct LocationForecastView: View {
                 .shadow(radius: 8)
             
             VStack(spacing: 8.0) {
-                Text("Loading...")
+                Text("locationForecast.text.loading")
                     .font(.system(size: 22))
                     .foregroundStyle(.white)
                     .shadow(radius: 8)
                 
-                Text("Last updated \(state.location.dateUpdated.formatted(.relative(presentation: .named, unitsStyle: .spellOut)))")
+                Text("locationForecast.text.lastUpdated \(state.location.dateUpdated.formatted(.relative(presentation: .named, unitsStyle: .spellOut)))")
                     .font(.system(size: 16))
                     .foregroundStyle(.white)
                     .shadow(radius: 8)
@@ -133,16 +133,16 @@ struct LocationForecastView: View {
     
     private func content(_ state: LocationForecastFeature.State) -> some View {
         VStack {
-            LocationForecastSectionView(titleView: { sectionHeader(title: "Hourly forecast", systemImageName: "clock")}, contentView: {
+            LocationForecastSectionView(titleView: { sectionHeader(title: "locationForecast.text.hourlyForecast", systemImageName: "clock")}, contentView: {
                 HourlyForecastView(weatherData: state.location.weather)
                     .padding([.horizontal, .bottom])
             })
             HStack {
-                LocationForecastSectionView(titleView: { sectionHeader(title: "Tide", systemImageName: "water.waves")}, contentView: {
+                LocationForecastSectionView(titleView: { sectionHeader(title: "locationForecast.text.tide", systemImageName: "water.waves")}, contentView: {
                     TideForecastView(weatherData: state.location.weather)
                         .padding(.bottom)
                 })
-                LocationForecastSectionView(titleView: { sectionHeader(title: "Wind", systemImageName: "wind")}, contentView: {
+                LocationForecastSectionView(titleView: { sectionHeader(title: "locationForecast.text.wind", systemImageName: "wind")}, contentView: {
                     WindForecastView(weatherData: state.location.weather, offshorePerpendicular: state.location.offshorePerpendicular)
                         .padding(.bottom)
                 })
@@ -150,7 +150,7 @@ struct LocationForecastView: View {
         }
     }
     
-    private func sectionHeader(title: String, systemImageName: String) -> some View {
+    private func sectionHeader(title: LocalizedStringKey, systemImageName: String) -> some View {
         HStack {
             Label(
                 title: { Text(title) },
@@ -164,7 +164,7 @@ struct LocationForecastView: View {
     
     private func errorView(_ state: LocationForecastFeature.State) -> some View {
         VStack(alignment: .leading) {
-            Text("An error has occured")
+            Text("locationForecast.text.anErrorHasOccured")
                 .font(.callout)
                 .foregroundStyle(.secondary)
             Divider()
@@ -175,7 +175,7 @@ struct LocationForecastView: View {
             }
             
             Button(action: { store.send(.tryAgainButtonPressed) }, label: {
-                Text("Try again")
+                Text("locationForecast.button.tryAgain")
                     .font(.headline)
                     .foregroundStyle(.primary)
                     .frame(maxWidth: .infinity)

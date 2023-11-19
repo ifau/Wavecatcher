@@ -60,18 +60,18 @@ struct HourlyForecastView: View {
         VStack(alignment: .trailing) {
             Spacer()
                 .frame(height: rowFrameHeight)
-            Text("Wind (km/h)")
+            Text("locationForecast.text.wind(km/h)")
                 .font(.caption)
                 .frame(height: rowFrameHeight, alignment: .bottom)
             VStack(alignment: .trailing, spacing: 0.0) {
-                Text("Swell height (m)")
+                Text("locationForecast.text.swellHeight(m)")
                     .font(.caption)
                     .frame(height: rowFrameHeight, alignment: .bottom)
-                Text("Swell period (s)")
+                Text("locationForecast.text.swellPeriod(s)")
                     .font(.caption)
                     .frame(height: rowFrameHeight, alignment: .bottom)
             }
-            Text("Air temp. (°C)")
+            Text("locationForecast.text.airTemperature(°C)")
                 .font(.caption)
                 .frame(height: rowFrameHeight, alignment: .bottom)
         }
@@ -114,11 +114,10 @@ struct HourlyForecastView: View {
     }
     
     private func timeRow(date: Date) -> some View {
-        let getString = {
-            guard !Calendar.current.isDate(date, equalTo: .now, toGranularity: .hour) else { return "Now" }
-            return date.formatted(.dateTime.hour(.twoDigits(amPM: .abbreviated)))
-        }
-        return Text(getString()).font(.caption).bold()
+        (Calendar.current.isDate(date, equalTo: .now, toGranularity: .hour)
+         ? Text("locationForecast.text.Now") : Text(date.formatted(.dateTime.hour(.twoDigits(amPM: .abbreviated)))))
+            .font(.caption)
+            .bold()
     }
 }
 

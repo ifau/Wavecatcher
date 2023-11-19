@@ -38,7 +38,7 @@ struct LocationSettingsView: View {
                     .padding(.top)
                     
                 }, header: {
-                    Text("Background")
+                    Text("locationSettings.sectionTitle.Background")
                 })
             }
             .onChange(of: selectedItem) {
@@ -46,7 +46,7 @@ struct LocationSettingsView: View {
             }
             .navigationTitle(viewStore.location.title)
             .toolbar {
-                Button("Save", action: { viewStore.send(.saveChanges) })
+                Button("locationSettings.button.Save", action: { viewStore.send(.saveChanges) })
                     .bold()
                     .disabled(!viewStore.isSaveActionAvailable)
             }
@@ -96,7 +96,7 @@ struct LocationSettingsView: View {
     @ViewBuilder
     private func photosPickerOverlay(withLabel: Bool) -> some View {
         PhotosPicker(selection: $selectedItem, matching: .videos, preferredItemEncoding: .automatic, photoLibrary: .shared(), label: {
-            Text(withLabel ? "Select video" : "")
+            Text(withLabel ? "locationSettings.button.SelectVideo" : "")
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
         })
     }

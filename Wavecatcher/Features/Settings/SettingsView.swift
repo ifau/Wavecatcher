@@ -22,7 +22,7 @@ struct SettingsView: View {
         WithViewStore(self.store, observe: { $0 }) { viewStore in
             NavigationStack {
                 List {
-                    Section("Locations settings") {
+                    Section("settings.sectionTitle.locationsSettings") {
                         ForEach(viewStore.locations) { location in
                             locationRow(location)
                                 .contentShape(Rectangle())
@@ -31,7 +31,7 @@ struct SettingsView: View {
                         .onMove { viewStore.send(.changeLocationOrder($0, $1)) }
                     }
                 }
-                .navigationTitle("Settings")
+                .navigationTitle("settings.navigationTitle")
                 .navigationDestination(store: self.store.scope(state: \.$destination, action: { .destination($0) }),
                        state: /SettingsFeature.Destination.State.locationSettings,
                        action: SettingsFeature.Destination.Action.locationSettings) { locationSettingsStore in

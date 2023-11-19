@@ -37,26 +37,26 @@ struct WindForecastView: View {
         }
     }
     
-    private var valueDescription: String {
+    private var valueDescription: LocalizedStringKey {
         let value = weatherData.nowData()?.windSpeed ?? 0.0
         return "\(value.formatted(.number.precision(.fractionLength(0...1))))km/h"
     }
     
-    private var gustDescription: String {
+    private var gustDescription: LocalizedStringKey {
         let value = weatherData.nowData()?.windGust ?? 0.0
         return "\(value.formatted(.number.precision(.fractionLength(0...1))))km/h gust"
     }
-    
-    private var directionDescription: String {
+
+    private var directionDescription: LocalizedStringKey {
         guard let windDirection = weatherData.nowData()?.windDirection else { return "" }
         let diff = (windDirection - offshorePerpendicular + 360).truncatingRemainder(dividingBy: 360)
         
         if diff <= 45 || diff >= 315 {
-            return "Offshore wind"
+            return "locationForecast.text.offshoreWind"
         } else if diff > 45 && diff < 135 {
-            return "Cross-shore wind"
+            return "locationForecast.text.crossShoreWind"
         } else {
-            return "Onshore wind"
+            return "locationForecast.text.onshoreWind"
         }
     }
 }

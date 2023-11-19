@@ -21,7 +21,7 @@ struct AddLocationView: View {
     var body: some View {
         NavigationStack {
             content
-                .navigationTitle("Add location")
+                .navigationTitle("addLocation.navigationTitle")
         }
     }
     
@@ -39,14 +39,14 @@ struct AddLocationView: View {
             
             case .failed(let error):
                 ContentUnavailableView {
-                    Text("An error has occured")
+                    Text("addLocation.text.anErrorHasOccured")
                         .font(.headline)
                 } description: {
                     Text(error.localizedDescription)
                         .font(.subheadline)
                     
                     Button(action: { viewStore.send(.tryAgainButtonPressed) }, label: {
-                        Text("Try again")
+                        Text("addLocation.button.tryAgain")
                             .font(.headline)
                             .foregroundStyle(.primary)
                             .frame(maxWidth: .infinity)
@@ -70,7 +70,7 @@ struct AddLocationView: View {
                 .searchable(text: viewStore.binding(get: \.searchQuery, send: AddLocationFeature.Action.searchQueryChanged),
                             isPresented: viewStore.binding(get: \.searchIsActive, send: AddLocationFeature.Action.searchStateChanged))
                 .toolbar {
-                    Button("Add", action: { viewStore.send(.addSelectedLocation) })
+                    Button("addLocation.button.Add", action: { viewStore.send(.addSelectedLocation) })
                         .bold()
                         .disabled(viewStore.selectedLocationID == nil)
                 }

@@ -13,7 +13,7 @@ struct TideForecastView: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 8.0) {
-            Text(isRising ? "Rising tide" : "Dropping tide")
+            Text(isRising ? "locationForecast.text.risingTide" : "locationForecast.text.droppingTide")
                 .foregroundStyle(.primary)
                 .font(.subheadline)
                 .padding(.horizontal)
@@ -43,8 +43,8 @@ struct TideForecastView: View {
     private var chart: some View {
         Chart {
             ForEach(Array(weatherData.todayData().enumerated()), id: \.offset) { index, data in
-                LineMark(x: .value("hour", data.date),
-                         y: .value("height", data.tideHeight ?? 0.0))
+                LineMark(x: .value("locationForecast.tideChartText.hour", data.date),
+                         y: .value("locationForecast.tideChartText.height", data.tideHeight ?? 0.0))
                 .interpolationMethod(.catmullRom)
                 .lineStyle(.init(lineWidth: 2))
                 .foregroundStyle(lineGradient)
@@ -97,12 +97,11 @@ struct TideForecastView: View {
         return (nowData.tideHeight ?? 0.0) < (nextMaximumTide.tideHeight ?? 0.0)
     }
     
-    private var nextMaximumTideDescription: String {
+    private var nextMaximumTideDescription: LocalizedStringKey {
         guard let nextMaximumTide = weatherData.dataOfNextMaximumTide() else { return "" }
         let meters = (nextMaximumTide.tideHeight ?? 0.0).formatted(.number.precision(.fractionLength(0...1)))
-        let quality = isRising ? "high" : "low"
         let time = nextMaximumTide.date.formatted(date: .omitted, time: .shortened)
-        return "\(meters)m \(quality) at \(time)"
+        return isRising ? "locationForecast.text.nextMaximumTide \(meters)m \(time)" : "locationForecast.text.nextMinimumTide \(meters)m \(time)"
     }
 }
 

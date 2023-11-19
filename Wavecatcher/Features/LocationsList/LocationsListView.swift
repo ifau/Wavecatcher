@@ -74,8 +74,8 @@ struct LocationsListView: View {
             Spacer()
             
             Menu(content: {
-                Button(role: .destructive, action: { store.send(.deleteSelectedLocation) }, label: { Label("Delete Location", systemImage: "trash")})
-                Button(action: { store.send(.addLocation) }, label: { Label("Add Location", systemImage: "plus")})
+                Button(role: .destructive, action: { store.send(.deleteSelectedLocation) }, label: { Label("locationsList.button.deleteLocation", systemImage: "trash")})
+                Button(action: { store.send(.addLocation) }, label: { Label("locationsList.button.addLocation", systemImage: "plus")})
             }, label: {
                 Image(systemName: "ellipsis.circle")
             })
@@ -113,19 +113,19 @@ struct LocationsListView: View {
     
     var emptyStateView: some View {
         VStack(spacing: 8) {
-            Text("No locations")
+            Text("locationsList.text.noLocations")
                 .font(.title)
                 .foregroundStyle(.white)
                 .shadow(radius: 8)
             
-            Text("Add a beach location to your list and stay tuned for the latest surfing forecast")
+            Text("locationsList.text.addBeachLocationToYourList")
                 .multilineTextAlignment(.center)
                 .font(.title3)
                 .foregroundStyle(.white)
                 .shadow(radius: 8)
                 
             Button(action: { store.send(.addLocation) }, label: {
-                Text("Add location")
+                Text("locationsList.button.addLocation")
                     .font(.headline)
                     .foregroundStyle(.primary)
                     .frame(maxWidth: .infinity)
