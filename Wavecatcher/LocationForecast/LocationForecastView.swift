@@ -9,6 +9,8 @@ import ComposableArchitecture
 struct LocationForecastView: View {
     
     let store: StoreOf<LocationForecastFeature>
+    @State private var scrollViewOffset: CGPoint = .zero
+    @Environment(\.safeAreaInsets) var safeAreaInsets
     
     init(store: StoreOf<LocationForecastFeature>) {
         self.store = store
@@ -20,7 +22,7 @@ struct LocationForecastView: View {
     
     var body: some View {
         WithViewStore(self.store, observe: { $0 }) { viewStore in
-            ScrollView(.vertical, showsIndicators: false) {
+            OffsetObservingScrollView(axes: .vertical, showsIndicators: false, offset: $scrollViewOffset) {
                 VStack {
                     switch viewStore.displayState {
                     case .failed(_):
@@ -50,11 +52,13 @@ struct LocationForecastView: View {
                 .font(.system(size: 30))
                 .foregroundStyle(.white)
                 .shadow(radius: 8)
+                .offset(y: locationTitleOffset)
             
             Text((state.location.weather.nowData()?.swellHeight ?? 0.0).formatted(.number.precision(.fractionLength(0...1))) + "m")
                 .font(.system(size: 64))
                 .foregroundStyle(.white)
                 .shadow(radius: 8)
+                .opacity(waveHeightOpacity)
             
             HStack {
                 if let nowData = state.location.weather.nowData(),
@@ -87,8 +91,10 @@ struct LocationForecastView: View {
             }
             .font(.system(size: 22))
             .foregroundStyle(.white)
+            .opacity(swellDescriptionOpacity)
         }
         .bold()
+        .offset(y: headerOffset)
     }
     
     private func loadingHeader(_ state: LocationForecastFeature.State) -> some View {
@@ -182,6 +188,36 @@ struct LocationForecastView: View {
     }
 }
 
+extension LocationForecastView {
+    static let distanceToStartCollapseSectionHeaders: CGFloat = 64.0
+    private var maximumAllowedDragDistanceForLocationTitle: CGFloat { 16.0 }
+    private var dragDistanceToCompletelyHideWaveHeight: CGFloat { 48.0 }
+    private var dragDistanceToCompletelyHideSwellDescription: CGFloat { 128.0 }
+    
+    private var headerOffset: CGFloat {
+        guard scrollViewOffset.y < 0 else { return 0.0 } // affect only drag from top to bottom
+        let progress = scrollViewOffset.y / 128
+        let offset = (progress <= 1 ? progress : 1) * 64
+        return offset
+    }
+    
+    private var locationTitleOffset: Double {
+        guard scrollViewOffset.y > maximumAllowedDragDistanceForLocationTitle else { return 0.0 }
+        return scrollViewOffset.y - maximumAllowedDragDistanceForLocationTitle
+    }
+    
+    private var waveHeightOpacity: Double {
+        guard scrollViewOffset.y > 0 else { return 1.0 }
+        let value = 1 - scrollViewOffset.y / dragDistanceToCompletelyHideWaveHeight
+        return value < 0 ? 0 : value
+    }
+    
+    private var swellDescriptionOpacity: Double {
+        guard scrollViewOffset.y > 0 else { return 1.0 }
+        let value = 1 - scrollViewOffset.y / dragDistanceToCompletelyHideSwellDescription
+        return value < 0 ? 0 : value
+    }
+}
 
 struct LocationForecastView_Previews: PreviewProvider {
     static var previews: some View {

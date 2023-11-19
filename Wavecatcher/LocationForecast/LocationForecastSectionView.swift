@@ -10,9 +10,11 @@ struct LocationForecastSectionView<Title: View, Content: View>: View {
     var titleView: Title
     var contentView: Content
     
-    var globalYStopperCoordinate: CGFloat = 120.0
-    @State private var topOffset: CGFloat = 0.0
-    @State private var bottomOffset: CGFloat = 0.0
+    private var globalYStopperCoordinate: CGFloat { safeAreaInsets.top + LocationForecastView.distanceToStartCollapseSectionHeaders }
+    private var topOffset: CGFloat { globalFrame.minY }
+    private var bottomOffset: CGFloat { globalFrame.maxY - globalYStopperCoordinate }
+    @State private var globalFrame: CGRect = .zero
+    @Environment(\.safeAreaInsets) var safeAreaInsets
     
     init(@ViewBuilder titleView: @escaping () -> Title,
          @ViewBuilder contentView: @escaping () -> Content) {
@@ -39,17 +41,7 @@ struct LocationForecastSectionView<Title: View, Content: View>: View {
             .clipped()
         }
         .offset(y: topOffset > globalYStopperCoordinate ? 0 : -topOffset + globalYStopperCoordinate)
-        .overlay {
-            GeometryReader { proxy -> Color in
-                let minY = proxy.frame(in: .global).minY
-                let maxY = proxy.frame(in: .global).maxY
-                DispatchQueue.main.async {
-                    self.topOffset = minY
-                    self.bottomOffset = maxY - globalYStopperCoordinate
-                }
-                return Color.clear
-            }
-        }
+        .readGlobalFrame { globalFrame = $0 }
         .opacity(opacity)
         .clipShape(RoundedRectangle(cornerRadius: cornerRadius, style: .continuous))
     }
