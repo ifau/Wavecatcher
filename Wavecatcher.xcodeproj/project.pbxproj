@@ -207,6 +207,9 @@
 			children = (
 				A26356AC2B03699C008DC7E6 /* LocationSettingsFeature.swift */,
 				A26356A82B035EFA008DC7E6 /* LocationSettingsView.swift */,
+				A26356AE2B036B86008DC7E6 /* AuroraBackgroundView.swift */,
+				A28CC5482B049E42005D829B /* VideoPlayerView.swift */,
+				A28CC5462B049DE1005D829B /* VideoPlayerUIView.swift */,
 			);
 			path = LocationSettings;
 			sourceTree = "<group>";
@@ -248,16 +251,6 @@
 			path = Dependencies;
 			sourceTree = "<group>";
 		};
-		A28CC5452B049D8F005D829B /* SharedViews */ = {
-			isa = PBXGroup;
-			children = (
-				A26356AE2B036B86008DC7E6 /* AuroraBackgroundView.swift */,
-				A28CC5482B049E42005D829B /* VideoPlayerView.swift */,
-				A28CC5462B049DE1005D829B /* VideoPlayerUIView.swift */,
-			);
-			path = SharedViews;
-			sourceTree = "<group>";
-		};
 		A2B6F0EF2AF20A5100B48C66 = {
 			isa = PBXGroup;
 			children = (
@@ -282,17 +275,11 @@
 			isa = PBXGroup;
 			children = (
 				A2B6F0FB2AF20A5100B48C66 /* WavecatcherApp.swift */,
-				A28CC5452B049D8F005D829B /* SharedViews */,
-				A2C22DB02B032749005A8F70 /* Settings */,
-				A26356A72B035EE7008DC7E6 /* LocationSettings */,
-				A2243BDA2AFE404D0072EE8C /* AddLocation */,
-				A21485192AFC984D00DF719F /* LocationsList */,
-				A2B6F1332AF2331000B48C66 /* LocationForecast */,
-				A2B6F12A2AF213FA00B48C66 /* Models */,
-				A2B6F0FF2AF20A5200B48C66 /* Assets.xcassets */,
-				A2B6F1012AF20A5200B48C66 /* Wavecatcher.entitlements */,
+				A2F63EA52B09D3B80039DC13 /* Features */,
 				A27A2AFA2AF750F100C56FA9 /* Dependencies */,
+				A2B6F12A2AF213FA00B48C66 /* Models */,
 				A27A2AF72AF74D0300C56FA9 /* Extensions */,
+				A2F63EA32B09CEAE0039DC13 /* Resources */,
 			);
 			path = Wavecatcher;
 			sourceTree = "<group>";
@@ -300,13 +287,9 @@
 		A2B6F10C2AF20A5200B48C66 /* WavecatcherTests */ = {
 			isa = PBXGroup;
 			children = (
+				A2F63EA62B0A124C0039DC13 /* Features */,
 				A27FDD312AF78650000C60D1 /* Dependencies */,
 				A2018FA12AF9FF6C00089C29 /* Extensions */,
-				A260AEA72B03443C00BEA778 /* SettingsFeatureTests.swift */,
-				A2AE05BC2B062D2300C3DC40 /* LocationSettingsFeatureTests.swift */,
-				A26B2B522AFF894700BE60EF /* AddLocationFeatureTests.swift */,
-				A20BA4D92AFCC6C40013C317 /* LocationsListFeatureTests.swift */,
-				A27A2AF52AF745D000C56FA9 /* LocationForecastFeatureTests.swift */,
 			);
 			path = WavecatcherTests;
 			sourceTree = "<group>";
@@ -351,6 +334,39 @@
 				A2C22DB12B032781005A8F70 /* SettingsView.swift */,
 			);
 			path = Settings;
+			sourceTree = "<group>";
+		};
+		A2F63EA32B09CEAE0039DC13 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				A2B6F0FF2AF20A5200B48C66 /* Assets.xcassets */,
+				A2B6F1012AF20A5200B48C66 /* Wavecatcher.entitlements */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		A2F63EA52B09D3B80039DC13 /* Features */ = {
+			isa = PBXGroup;
+			children = (
+				A2C22DB02B032749005A8F70 /* Settings */,
+				A26356A72B035EE7008DC7E6 /* LocationSettings */,
+				A2243BDA2AFE404D0072EE8C /* AddLocation */,
+				A21485192AFC984D00DF719F /* LocationsList */,
+				A2B6F1332AF2331000B48C66 /* LocationForecast */,
+			);
+			path = Features;
+			sourceTree = "<group>";
+		};
+		A2F63EA62B0A124C0039DC13 /* Features */ = {
+			isa = PBXGroup;
+			children = (
+				A260AEA72B03443C00BEA778 /* SettingsFeatureTests.swift */,
+				A2AE05BC2B062D2300C3DC40 /* LocationSettingsFeatureTests.swift */,
+				A26B2B522AFF894700BE60EF /* AddLocationFeatureTests.swift */,
+				A20BA4D92AFCC6C40013C317 /* LocationsListFeatureTests.swift */,
+				A27A2AF52AF745D000C56FA9 /* LocationForecastFeatureTests.swift */,
+			);
+			path = Features;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -692,7 +708,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = Wavecatcher/Wavecatcher.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Wavecatcher/Resources/Wavecatcher.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_PREVIEWS = YES;
@@ -727,7 +743,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = Wavecatcher/Wavecatcher.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Wavecatcher/Resources/Wavecatcher.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_PREVIEWS = YES;
