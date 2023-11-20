@@ -40,7 +40,6 @@
 		A27FDD332AF78666000C60D1 /* CoreDataStorageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27FDD322AF78666000C60D1 /* CoreDataStorageTests.swift */; };
 		A27FDD352AF79CC6000C60D1 /* WeatherDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27FDD342AF79CC6000C60D1 /* WeatherDataProvider.swift */; };
 		A28CC5442B048098005D829B /* PhotosAssetsLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28CC5432B048098005D829B /* PhotosAssetsLoader.swift */; };
-		A28CC5472B049DE1005D829B /* VideoPlayerUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28CC5462B049DE1005D829B /* VideoPlayerUIView.swift */; };
 		A28CC5492B049E42005D829B /* VideoPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28CC5482B049E42005D829B /* VideoPlayerView.swift */; };
 		A2A336E72AFC74EF00518A2D /* FormatStyleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2A336E62AFC74EF00518A2D /* FormatStyleTests.swift */; };
 		A2A336E92AFC89B000518A2D /* PositionObservingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2A336E82AFC89B000518A2D /* PositionObservingView.swift */; };
@@ -114,7 +113,6 @@
 		A27FDD322AF78666000C60D1 /* CoreDataStorageTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStorageTests.swift; sourceTree = "<group>"; };
 		A27FDD342AF79CC6000C60D1 /* WeatherDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherDataProvider.swift; sourceTree = "<group>"; };
 		A28CC5432B048098005D829B /* PhotosAssetsLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosAssetsLoader.swift; sourceTree = "<group>"; };
-		A28CC5462B049DE1005D829B /* VideoPlayerUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerUIView.swift; sourceTree = "<group>"; };
 		A28CC5482B049E42005D829B /* VideoPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerView.swift; sourceTree = "<group>"; };
 		A2A336E62AFC74EF00518A2D /* FormatStyleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormatStyleTests.swift; sourceTree = "<group>"; };
 		A2A336E82AFC89B000518A2D /* PositionObservingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PositionObservingView.swift; sourceTree = "<group>"; };
@@ -211,7 +209,6 @@
 				A26356A82B035EFA008DC7E6 /* LocationSettingsView.swift */,
 				A26356AE2B036B86008DC7E6 /* AuroraBackgroundView.swift */,
 				A28CC5482B049E42005D829B /* VideoPlayerView.swift */,
-				A28CC5462B049DE1005D829B /* VideoPlayerUIView.swift */,
 			);
 			path = LocationSettings;
 			sourceTree = "<group>";
@@ -531,7 +528,6 @@
 				A2018FA32AF9FF9100089C29 /* WeatherData+Extract.swift in Sources */,
 				A28CC5442B048098005D829B /* PhotosAssetsLoader.swift in Sources */,
 				A26356A62B034C8A008DC7E6 /* BackgroundVariant.swift in Sources */,
-				A28CC5472B049DE1005D829B /* VideoPlayerUIView.swift in Sources */,
 				A2F63EA22B09C5E50039DC13 /* View+readGlobalFrame.swift in Sources */,
 				A214851D2AFC988900DF719F /* LocationsListFeature.swift in Sources */,
 				A2B6F1352AF2332A00B48C66 /* LocationForecastView.swift in Sources */,
