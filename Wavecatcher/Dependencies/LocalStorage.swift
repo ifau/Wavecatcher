@@ -23,8 +23,7 @@ extension DependencyValues {
 extension LocalStorage: DependencyKey {
     
     static let liveValue: LocalStorage = {
-        // FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: <your_app_group>)
-        let databaseFileURL = URL.documentsDirectory.appending(component: "db.sqlite")
+        let databaseFileURL = URL.sharedContainerDirectoryURL.appending(component: "db.sqlite")
         let coreDataStorage = CoreDataStorage(storeType: .file(databaseFileURL))
 
         return LocalStorage(fetchLocations: coreDataStorage.fetchLocations,

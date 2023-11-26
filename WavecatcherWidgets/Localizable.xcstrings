@@ -1,0 +1,129 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "%@" : {
+
+    },
+    "%@m %@s" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$@m %2$@s"
+          }
+        }
+      }
+    },
+    "todayForecast.text.addLocationsInTheMainApp" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add your favorite surf spots in the main app to make the forecast come alive on your home screen"
+          }
+        }
+      }
+    },
+    "todayForecast.text.lastUpdated %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Last updated %@"
+          }
+        }
+      }
+    },
+    "todayForecast.text.noDataAvailable" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No data available"
+          }
+        }
+      }
+    },
+    "todayForecast.text.noLocationsAdded" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No locations added yet"
+          }
+        }
+      }
+    },
+    "todayForecast.tideChartText.height" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Height"
+          }
+        }
+      }
+    },
+    "todayForecast.tideChartText.hour" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hour"
+          }
+        }
+      }
+    },
+    "todayForecast.widgetDescription" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Displays a wind, swell and other information"
+          }
+        }
+      }
+    },
+    "todayForecast.widgetTitle" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Today Forecast"
+          }
+        }
+      }
+    },
+    "widgetsConfiguration.description" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Selects the location to display information for."
+          }
+        }
+      }
+    },
+    "widgetsConfiguration.parameter.location" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Location"
+          }
+        }
+      }
+    },
+    "widgetsConfiguration.title" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Select Location"
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}
