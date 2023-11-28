@@ -4,6 +4,7 @@
 //
 
 import SwiftUI
+import MapKit
 import ComposableArchitecture
 
 struct AddLocationView: View {
@@ -56,26 +57,56 @@ struct AddLocationView: View {
                 }
                 
             case .loaded:
-                List {
-                    ForEach(viewStore.searchResults) { location in
-                        locationRow(location, state: viewStore.state)
+                Group {
+                    switch viewStore.state.selectionMode {
+                    case .list: listSelectionView(viewStore: viewStore)
+                    case .map: mapSelectionView(viewStore: viewStore)
                     }
                 }
-                .listStyle(.plain)
-                .overlay {
-                    if !viewStore.searchQuery.isEmpty, viewStore.searchResults.isEmpty {
-                        ContentUnavailableView.search(text: viewStore.searchQuery)
-                    }
-                }
-                .searchable(text: viewStore.binding(get: \.searchQuery, send: AddLocationFeature.Action.searchQueryChanged),
-                            isPresented: viewStore.binding(get: \.searchIsActive, send: AddLocationFeature.Action.searchStateChanged))
                 .toolbar {
-                    Button("addLocation.button.Add", action: { viewStore.send(.addSelectedLocation) })
-                        .bold()
-                        .disabled(viewStore.selectedLocationID == nil)
+                    ToolbarItem(placement: .topBarLeading) {
+                        Picker("addLocation.picker.selectionMode", selection: viewStore.binding(get: \.selectionMode, send: AddLocationFeature.Action.selectionModeChanged)) {
+                            Image(systemName: "list.bullet").tag(AddLocationFeature.State.SelectionMode.list)
+                            Image(systemName: "map").tag(AddLocationFeature.State.SelectionMode.map)
+                        }
+                        .pickerStyle(SegmentedPickerStyle())
+                    }
+                    ToolbarItem(placement: .primaryAction) {
+                        Button("addLocation.button.Add", action: { viewStore.send(.addSelectedLocation) })
+                            .bold()
+                            .disabled(viewStore.selectedLocationID == nil)
+                    }
                 }
             }
         }
+    }
+    
+    private func mapSelectionView(viewStore: ViewStore<AddLocationFeature.State, AddLocationFeature.Action>) -> some View {
+        Map(interactionModes: [.pan, .zoom], selection: viewStore.binding(get: \.selectedLocationID, send: AddLocationFeature.Action.locationTap)) {
+            ForEach(viewStore.state.locations) { location in
+                if (viewStore.state.savedLocations[id: location.id] == nil) {
+                    Marker(location.title, coordinate: .init(latitude: location.latitude, longitude: location.longitude))
+                        .tag(location.id as Location.ID?)
+                }
+            }
+        }
+        .mapControlVisibility(.hidden)
+    }
+    
+    private func listSelectionView(viewStore: ViewStore<AddLocationFeature.State, AddLocationFeature.Action>) -> some View {
+        List {
+            ForEach(viewStore.searchResults) { location in
+                locationRow(location, state: viewStore.state)
+            }
+        }
+        .listStyle(.plain)
+        .overlay {
+            if !viewStore.searchQuery.isEmpty, viewStore.searchResults.isEmpty {
+                ContentUnavailableView.search(text: viewStore.searchQuery)
+            }
+        }
+        .searchable(text: viewStore.binding(get: \.searchQuery, send: AddLocationFeature.Action.searchQueryChanged),
+                    isPresented: viewStore.binding(get: \.searchIsActive, send: AddLocationFeature.Action.searchStateChanged))
     }
     
     private func locationRow(_ location: Location, state: AddLocationFeature.State) -> some View {

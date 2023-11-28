@@ -23,9 +23,13 @@ struct AddLocationFeature: Reducer {
         var selectedLocationID: Location.ID? = nil
         
         var displayState: DisplayState = .notRequested
+        var selectionMode: SelectionMode = .list
         
         enum DisplayState: Equatable {
             case notRequested, loading, loaded, failed(Error)
+        }
+        enum SelectionMode: Equatable {
+            case list, map
         }
     }
     
@@ -35,9 +39,10 @@ struct AddLocationFeature: Reducer {
         case loadLocationsResponse(TaskResult<[Location]>)
         case loadSavedLocationsResponse(TaskResult<[SavedLocation]>)
         
+        case selectionModeChanged(State.SelectionMode)
         case searchStateChanged(Bool)
         case searchQueryChanged(String)
-        case locationTap(Location.ID)
+        case locationTap(Location.ID?)
         case addSelectedLocation
     }
     
@@ -79,6 +84,10 @@ struct AddLocationFeature: Reducer {
                 state.displayState = .failed(error)
                 return .none
                 
+            case .selectionModeChanged(let selectionMode):
+                state.selectionMode = selectionMode
+                return .none
+                
             case .searchStateChanged(let isActive):
                 state.searchIsActive = isActive
                 return .none
@@ -88,6 +97,7 @@ struct AddLocationFeature: Reducer {
                 return .none
                 
             case .locationTap(let locationId):
+                guard let locationId else { return .none }
                 guard state.savedLocations[id: locationId] == nil else { return .none }
                 state.selectedLocationID = (state.selectedLocationID == locationId) ? nil : locationId
                 return .none

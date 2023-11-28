@@ -64,6 +64,16 @@
         }
       }
     },
+    "addLocation.picker.selectionMode" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Selection mode"
+          }
+        }
+      }
+    },
     "addLocation.text.anErrorHasOccured" : {
       "localizations" : {
         "en" : {
