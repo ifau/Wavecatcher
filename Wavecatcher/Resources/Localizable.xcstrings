@@ -84,6 +84,16 @@
         }
       }
     },
+    "appName" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wavecatcher"
+          }
+        }
+      }
+    },
     "locationForecast.button.tryAgain" : {
       "localizations" : {
         "en" : {
@@ -363,6 +373,56 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "No Locations"
+          }
+        }
+      }
+    },
+    "onboarding.button.addLocation" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add location"
+          }
+        }
+      }
+    },
+    "onboarding.text.discoverTheBestConditionsWith %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Discover the best surfing conditions with %@"
+          }
+        }
+      }
+    },
+    "onboarding.text.getRealTimeForecastForSwellWindTide" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Get real-time forecasts for sea swell, wind conditions, and tide information, ensuring you never miss a great surf day!"
+          }
+        }
+      }
+    },
+    "onboarding.text.getStartedBySelectingSurfingSpots" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Get started by selecting your favorite surfing spots"
+          }
+        }
+      }
+    },
+    "onboarding.text.toGetStartedYouHaveToAddAtLeastOneLocation" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You can add unlimited number of locations but to get started you have to add at least one"
           }
         }
       }
