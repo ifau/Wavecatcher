@@ -21,32 +21,21 @@ struct LocationsListView: View {
     var body: some View {
         WithViewStore(self.store, observe: { $0 }) { viewStore in
             VStack {
-                if viewStore.isReady, viewStore.locations.isEmpty {
-                    Spacer()
-                    emptyStateView
-                    Spacer()
-                } else {
-                    TabView(selection: viewStore.binding(get: \.selectedLocationID, send: LocationsListFeature.Action.selectLocation).animation(.smooth) ) {
-                        ForEach(viewStore.state.locations) { location in
-                            LocationForecastView(state: .init(location: location))
-                                .tag((location.id as SavedLocation.ID?))
-                        }
+                TabView(selection: viewStore.binding(get: \.selectedLocationID, send: LocationsListFeature.Action.selectLocation).animation(.smooth) ) {
+                    ForEach(viewStore.state.locations) { location in
+                        LocationForecastView(state: .init(location: location))
+                            .tag((location.id as SavedLocation.ID?))
                     }
-                    .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
-                    
-                    Spacer(minLength: 0.0)
-                    Divider()
-                    bottomToolbar(viewStore.state)
                 }
+                .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
+                
+                Spacer(minLength: 0.0)
+                Divider()
+                bottomToolbar(viewStore.state)
             }
+            .ignoresSafeArea(.all, edges: .top)
             .background {
                 background(viewStore.state).ignoresSafeArea()
-            }
-            .task {
-                await viewStore.send(.task).finish()
-            }
-            .onAppear {
-                viewStore.send(.viewAppear)
             }
             .sheet(store: self.store.scope(state: \.$destination, action: { .destination($0) }),
                    state: /LocationsListFeature.Destination.State.settings,
@@ -67,7 +56,6 @@ struct LocationsListView: View {
                 Image(systemName: "gear")
             })
             .foregroundStyle(.primary)
-            .disabled(!state.isReady)
             
             Spacer()
             pageControl(state)
@@ -80,7 +68,6 @@ struct LocationsListView: View {
                 Image(systemName: "ellipsis.circle")
             })
             .foregroundStyle(.primary)
-            .disabled(!state.isReady)
         }
         .padding()
         .background(.ultraThinMaterial)
@@ -109,32 +96,6 @@ struct LocationsListView: View {
         } else {
             Color.black
         }
-    }
-    
-    var emptyStateView: some View {
-        VStack(spacing: 8) {
-            Text("locationsList.text.noLocations")
-                .font(.title)
-                .foregroundStyle(.white)
-                .shadow(radius: 8)
-            
-            Text("locationsList.text.addBeachLocationToYourList")
-                .multilineTextAlignment(.center)
-                .font(.title3)
-                .foregroundStyle(.white)
-                .shadow(radius: 8)
-                
-            Button(action: { store.send(.addLocation) }, label: {
-                Text("locationsList.button.addLocation")
-                    .font(.headline)
-                    .foregroundStyle(.primary)
-                    .frame(maxWidth: .infinity)
-                    .padding()
-                    .background(.thickMaterial, in: RoundedRectangle(cornerRadius: 12))
-            })
-            .padding(.top)
-        }
-        .padding()
     }
 }
 

@@ -10,47 +10,20 @@ import ComposableArchitecture
 @MainActor
 final class LocationsListFeatureTests: XCTestCase {
     
-    func testSubscribeToStoreChangesOnViewAppear() async {
-        
-        let (wasUpdated, updateStorage) = AsyncStream.makeStream(of: Void.self)
-        let fetchLocationsResponse = SavedLocation.previewData
-        
-        let store = TestStore(initialState: LocationsListFeature.State.init()) {
-            LocationsListFeature()
-        } withDependencies: {
-            $0.localStorage.fetchLocations = { return fetchLocationsResponse }
-            $0.localStorage.wasUpdated = { wasUpdated }
-        }
-        
-        let task = await store.send(.task)
-        
-        updateStorage.yield()
-        await store.receive(.reloadLocations)
-        await store.receive(.reloadLocationsResponse(.success(fetchLocationsResponse))) {
-            $0.locations = .init(uniqueElements: fetchLocationsResponse)
-            $0.selectedLocationID = fetchLocationsResponse.first?.id
-            $0.isReady = true
-        }
-        
-        await task.cancel()
-        updateStorage.yield()
-    }
-    
     func testDeleteSelectedLocation() async {
         
         let location = SavedLocation.previewData.first!
+        var requestedLocationIdToDelete: Location.ID? = nil
         
         let store = TestStore(initialState: LocationsListFeature.State.init(
             locations: .init(uniqueElements: [location]), selectedLocationID: location.id)) {
             LocationsListFeature()
         } withDependencies: {
-            $0.localStorage.deleteLocation = { _ in }
+            $0.localStorage.deleteLocation = { requestedLocationIdToDelete = $0.id }
         }
         
-        await store.send(.deleteSelectedLocation) {
-            $0.locations = .init()
-            $0.selectedLocationID = nil
-        }
+        await store.send(.deleteSelectedLocation)
+        XCTAssertEqual(requestedLocationIdToDelete, location.id)
     }
     
     func testSelectLocation() async {

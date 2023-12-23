@@ -357,26 +357,6 @@
         }
       }
     },
-    "locationsList.text.addBeachLocationToYourList" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Add a beach location to your list and stay tuned for the latest surfing forecast"
-          }
-        }
-      }
-    },
-    "locationsList.text.noLocations" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "No Locations"
-          }
-        }
-      }
-    },
     "onboarding.button.addLocation" : {
       "localizations" : {
         "en" : {

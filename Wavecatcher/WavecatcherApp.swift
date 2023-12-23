@@ -4,29 +4,19 @@
 //
 
 import SwiftUI
+import ComposableArchitecture
 
 @main
 struct WavecatcherApp: App {
     
     var body: some Scene {
         WindowGroup {
-            GeometryReader { geometry in
-                LocationsListView(state: .init())
-                    .environment(\.safeAreaInsets, geometry.safeAreaInsets)
-                    .ignoresSafeArea(.all, edges: .top)
+            if _XCTIsTesting {
+                EmptyView()
+            } else {
+                AppView(store: Store(initialState: AppFeature.State(), reducer: { AppFeature() }))
             }
         }
     }
 }
 
-
-private struct SafeAreaInsetsKey: EnvironmentKey {
-    static let defaultValue: EdgeInsets = .init()
-}
-
-extension EnvironmentValues {
-    var safeAreaInsets: EdgeInsets {
-        get { self[SafeAreaInsetsKey.self] }
-        set { self[SafeAreaInsetsKey.self] = newValue }
-    }
-}

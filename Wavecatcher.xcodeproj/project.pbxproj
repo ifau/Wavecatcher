@@ -14,6 +14,8 @@
 		A20DF9042AFF2B2F00B6C549 /* AddLocationFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20DF9032AFF2B2F00B6C549 /* AddLocationFeature.swift */; };
 		A214851B2AFC987400DF719F /* LocationsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A214851A2AFC987400DF719F /* LocationsListView.swift */; };
 		A214851D2AFC988900DF719F /* LocationsListFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = A214851C2AFC988900DF719F /* LocationsListFeature.swift */; };
+		A21F4BB52B184F7600D36500 /* AppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A21F4BB42B184F7600D36500 /* AppView.swift */; };
+		A21F4BB72B18526F00D36500 /* AppFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = A21F4BB62B18526F00D36500 /* AppFeature.swift */; };
 		A21FF6AC2B0B4EF2005B7F26 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A21FF6AB2B0B4EF2005B7F26 /* WidgetKit.framework */; };
 		A21FF6AE2B0B4EF2005B7F26 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A21FF6AD2B0B4EF2005B7F26 /* SwiftUI.framework */; };
 		A21FF6B12B0B4EF2005B7F26 /* WidgetsBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A21FF6B02B0B4EF2005B7F26 /* WidgetsBundle.swift */; };
@@ -85,6 +87,7 @@
 		A2B6F1322AF21D2800B48C66 /* Tagged in Frameworks */ = {isa = PBXBuildFile; productRef = A2B6F1312AF21D2800B48C66 /* Tagged */; };
 		A2B6F1352AF2332A00B48C66 /* LocationForecastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2B6F1342AF2332A00B48C66 /* LocationForecastView.swift */; };
 		A2C198292B35B01300A7293F /* OnboardingFeatureTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2C198282B35B01300A7293F /* OnboardingFeatureTests.swift */; };
+		A2C1982C2B36CAD900A7293F /* AppFeatureTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2C1982B2B36CAD900A7293F /* AppFeatureTests.swift */; };
 		A2C22DB22B032781005A8F70 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2C22DB12B032781005A8F70 /* SettingsView.swift */; };
 		A2C22DB42B032799005A8F70 /* SettingsFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2C22DB32B032799005A8F70 /* SettingsFeature.swift */; };
 		A2CD150A2AF8A05B001AEDE5 /* SavedLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2CD15092AF8A05B001AEDE5 /* SavedLocation.swift */; };
@@ -139,6 +142,9 @@
 		A20DF9032AFF2B2F00B6C549 /* AddLocationFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddLocationFeature.swift; sourceTree = "<group>"; };
 		A214851A2AFC987400DF719F /* LocationsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationsListView.swift; sourceTree = "<group>"; };
 		A214851C2AFC988900DF719F /* LocationsListFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationsListFeature.swift; sourceTree = "<group>"; };
+		A21F4BB42B184F7600D36500 /* AppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppView.swift; sourceTree = "<group>"; };
+		A21F4BB62B18526F00D36500 /* AppFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFeature.swift; sourceTree = "<group>"; };
+		A21F4BB82B18A1F900D36500 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A21FF6A92B0B4EF2005B7F26 /* WidgetsExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = WidgetsExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		A21FF6AB2B0B4EF2005B7F26 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = /System/Library/Frameworks/WidgetKit.framework; sourceTree = "<absolute>"; };
 		A21FF6AD2B0B4EF2005B7F26 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = /System/Library/Frameworks/SwiftUI.framework; sourceTree = "<absolute>"; };
@@ -196,6 +202,7 @@
 		A2B6F12E2AF21C3600B48C66 /* WeatherData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherData.swift; sourceTree = "<group>"; };
 		A2B6F1342AF2332A00B48C66 /* LocationForecastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationForecastView.swift; sourceTree = "<group>"; };
 		A2C198282B35B01300A7293F /* OnboardingFeatureTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingFeatureTests.swift; sourceTree = "<group>"; };
+		A2C1982B2B36CAD900A7293F /* AppFeatureTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFeatureTests.swift; sourceTree = "<group>"; };
 		A2C22DB12B032781005A8F70 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		A2C22DB32B032799005A8F70 /* SettingsFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsFeature.swift; sourceTree = "<group>"; };
 		A2CD15092AF8A05B001AEDE5 /* SavedLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedLocation.swift; sourceTree = "<group>"; };
@@ -258,6 +265,15 @@
 				A214851A2AFC987400DF719F /* LocationsListView.swift */,
 			);
 			path = LocationsList;
+			sourceTree = "<group>";
+		};
+		A21F4BB32B184D7400D36500 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				A21F4BB62B18526F00D36500 /* AppFeature.swift */,
+				A21F4BB42B184F7600D36500 /* AppView.swift */,
+			);
+			path = App;
 			sourceTree = "<group>";
 		};
 		A21FF6AA2B0B4EF2005B7F26 /* Frameworks */ = {
@@ -461,6 +477,7 @@
 		A2F63EA32B09CEAE0039DC13 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				A21F4BB82B18A1F900D36500 /* Info.plist */,
 				A2B6F0FF2AF20A5200B48C66 /* Assets.xcassets */,
 				A2F63EA72B0A1F6D0039DC13 /* Localizable.xcstrings */,
 				A2B6F1012AF20A5200B48C66 /* Wavecatcher.entitlements */,
@@ -471,6 +488,7 @@
 		A2F63EA52B09D3B80039DC13 /* Features */ = {
 			isa = PBXGroup;
 			children = (
+				A21F4BB32B184D7400D36500 /* App */,
 				A23EACF72B173EAA00752AAC /* Onboarding */,
 				A2C22DB02B032749005A8F70 /* Settings */,
 				A26356A72B035EE7008DC7E6 /* LocationSettings */,
@@ -484,6 +502,7 @@
 		A2F63EA62B0A124C0039DC13 /* Features */ = {
 			isa = PBXGroup;
 			children = (
+				A2C1982B2B36CAD900A7293F /* AppFeatureTests.swift */,
 				A2C198282B35B01300A7293F /* OnboardingFeatureTests.swift */,
 				A260AEA72B03443C00BEA778 /* SettingsFeatureTests.swift */,
 				A2AE05BC2B062D2300C3DC40 /* LocationSettingsFeatureTests.swift */,
@@ -719,6 +738,7 @@
 				A28CC5442B048098005D829B /* PhotosAssetsLoader.swift in Sources */,
 				A26356A62B034C8A008DC7E6 /* BackgroundVariant.swift in Sources */,
 				A2F63EA22B09C5E50039DC13 /* View+readGlobalFrame.swift in Sources */,
+				A21F4BB72B18526F00D36500 /* AppFeature.swift in Sources */,
 				A214851D2AFC988900DF719F /* LocationsListFeature.swift in Sources */,
 				A2B6F1352AF2332A00B48C66 /* LocationForecastView.swift in Sources */,
 				A20DF9042AFF2B2F00B6C549 /* AddLocationFeature.swift in Sources */,
@@ -731,6 +751,7 @@
 				A23EACFB2B175A1300752AAC /* OnboardingFeature.swift in Sources */,
 				A2B6F12C2AF2142B00B48C66 /* Location.swift in Sources */,
 				A2B6F12F2AF21C3600B48C66 /* WeatherData.swift in Sources */,
+				A21F4BB52B184F7600D36500 /* AppView.swift in Sources */,
 				A2B6F0FC2AF20A5100B48C66 /* WavecatcherApp.swift in Sources */,
 				A2CD150A2AF8A05B001AEDE5 /* SavedLocation.swift in Sources */,
 				A2018FA02AF9FD6900089C29 /* View+roundedCorners.swift in Sources */,
@@ -750,6 +771,7 @@
 				A2A336E72AFC74EF00518A2D /* FormatStyleTests.swift in Sources */,
 				A2C198292B35B01300A7293F /* OnboardingFeatureTests.swift in Sources */,
 				A20BA4DA2AFCC6C40013C317 /* LocationsListFeatureTests.swift in Sources */,
+				A2C1982C2B36CAD900A7293F /* AppFeatureTests.swift in Sources */,
 				A27FDD332AF78666000C60D1 /* CoreDataStorageTests.swift in Sources */,
 				A2AE05BD2B062D2300C3DC40 /* LocationSettingsFeatureTests.swift in Sources */,
 				A260AEA82B03443C00BEA778 /* SettingsFeatureTests.swift in Sources */,
@@ -985,6 +1007,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Wavecatcher/Resources/Info.plist;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -1021,6 +1044,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Wavecatcher/Resources/Info.plist;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;

@@ -18,8 +18,11 @@ final class OnboardingFeatureTests: XCTestCase {
         
         await store.send(.selectPage(.welcome))
         await store.send(.selectPage(.getStarted)) {
+            $0.selectedPage = .getStarted
             $0.addLocationsButtonVisible = true
         }
-        await store.send(.selectPage(.welcome))
+        await store.send(.selectPage(.welcome)) {
+            $0.selectedPage = .welcome
+        }
     }
 }
