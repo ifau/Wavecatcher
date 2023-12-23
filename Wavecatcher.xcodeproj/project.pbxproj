@@ -203,6 +203,7 @@
 		A2B6F1342AF2332A00B48C66 /* LocationForecastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationForecastView.swift; sourceTree = "<group>"; };
 		A2C198282B35B01300A7293F /* OnboardingFeatureTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingFeatureTests.swift; sourceTree = "<group>"; };
 		A2C1982B2B36CAD900A7293F /* AppFeatureTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFeatureTests.swift; sourceTree = "<group>"; };
+		A2C1982E2B36DB5D00A7293F /* UnitTests.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = UnitTests.xctestplan; sourceTree = "<group>"; };
 		A2C22DB12B032781005A8F70 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		A2C22DB32B032799005A8F70 /* SettingsFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsFeature.swift; sourceTree = "<group>"; };
 		A2CD15092AF8A05B001AEDE5 /* SavedLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedLocation.swift; sourceTree = "<group>"; };
@@ -392,6 +393,7 @@
 				A2B6F0FA2AF20A5100B48C66 /* Wavecatcher */,
 				A2B6F10C2AF20A5200B48C66 /* WavecatcherTests */,
 				A2B6F1162AF20A5200B48C66 /* WavecatcherUITests */,
+				A2C1982D2B36DB1400A7293F /* WavecatcherTestPlans */,
 				A21FF6AF2B0B4EF2005B7F26 /* WavecatcherWidgets */,
 				A21FF6AA2B0B4EF2005B7F26 /* Frameworks */,
 				A2B6F0F92AF20A5100B48C66 /* Products */,
@@ -463,6 +465,14 @@
 				A2218FAE2B00BCCC000BA838 /* HourlyForecastView.swift */,
 			);
 			path = LocationForecast;
+			sourceTree = "<group>";
+		};
+		A2C1982D2B36DB1400A7293F /* WavecatcherTestPlans */ = {
+			isa = PBXGroup;
+			children = (
+				A2C1982E2B36DB5D00A7293F /* UnitTests.xctestplan */,
+			);
+			path = WavecatcherTestPlans;
 			sourceTree = "<group>";
 		};
 		A2C22DB02B032749005A8F70 /* Settings */ = {

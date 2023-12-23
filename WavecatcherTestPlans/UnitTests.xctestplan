@@ -1,0 +1,32 @@
+{
+  "configurations" : [
+    {
+      "id" : "593D8D36-9FCE-4D9E-8501-448598CB111C",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:Wavecatcher.xcodeproj",
+        "identifier" : "A2B6F1082AF20A5200B48C66",
+        "name" : "WavecatcherTests"
+      }
+    },
+    {
+      "enabled" : false,
+      "target" : {
+        "containerPath" : "container:Wavecatcher.xcodeproj",
+        "identifier" : "A2B6F1122AF20A5200B48C66",
+        "name" : "WavecatcherUITests"
+      }
+    }
+  ],
+  "version" : 1
+}
