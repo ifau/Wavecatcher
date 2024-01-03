@@ -9,14 +9,15 @@ import ComposableArchitecture
 
 struct AddLocationView: View {
     
+    @Environment(\.horizontalSizeClass) var horizontalSizeClass
     @State var store: StoreOf<AddLocationFeature>
     
     init(store: StoreOf<AddLocationFeature>) {
-        self.store = store
+        _store = .init(initialValue: store)
     }
     
     init(state: AddLocationFeature.State) {
-        self.store = Store(initialState: state, reducer: { AddLocationFeature() })
+        _store = .init(initialValue: Store(initialState: state, reducer: { AddLocationFeature() }))
     }
     
     var body: some View {
@@ -50,7 +51,7 @@ struct AddLocationView: View {
                         Text("addLocation.button.tryAgain")
                             .font(.headline)
                             .foregroundStyle(.primary)
-                            .frame(maxWidth: .infinity)
+                            .frame(maxWidth: horizontalSizeClass == .compact ? .infinity : 320)
                             .padding()
                             .background(.thickMaterial, in: RoundedRectangle(cornerRadius: 12))
                     })

@@ -8,14 +8,16 @@ import ComposableArchitecture
 
 struct OnboardingView: View {
     
+    @Environment(\.horizontalSizeClass) var horizontalSizeClass
+    @Environment(\.verticalSizeClass) var verticalSizeClass
     @State var store: StoreOf<OnboardingFeature>
     
     init(store: StoreOf<OnboardingFeature>) {
-        self.store = store
+        _store = .init(initialValue: store)
     }
     
     init(state: OnboardingFeature.State) {
-        self.store = Store(initialState: state, reducer: { OnboardingFeature() })
+        _store = .init(initialValue: Store(initialState: state, reducer: { OnboardingFeature() }))
     }
     
     var body: some View {
@@ -24,6 +26,7 @@ struct OnboardingView: View {
                 TabView(selection: viewStore.binding(get: \.selectedPage, send: OnboardingFeature.Action.selectPage).animation(.smooth)) {
                     ForEach(Array(viewStore.state.visiblePages.enumerated()), id:\.offset) { _, page in
                         onboardingPageView(for: page)
+                            .frame(maxWidth: horizontalSizeClass == .compact ? .infinity : 500)
                     }
                 }
                 .tabViewStyle(PageTabViewStyle(indexDisplayMode: .automatic))
@@ -35,16 +38,14 @@ struct OnboardingView: View {
                                 .font(.headline)
                                 .bold()
                                 .foregroundStyle(.black)
-                                .frame(maxWidth: .infinity)
+                                .frame(maxWidth: horizontalSizeClass == .compact ? .infinity : 320)
                                 .padding()
                                 .background(.thinMaterial, in: RoundedRectangle(cornerRadius: 12))
                         })
                         .disabled(!viewStore.addLocationsButtonVisible)
                         .opacity(viewStore.addLocationsButtonVisible ? 1 : 0)
                         .padding()
-                        
-                        Spacer()
-                            .frame(height: 36)
+                        .padding(.bottom, verticalSizeClass == .compact ? 24 : 36)
                     }
                 }
             }

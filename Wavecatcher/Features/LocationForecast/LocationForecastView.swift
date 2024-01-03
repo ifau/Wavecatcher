@@ -11,6 +11,7 @@ struct LocationForecastView: View {
     let store: StoreOf<LocationForecastFeature>
     @State private var scrollViewOffset: CGPoint = .zero
     @Environment(\.safeAreaInsets) var safeAreaInsets
+    @Environment(\.horizontalSizeClass) var horizontalSizeClass
     
     init(store: StoreOf<LocationForecastFeature>) {
         self.store = store
@@ -168,6 +169,7 @@ struct LocationForecastView: View {
                 .font(.callout)
                 .foregroundStyle(.secondary)
             Divider()
+                .frame(maxWidth: horizontalSizeClass == .compact ? .infinity : 320)
             if case .failed(let error) = state.displayState {
                 Text(error.localizedDescription)
                     .font(.subheadline)
@@ -178,7 +180,7 @@ struct LocationForecastView: View {
                 Text("locationForecast.button.tryAgain")
                     .font(.headline)
                     .foregroundStyle(.primary)
-                    .frame(maxWidth: .infinity)
+                    .frame(maxWidth: horizontalSizeClass == .compact ? .infinity : 320)
                     .padding()
                     .background(.thickMaterial, in: RoundedRectangle(cornerRadius: 12))
             })
