@@ -34,7 +34,7 @@ struct HourlyForecastView: View {
                     .padding(.trailing)
                 ForEach(visibleWeather, id: \.date) { weatherData in
                     VStack(alignment: .trailing) {
-                        timeRow(date: weatherData.date)
+                        timeRow(weatherData)
                             .foregroundStyle(.secondary)
                             .frame(height: rowFrameHeight)
                         
@@ -113,11 +113,30 @@ struct HourlyForecastView: View {
             .font(.headline)
     }
     
-    private func timeRow(date: Date) -> some View {
-        (Calendar.current.isDate(date, equalTo: .now, toGranularity: .hour)
-         ? Text("locationForecast.text.Now") : Text(date.formatted(.dateTime.hour(.twoDigits(amPM: .abbreviated)))))
+    private func timeRow(_ data: WeatherData) -> some View {
+        guard !Calendar.current.isDate(data.date, equalTo: .now, toGranularity: .hour) else { return
+            Text("locationForecast.text.Now")
+                .font(.caption)
+                .bold()
+        }
+        
+        let formatter = DateFormatter()
+        formatter.setLocalizedDateFormatFromTemplate("E, dd MMM")
+        
+        let text = needDisplayNewDayIndicator(for: data)
+        ? formatter.string(from: data.date)
+        : data.date.formatted(.dateTime.hour(.twoDigits(amPM: .abbreviated)))
+        
+        return Text(text)
             .font(.caption)
             .bold()
+    }
+    
+    private func needDisplayNewDayIndicator(for data: WeatherData) -> Bool {
+        let visibleWeather = self.visibleWeather
+        guard let index = visibleWeather.firstIndex(of: data), index > 0 else { return false }
+        let previousData = visibleWeather[index - 1]
+        return !Calendar.current.isDate(previousData.date, inSameDayAs: data.date)
     }
 }
 
