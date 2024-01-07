@@ -53,6 +53,7 @@ extension WeatherDataProvider: DependencyKey {
                     let swellPeriod = marineResponse.hourly.swellWavePeriod[safe: index]
                     let swellHeight = marineResponse.hourly.swellWaveHeight[safe: index]
                     let tideHeight = tidesForecast[Int(date.timeIntervalSince1970)] ?? 0.0
+                    let waveHeight = marineResponse.hourly.waveHeight[safe: index]
                     
                     newWeather.append(WeatherData(date: date,
                                                   airTemperature: airTemperature,
@@ -62,7 +63,8 @@ extension WeatherDataProvider: DependencyKey {
                                                   swellDirection: swellDirection,
                                                   swellPeriod: swellPeriod,
                                                   swellHeight: swellHeight,
-                                                  tideHeight: tideHeight))
+                                                  tideHeight: tideHeight,
+                                                  waveHeight: waveHeight))
                 }
                 
                 let weatherDatesSet: Set<Int> = Set(newWeather.map({ Int($0.date.timeIntervalSince1970) }))
@@ -79,7 +81,8 @@ extension WeatherDataProvider: DependencyKey {
                                                   swellDirection: nearestWeather.swellDirection,
                                                   swellPeriod: nearestWeather.swellPeriod,
                                                   swellHeight: nearestWeather.swellHeight,
-                                                  tideHeight: tidesForecast[timestamp] ?? 0.0))
+                                                  tideHeight: tidesForecast[timestamp] ?? 0.0,
+                                                  waveHeight: nearestWeather.waveHeight))
                 }
                 
                 guard !newWeather.isEmpty else {
