@@ -149,13 +149,10 @@ struct TodayForecastEntryView: View {
                 .foregroundStyle(.secondary)
                 .font(.caption2).fontDesign(.rounded).fontWeight(.semibold)
             
-            HStack(spacing: 2.0) {
-                Image(systemName: "location.north.fill")
-                    .font(.system(size: 7, weight: .regular, design: .rounded))
-                    .rotationEffect(.degrees(weather.windDirection ?? 0.0))
-                Text((weather.windSpeed ?? 0).formatted(.number.precision(.fractionLength(0))))
-                    .font(.caption2).fontDesign(.rounded).fontWeight(.semibold)
-            }
+            Circle()
+                .fill(surfRatingColor(for: weather.surfRating))
+                .frame(height: 8)
+            
             VStack(alignment: .trailing, spacing: 0.0) {
                 HStack(spacing: 2.0) {
                     Image(systemName: "location.north.fill")
@@ -175,6 +172,16 @@ struct TodayForecastEntryView: View {
     
     private func timeString(_ date: Date) -> String {
         return date.formatted(.dateTime.hour(.defaultDigits(amPM: .abbreviated))).lowercased().components(separatedBy: .whitespacesAndNewlines).joined()
+    }
+    
+    private func surfRatingColor(for rating: WeatherData.SurfRating) -> Color {
+        switch rating {
+        case .unknown: return .gray
+        case .veryPoor: return .red
+        case .poor: return .orange
+        case .poorToFair: return .yellow
+        case .fair, .fairToGood, .good: return .green
+        }
     }
 }
 

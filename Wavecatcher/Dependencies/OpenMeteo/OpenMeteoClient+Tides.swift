@@ -147,4 +147,67 @@ extension OpenMeteoClient {
             let lon, lat: Double
         }
     }
+    
+    func getSurfRating(latitude: Double, longitude: Double, name: String) async throws -> [Int:WeatherData.SurfRating] {
+        
+        let spotIdCacheURL = URL.cachesDirectory.appendingPathComponent("spotId_\(name.components(separatedBy: .whitespaces).joined())")
+        
+        var spotId: String?
+        if FileManager.default.fileExists(atPath: spotIdCacheURL.path()) {
+            spotId = try? String(contentsOf: spotIdCacheURL)
+        }
+        if case .none = spotId {
+            spotId = try? await retrieveSpotId(latitude: latitude, longitude: longitude, name: name)
+        }
+        
+        guard let spotId else {
+            struct GetSpotIdFailed: Error {}
+            throw GetSpotIdFailed()
+        }
+        
+        try? spotId.write(to: spotIdCacheURL, atomically: true, encoding: .utf8)
+        
+        var urlComponents = URLComponents()
+        urlComponents.scheme = "https"
+        urlComponents.host = "services.surfline.com"
+        urlComponents.path = "/kbyg/spots/forecasts/rating"
+        urlComponents.queryItems = [
+            URLQueryItem(name: "days", value: "3"),
+            URLQueryItem(name: "intervalHours", value: "1"),
+            URLQueryItem(name: "spotId", value: spotId)
+        ]
+        
+        guard let url = urlComponents.url else {
+            throw URLError(.badURL)
+        }
+        
+        var request = URLRequest(url: url)
+        request.setValue("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.6 Safari/605.1.15", forHTTPHeaderField: "User-agent")
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("application/json", forHTTPHeaderField: "Accept")
+        
+        let (data, _) = try await urlSession.data(for: request)
+        let ratingResponse = try JSONDecoder().decode(RatingResponse.self, from: data)
+        
+        var result: [Int:WeatherData.SurfRating] = [:]
+        ratingResponse.data.rating.forEach { result[$0.timestamp] = WeatherData.SurfRating.init(rawValue: Int($0.rating.value)) }
+        return result
+    }
+    
+    struct RatingResponse: Codable {
+        let data: DataClass
+        
+        struct DataClass: Codable {
+            let rating: [RatingElement]
+        }
+        struct RatingElement: Codable {
+            let timestamp: Int
+            let utcOffset: Int
+            let rating: Rating
+        }
+        struct Rating: Codable {
+            let key: String
+            let value: Double
+        }
+    }
 }

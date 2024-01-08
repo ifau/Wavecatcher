@@ -187,7 +187,8 @@ extension CoreDataStorage {
                     WeatherDataMO.Attributes.swellPeriod:.double,
                     WeatherDataMO.Attributes.swellHeight:.double,
                     WeatherDataMO.Attributes.tideHeight:.double,
-                    WeatherDataMO.Attributes.waveHeight:.double
+                    WeatherDataMO.Attributes.waveHeight:.double,
+                    WeatherDataMO.Attributes.surfRating:.integer32
                 ])
                 
                 let savedLocationEntity = NSEntityDescription.description(className: SavedLocationMO.entityName, attributes: [
@@ -241,6 +242,8 @@ extension CoreDataStorage {
         @NSManaged var tideHeight: NSNumber?
         @NSManaged var waveHeight: NSNumber?
         
+        @NSManaged var surfRating: NSNumber?
+        
         static var entityName: String { "WeatherDataMO" }
         enum Attributes {
             static let date = "date"
@@ -253,6 +256,7 @@ extension CoreDataStorage {
             static let swellHeight = "swellHeight"
             static let tideHeight = "tideHeight"
             static let waveHeight = "waveHeight"
+            static let surfRating = "surfRating"
         }
     }
     
@@ -336,7 +340,12 @@ extension CoreDataStorage.WeatherDataMO {
     var plainStruct: WeatherData? {
         guard let date else { return nil }
         
-        return WeatherData(date: date, airTemperature: airTemperature?.doubleValue, windDirection: windDirection?.doubleValue, windSpeed: windSpeed?.doubleValue, windGust: windGust?.doubleValue, swellDirection: swellDirection?.doubleValue, swellPeriod: swellPeriod?.doubleValue, swellHeight: swellHeight?.doubleValue, tideHeight: tideHeight?.doubleValue, waveHeight: waveHeight?.doubleValue)
+        var surfRating = WeatherData.SurfRating.unknown
+        if let intValue = self.surfRating?.intValue, let rating = WeatherData.SurfRating.init(rawValue: intValue) {
+            surfRating = rating
+        }
+        
+        return WeatherData(date: date, airTemperature: airTemperature?.doubleValue, windDirection: windDirection?.doubleValue, windSpeed: windSpeed?.doubleValue, windGust: windGust?.doubleValue, swellDirection: swellDirection?.doubleValue, swellPeriod: swellPeriod?.doubleValue, swellHeight: swellHeight?.doubleValue, tideHeight: tideHeight?.doubleValue, waveHeight: waveHeight?.doubleValue, surfRating: surfRating)
     }
     
     func fill(from weatherData: WeatherData) {
@@ -395,6 +404,8 @@ extension CoreDataStorage.WeatherDataMO {
         } else {
             waveHeight = nil
         }
+        
+        surfRating = NSNumber(value: weatherData.surfRating.rawValue)
     }
 }
 

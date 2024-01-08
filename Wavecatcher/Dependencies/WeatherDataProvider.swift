@@ -35,6 +35,7 @@ extension WeatherDataProvider: DependencyKey {
                 let marineResponse = try await openMeteoClient.getMarineForecast(latitude: location.latitude, longitude: location.longitude)
                 let forecastResponse = try await openMeteoClient.getWeatherForecast(latitude: location.latitude, longitude: location.longitude)
                 let tidesForecast = (try? await openMeteoClient.getTidesForecast(latitude: location.latitude, longitude: location.longitude, name: location.title)) ?? [:]
+                let surfRatings = (try? await openMeteoClient.getSurfRating(latitude: location.latitude, longitude: location.longitude, name: location.title)) ?? [:]
                 
                 var newWeather: [WeatherData] = []
                 let dateFormatter = DateFormatter()
@@ -54,6 +55,7 @@ extension WeatherDataProvider: DependencyKey {
                     let swellHeight = marineResponse.hourly.swellWaveHeight[safe: index]
                     let tideHeight = tidesForecast[Int(date.timeIntervalSince1970)] ?? 0.0
                     let waveHeight = marineResponse.hourly.waveHeight[safe: index]
+                    let surfRating = surfRatings[Int(date.timeIntervalSince1970)] ?? .unknown
                     
                     newWeather.append(WeatherData(date: date,
                                                   airTemperature: airTemperature,
@@ -64,7 +66,8 @@ extension WeatherDataProvider: DependencyKey {
                                                   swellPeriod: swellPeriod,
                                                   swellHeight: swellHeight,
                                                   tideHeight: tideHeight,
-                                                  waveHeight: waveHeight))
+                                                  waveHeight: waveHeight,
+                                                  surfRating: surfRating))
                 }
                 
                 let weatherDatesSet: Set<Int> = Set(newWeather.map({ Int($0.date.timeIntervalSince1970) }))
@@ -82,7 +85,8 @@ extension WeatherDataProvider: DependencyKey {
                                                   swellPeriod: nearestWeather.swellPeriod,
                                                   swellHeight: nearestWeather.swellHeight,
                                                   tideHeight: tidesForecast[timestamp] ?? 0.0,
-                                                  waveHeight: nearestWeather.waveHeight))
+                                                  waveHeight: nearestWeather.waveHeight,
+                                                  surfRating: nearestWeather.surfRating))
                 }
                 
                 guard !newWeather.isEmpty else {

@@ -38,6 +38,12 @@ struct HourlyForecastView: View {
                             .foregroundStyle(.secondary)
                             .frame(height: rowFrameHeight)
                         
+                        Circle()
+                            .fill(surfRatingColor(for: weatherData.surfRating))
+                            .frame(width: 8)
+                            .shadow(radius: 8)
+                            .padding(.trailing, 8)
+                        
                         windRow(weatherData)
                             .foregroundStyle(.primary)
                             .frame(height: rowFrameHeight)
@@ -60,6 +66,8 @@ struct HourlyForecastView: View {
         VStack(alignment: .trailing) {
             Spacer()
                 .frame(height: rowFrameHeight)
+            Spacer()
+                .frame(height: 8 + 8)
             Text("locationForecast.text.wind(km/h)")
                 .font(.caption)
                 .frame(height: rowFrameHeight, alignment: .bottom)
@@ -137,6 +145,16 @@ struct HourlyForecastView: View {
         guard let index = visibleWeather.firstIndex(of: data), index > 0 else { return false }
         let previousData = visibleWeather[index - 1]
         return !Calendar.current.isDate(previousData.date, inSameDayAs: data.date)
+    }
+    
+    private func surfRatingColor(for rating: WeatherData.SurfRating) -> Color {
+        switch rating {
+        case .unknown: return .gray
+        case .veryPoor: return .red
+        case .poor: return .orange
+        case .poorToFair: return .yellow
+        case .fair, .fairToGood, .good: return .green
+        }
     }
 }
 
