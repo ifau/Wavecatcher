@@ -34,8 +34,10 @@ extension WeatherDataProvider: DependencyKey {
                 let openMeteoClient = OpenMeteoClient()
                 let marineResponse = try await openMeteoClient.getMarineForecast(latitude: location.latitude, longitude: location.longitude)
                 let forecastResponse = try await openMeteoClient.getWeatherForecast(latitude: location.latitude, longitude: location.longitude)
-                let tidesForecast = (try? await openMeteoClient.getTidesForecast(latitude: location.latitude, longitude: location.longitude, name: location.title)) ?? [:]
-                let surfRatings = (try? await openMeteoClient.getSurfRating(latitude: location.latitude, longitude: location.longitude, name: location.title)) ?? [:]
+                
+                let surflineClient = SurflineClient()
+                let tidesForecast = (try? await surflineClient.getTidesForecast(latitude: location.latitude, longitude: location.longitude, name: location.title)) ?? [:]
+                let surfRatings = (try? await surflineClient.getSurfRating(latitude: location.latitude, longitude: location.longitude, name: location.title)) ?? [:]
                 
                 var newWeather: [WeatherData] = []
                 let dateFormatter = DateFormatter()
