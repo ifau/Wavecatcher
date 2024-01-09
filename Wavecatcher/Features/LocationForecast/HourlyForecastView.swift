@@ -44,6 +44,10 @@ struct HourlyForecastView: View {
                             .shadow(radius: 8)
                             .padding(.trailing, 8)
                         
+                        waveHeightRow(weatherData)
+                            .foregroundStyle(.primary)
+                            .frame(height: rowFrameHeight * 2)
+                        
                         windRow(weatherData)
                             .foregroundStyle(.primary)
                             .frame(height: rowFrameHeight)
@@ -68,6 +72,11 @@ struct HourlyForecastView: View {
                 .frame(height: rowFrameHeight)
             Spacer()
                 .frame(height: 8 + 8)
+            
+            Text("locationForecast.text.waveHeight(m)")
+                .font(.caption)
+                .frame(height: rowFrameHeight * 2, alignment: .center)
+            
             Text("locationForecast.text.wind(km/h)")
                 .font(.caption)
                 .frame(height: rowFrameHeight, alignment: .bottom)
@@ -95,6 +104,18 @@ struct HourlyForecastView: View {
             
             Text((data.windSpeed ?? 0).formatted(.number.precision(.fractionLength(0...1))))
                 .font(.headline)
+        }
+    }
+    
+    private func waveHeightRow(_ data: WeatherData) -> some View {
+        VStack(spacing: 0.0) {
+            Text((data.waveHeightMin ?? 0).formatted(.number.precision(.fractionLength(0...1))))
+                .font(.headline)
+                .frame(maxWidth: .infinity, alignment: .trailing)
+            
+            Text((data.waveHeightMax ?? 0).formatted(.number.precision(.fractionLength(0...1))))
+                .font(.headline)
+                .frame(maxWidth: .infinity, alignment: .trailing)
         }
     }
     

@@ -16,7 +16,7 @@ final class CoreDataStorageTests: XCTestCase {
         
         let location1 = Location(id: "1", latitude: 2.2, longitude: -2.2, offshorePerpendicular: 80, title: "Title")
         
-        let weather1 = [WeatherData(date: Date(timeIntervalSince1970: 850), airTemperature: 10, windDirection: 10, windSpeed: 10, windGust: 10, swellDirection: 10, swellPeriod: 10, swellHeight: 10, tideHeight: 10, waveHeight: 10)]
+        let weather1 = [WeatherData(date: Date(timeIntervalSince1970: 850), airTemperature: 10, windDirection: 10, windSpeed: 10, windGust: 10, swellDirection: 10, swellPeriod: 10, swellHeight: 10, tideHeight: 10, waveHeightMin: 10, waveHeightMax: 10)]
         
         let savedLocation1 = SavedLocation(location: location1, dateCreated: Date(timeIntervalSince1970: 100), dateUpdated: Date(timeIntervalSince1970: 100*500), weather: weather1, customOrderIndex: 0, customBackground: .aurora(.variant1))
         

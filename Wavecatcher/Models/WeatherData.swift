@@ -20,7 +20,8 @@ struct WeatherData: Equatable, Codable {
     let swellHeight: Double?
     
     let tideHeight: Double?
-    let waveHeight: Double?
+    let waveHeightMin: Double?
+    let waveHeightMax: Double?
     
     let surfRating: SurfRating
     
@@ -33,7 +34,8 @@ struct WeatherData: Equatable, Codable {
          swellPeriod: Double? = nil,
          swellHeight: Double? = nil,
          tideHeight: Double? = nil,
-         waveHeight: Double? = nil,
+         waveHeightMin: Double? = nil,
+         waveHeightMax: Double? = nil,
          surfRating: SurfRating = .unknown) {
         self.date = date
         self.airTemperature = airTemperature
@@ -44,7 +46,8 @@ struct WeatherData: Equatable, Codable {
         self.swellPeriod = swellPeriod
         self.swellHeight = swellHeight
         self.tideHeight = tideHeight
-        self.waveHeight = waveHeight
+        self.waveHeightMin = waveHeightMin
+        self.waveHeightMax = waveHeightMax
         self.surfRating = surfRating
     }
 }
@@ -76,7 +79,8 @@ extension WeatherData {
                         swellPeriod: Double.random(in: 8...15),
                         swellHeight: Double.random(in: 1...2.5),
                         tideHeight: Double.random(in: 0.5...3.0),
-                        waveHeight: Double.random(in: 1...2.5),
+                        waveHeightMin: Double.random(in: 0.1...0.9),
+                        waveHeightMax: Double.random(in: 1...2.5),
                         surfRating: .init(rawValue: Int.random(in: 0...6)) ?? .good)
         }
     }()

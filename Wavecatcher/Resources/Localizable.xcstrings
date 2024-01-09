@@ -266,6 +266,16 @@
         }
       }
     },
+    "locationForecast.text.waveHeight(m)" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wave height (m)"
+          }
+        }
+      }
+    },
     "locationForecast.text.wind" : {
       "extractionState" : "manual",
       "localizations" : {

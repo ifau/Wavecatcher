@@ -55,7 +55,7 @@ struct LocationForecastView: View {
                 .shadow(radius: 8)
                 .offset(y: locationTitleOffset)
             
-            Text((state.location.weather.nowData()?.waveHeight ?? 0.0).formatted(.number.precision(.fractionLength(0...1))) + "m")
+            Text((state.location.weather.nowData()?.waveHeightMax ?? 0.0).formatted(.number.precision(.fractionLength(0...1))) + "m")
                 .font(.system(size: 64))
                 .foregroundStyle(.white)
                 .shadow(radius: 8)

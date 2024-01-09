@@ -86,19 +86,23 @@ struct TodayForecastEntryView: View {
     }
     
     private func weatherTable(dateUpdated: Date, weatherData: [WeatherData]) -> some View {
-        let todayData = weatherData
-            .filter { Calendar.current.isDate($0.date, inSameDayAs: entry.date) }
-            .sorted { $0.date < $1.date }
-        
-        let dataToDisplay = todayData.filter { weather in
-            let components = Calendar.current.dateComponents([.hour, .minute, .second], from: weather.date)
-            guard let hour = components.hour, let minute = components.minute, let second = components.second else { return false }
-            guard minute == 0, second == 0 else { return false }
-            switch hour {
-            case 2, 5, 8, 11, 14, 17, 20, 23: return true
-            default: return false
+        let sliceToDisplay = weatherData
+            .filter { weather in
+                if Calendar.current.isDate(weather.date, equalTo: entry.date, toGranularity: .hour) { return true }
+                guard weather.date >= entry.date else { return false }
+                let components = Calendar.current.dateComponents([.hour, .minute, .second], from: weather.date)
+                guard let minute = components.minute, let second = components.second else { return false }
+                return minute == 0 && second == 0
             }
-        }
+            .sorted { $0.date < $1.date }
+            .enumerated()
+            .filter { index, element in
+                index % 3 == 0
+            }
+            .map { $1 }
+            .prefix(8)
+        
+        let dataToDisplay = Array(sliceToDisplay)
         let isEnoughtDataToDisplay = dataToDisplay.count >= 6
         
         return Group {
@@ -120,7 +124,7 @@ struct TodayForecastEntryView: View {
                 }.background {
                     VStack {
                         Spacer()
-                        TideChartView(weatherData: todayData)
+                        TideChartView(weatherData: dataToDisplay)
                             .frame(height: 20.0)
                     }
                 }
@@ -153,16 +157,19 @@ struct TodayForecastEntryView: View {
                 .fill(surfRatingColor(for: weather.surfRating))
                 .frame(height: 8)
             
-            VStack(alignment: .trailing, spacing: 0.0) {
-                HStack(spacing: 2.0) {
-                    Image(systemName: "location.north.fill")
-                        .font(.system(size: 7, weight: .regular, design: .rounded))
-                        .rotationEffect(.degrees(weather.swellDirection ?? 0.0))
-                    Text((weather.swellHeight ?? 0.0).formatted(.number.precision(.fractionLength(0...1))))
+            VStack(alignment: .leading, spacing: 0.0) {
+                HStack(spacing: 1) {
+                    Text((weather.waveHeightMin ?? 0.0).formatted(.number.precision(.fractionLength(0...1))))
                         .font(.caption2).fontDesign(.rounded).fontWeight(.semibold)
+                    Text(verbatim: "~")
+                        .font(.caption2).fontDesign(.rounded).fontWeight(.regular)
                 }
-                Text((weather.swellPeriod ?? 0.0).formatted(.number.precision(.fractionLength(0))))
-                    .font(.caption2).fontDesign(.rounded).fontWeight(.semibold)
+                HStack(spacing: 1) {
+                    Text((weather.waveHeightMax ?? 0.0).formatted(.number.precision(.fractionLength(0...1))))
+                        .font(.caption2).fontDesign(.rounded).fontWeight(.semibold)
+                    Text("m")
+                        .font(.caption2).fontDesign(.rounded).fontWeight(.regular)
+                }
             }
             Rectangle()
                 .frame(width: 2, height: 14)

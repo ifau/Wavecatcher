@@ -187,7 +187,8 @@ extension CoreDataStorage {
                     WeatherDataMO.Attributes.swellPeriod:.double,
                     WeatherDataMO.Attributes.swellHeight:.double,
                     WeatherDataMO.Attributes.tideHeight:.double,
-                    WeatherDataMO.Attributes.waveHeight:.double,
+                    WeatherDataMO.Attributes.waveHeightMin:.double,
+                    WeatherDataMO.Attributes.waveHeightMax:.double,
                     WeatherDataMO.Attributes.surfRating:.integer32
                 ])
                 
@@ -240,7 +241,8 @@ extension CoreDataStorage {
         @NSManaged var swellHeight: NSNumber?
         
         @NSManaged var tideHeight: NSNumber?
-        @NSManaged var waveHeight: NSNumber?
+        @NSManaged var waveHeightMin: NSNumber?
+        @NSManaged var waveHeightMax: NSNumber?
         
         @NSManaged var surfRating: NSNumber?
         
@@ -255,7 +257,8 @@ extension CoreDataStorage {
             static let swellPeriod = "swellPeriod"
             static let swellHeight = "swellHeight"
             static let tideHeight = "tideHeight"
-            static let waveHeight = "waveHeight"
+            static let waveHeightMin = "waveHeightMin"
+            static let waveHeightMax = "waveHeightMax"
             static let surfRating = "surfRating"
         }
     }
@@ -345,7 +348,7 @@ extension CoreDataStorage.WeatherDataMO {
             surfRating = rating
         }
         
-        return WeatherData(date: date, airTemperature: airTemperature?.doubleValue, windDirection: windDirection?.doubleValue, windSpeed: windSpeed?.doubleValue, windGust: windGust?.doubleValue, swellDirection: swellDirection?.doubleValue, swellPeriod: swellPeriod?.doubleValue, swellHeight: swellHeight?.doubleValue, tideHeight: tideHeight?.doubleValue, waveHeight: waveHeight?.doubleValue, surfRating: surfRating)
+        return WeatherData(date: date, airTemperature: airTemperature?.doubleValue, windDirection: windDirection?.doubleValue, windSpeed: windSpeed?.doubleValue, windGust: windGust?.doubleValue, swellDirection: swellDirection?.doubleValue, swellPeriod: swellPeriod?.doubleValue, swellHeight: swellHeight?.doubleValue, tideHeight: tideHeight?.doubleValue, waveHeightMin: waveHeightMin?.doubleValue, waveHeightMax: waveHeightMax?.doubleValue, surfRating: surfRating)
     }
     
     func fill(from weatherData: WeatherData) {
@@ -399,10 +402,16 @@ extension CoreDataStorage.WeatherDataMO {
             tideHeight = nil
         }
         
-        if let value = weatherData.waveHeight {
-            waveHeight = NSNumber(value: value)
+        if let value = weatherData.waveHeightMin {
+            waveHeightMin = NSNumber(value: value)
         } else {
-            waveHeight = nil
+            waveHeightMin = nil
+        }
+        
+        if let value = weatherData.waveHeightMax {
+            waveHeightMax = NSNumber(value: value)
+        } else {
+            waveHeightMax = nil
         }
         
         surfRating = NSNumber(value: weatherData.surfRating.rawValue)
