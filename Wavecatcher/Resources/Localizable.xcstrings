@@ -367,6 +367,16 @@
         }
       }
     },
+    "m" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "m"
+          }
+        }
+      }
+    },
     "onboarding.button.addLocation" : {
       "localizations" : {
         "en" : {
@@ -413,6 +423,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "You can add unlimited number of locations but to get started you have to add at least one"
+          }
+        }
+      }
+    },
+    "s" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "s"
           }
         }
       }

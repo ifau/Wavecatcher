@@ -55,43 +55,52 @@ struct LocationForecastView: View {
                 .shadow(radius: 8)
                 .offset(y: locationTitleOffset)
             
-            Text((state.location.weather.nowData()?.waveHeightMax ?? 0.0).formatted(.number.precision(.fractionLength(0...1))) + "m")
-                .font(.system(size: 64))
-                .foregroundStyle(.white)
-                .shadow(radius: 8)
-                .opacity(waveHeightOpacity)
+            HStack(alignment: .lastTextBaseline, spacing: 2) {
+                Text((state.location.weather.nowData()?.waveHeightMax ?? 0.0).formatted(.number.precision(.fractionLength(0...1))))
+                    .font(.system(size: 64))
+                Text("m")
+                    .font(.system(size: 42))
+            }
+            .foregroundStyle(.white)
+            .shadow(radius: 8)
+            .opacity(waveHeightOpacity)
             
             HStack {
                 if let nowData = state.location.weather.nowData(),
                    let swellHeight = nowData.swellHeight,
                    let swellPeriod = nowData.swellPeriod,
                    let swellDirection = nowData.swellDirection {
-                    HStack(spacing: 4.0) {
-                        Text(swellHeight.formatted(.number.precision(.fractionLength(0...1))) + "m")
-                            .foregroundStyle(.primary)
-                            .shadow(radius: 8)
-                        Text(swellPeriod.formatted(.number.precision(.fractionLength(0))) + "s")
-                            .foregroundStyle(.primary)
-                            .shadow(radius: 8)
+                    HStack(alignment: .lastTextBaseline, spacing: 0) {
+                        Text(swellHeight.formatted(.number.precision(.fractionLength(0...1))))
+                            .font(.system(size: 22))
+                        Text("m")
+                            .font(.system(size: 20))
                     }
+                    .foregroundStyle(.primary)
+                    
+                    HStack(alignment: .lastTextBaseline, spacing: 0) {
+                        Text(swellPeriod.formatted(.number.precision(.fractionLength(0))))
+                            .font(.system(size: 22))
+                        Text("s")
+                            .font(.system(size: 20))
+                    }
+                    .foregroundStyle(.primary)
                     
                     Image(systemName: "location.north.fill")
                         .rotationEffect(.degrees(swellDirection))
                         .foregroundStyle(.primary)
-                        .shadow(radius: 8)
                 
                     HStack(spacing: 4.0) {
                         Text(swellDirection.formatted(.cardinalDirection))
                             .foregroundStyle(.primary)
-                            .shadow(radius: 8)
                         Text(swellDirection.formatted(.number.precision(.fractionLength(0))) + "°")
                             .foregroundStyle(.secondary)
-                            .shadow(radius: 8)
                     }
                 }
             }
             .font(.system(size: 22))
             .foregroundStyle(.white)
+            .shadow(radius: 8)
             .opacity(swellDescriptionOpacity)
         }
         .bold()
