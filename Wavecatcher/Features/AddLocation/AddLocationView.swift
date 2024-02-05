@@ -115,13 +115,14 @@ struct AddLocationView: View {
             Text(location.title)
             Spacer()
             if location.id == state.selectedLocationID {
-                Image(systemName: "checkmark")
+                Image(systemName: "checkmark").accessibilityHidden(true)
             }
         }
         .listRowBackground((location.id == state.selectedLocationID) ? Color(UIColor.systemGray4) : nil)
         .foregroundStyle((state.savedLocations[id: location.id] == nil) ? .primary : .secondary)
         .contentShape(Rectangle())
         .onTapGesture(perform: { store.send(.locationTap(location.id)) })
+        .accessibilityAddTraits(location.id == state.selectedLocationID ? [.isSelected] : [])
     }
 }
 
