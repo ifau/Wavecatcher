@@ -32,6 +32,7 @@ struct HourlyForecastView: View {
             HStack {
                 columnsDescriptions
                     .padding(.trailing)
+                    .accessibilityHidden(true)
                 ForEach(visibleWeather, id: \.date) { weatherData in
                     VStack(alignment: .trailing) {
                         timeRow(weatherData)
@@ -60,6 +61,7 @@ struct HourlyForecastView: View {
                             .foregroundStyle(.primary)
                             .frame(height: rowFrameHeight)
                     }
+                    .accessibilityElement(children: .combine)
                 }
             }
             .drawingGroup()
@@ -73,22 +75,22 @@ struct HourlyForecastView: View {
             Spacer()
                 .frame(height: 8 + 8)
             
-            Text("locationForecast.text.waveHeight(m)")
+            (Text("locationForecast.text.waveHeight") + Text(verbatim: " (") + Text(waveHeightUnit) + Text(verbatim: ")"))
                 .font(.caption)
                 .frame(height: rowFrameHeight * 2, alignment: .center)
             
-            Text("locationForecast.text.wind(km/h)")
+            (Text("locationForecast.text.wind") + Text(verbatim: " (") + Text(windUnit) + Text(verbatim: ")"))
                 .font(.caption)
                 .frame(height: rowFrameHeight, alignment: .bottom)
             VStack(alignment: .trailing, spacing: 0.0) {
-                Text("locationForecast.text.swellHeight(m)")
+                (Text("locationForecast.text.swellHeight") + Text(verbatim: " (") + Text(swellHeightUnit) + Text(verbatim: ")"))
                     .font(.caption)
                     .frame(height: rowFrameHeight, alignment: .bottom)
-                Text("locationForecast.text.swellPeriod(s)")
+                (Text("locationForecast.text.swellPeriod") + Text(verbatim: " (") + Text(swellPeriodUnit) + Text(verbatim: ")"))
                     .font(.caption)
                     .frame(height: rowFrameHeight, alignment: .bottom)
             }
-            Text("locationForecast.text.airTemperature(°C)")
+            (Text("locationForecast.text.airTemperature") + Text(verbatim: " (") + Text(airTemperatureUnit) + Text(verbatim: ")"))
                 .font(.caption)
                 .frame(height: rowFrameHeight, alignment: .bottom)
         }
@@ -102,9 +104,11 @@ struct HourlyForecastView: View {
                 .rotationEffect(.degrees(data.windDirection ?? 0))
                 .font(.caption2)
             
-            Text((data.windSpeed ?? 0).formatted(.number.precision(.fractionLength(0...1))))
+            Text((data.windSpeed ?? 0).formatted(.number.precision(.fractionLength(0))))
                 .font(.headline)
         }
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel(Text("locationForecast.text.wind") + Text(verbatim: " \((data.windSpeed ?? 0).formatted(.number.precision(.fractionLength(0))))") + Text(windUnit))
     }
     
     private func waveHeightRow(_ data: WeatherData) -> some View {
@@ -117,6 +121,8 @@ struct HourlyForecastView: View {
                 .font(.headline)
                 .frame(maxWidth: .infinity, alignment: .trailing)
         }
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel(Text("locationForecast.text.waveHeight") + Text(verbatim: " ") + Text("from \((data.waveHeightMin ?? 0).formatted(.number.precision(.fractionLength(0...1)))) to \((data.waveHeightMax ?? 0).formatted(.number.precision(.fractionLength(0...1))))") + Text(waveHeightUnit))
     }
     
     private func swellRow(_ data: WeatherData) -> some View {
@@ -135,11 +141,15 @@ struct HourlyForecastView: View {
                 .font(.headline)
                 .frame(maxWidth: .infinity, alignment: .trailing)
         }
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel(Text("locationForecast.text.swellHeight") + Text(verbatim: " \((data.swellHeight ?? 0).formatted(.number.precision(.fractionLength(0...1))))") + Text(swellHeightUnit) + Text(verbatim: ", ") + Text("locationForecast.text.swellPeriod") + Text("\((data.swellPeriod ?? 0).formatted(.number.precision(.fractionLength(0...1))))sec"))
     }
     
     private func airTemperatureRow(_ data: WeatherData) -> some View {
         Text((data.airTemperature ?? 0).formatted(.number.precision(.fractionLength(0))))
             .font(.headline)
+            .accessibilityElement(children: .ignore)
+            .accessibilityLabel(Text("locationForecast.accessibilityLabel.airTemperature") + Text(verbatim: " \((data.airTemperature ?? 0).formatted(.number.precision(.fractionLength(0))))") + Text(airTemperatureUnit))
     }
     
     private func timeRow(_ data: WeatherData) -> some View {
@@ -177,6 +187,12 @@ struct HourlyForecastView: View {
         case .fair, .fairToGood, .good: return .green
         }
     }
+    
+    private var waveHeightUnit: LocalizedStringKey { "m" }
+    private var windUnit: LocalizedStringKey { "km/h" }
+    private var swellHeightUnit: LocalizedStringKey { "m" }
+    private var swellPeriodUnit: LocalizedStringKey { "s" }
+    private var airTemperatureUnit: LocalizedStringKey { "°C" }
 }
 
 #Preview {

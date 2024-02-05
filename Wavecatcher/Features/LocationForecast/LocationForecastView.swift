@@ -54,6 +54,7 @@ struct LocationForecastView: View {
                 .foregroundStyle(.white)
                 .shadow(radius: 8)
                 .offset(y: locationTitleOffset)
+                .accessibilityAddTraits(.isHeader)
             
             HStack(alignment: .lastTextBaseline, spacing: 2) {
                 Text((state.location.weather.nowData()?.waveHeightMax ?? 0.0).formatted(.number.precision(.fractionLength(0...1))))
@@ -64,12 +65,15 @@ struct LocationForecastView: View {
             .foregroundStyle(.white)
             .shadow(radius: 8)
             .opacity(waveHeightOpacity)
+            .accessibilityElement(children: .ignore)
+            .accessibilityLabel("locationForecast.text.waveHeight")
+            .accessibilityValue(Text(verbatim: "\((state.location.weather.nowData()?.waveHeightMax ?? 0.0).formatted(.number.precision(.fractionLength(0...1))))") + Text("m"))
             
-            HStack {
-                if let nowData = state.location.weather.nowData(),
-                   let swellHeight = nowData.swellHeight,
-                   let swellPeriod = nowData.swellPeriod,
-                   let swellDirection = nowData.swellDirection {
+            if let nowData = state.location.weather.nowData(),
+               let swellHeight = nowData.swellHeight,
+               let swellPeriod = nowData.swellPeriod,
+               let swellDirection = nowData.swellDirection {
+                HStack {
                     HStack(alignment: .lastTextBaseline, spacing: 0) {
                         Text(swellHeight.formatted(.number.precision(.fractionLength(0...1))))
                             .font(.system(size: 22))
@@ -77,6 +81,9 @@ struct LocationForecastView: View {
                             .font(.system(size: 20))
                     }
                     .foregroundStyle(.primary)
+                    .accessibilityElement(children: .ignore)
+                    .accessibilityLabel("locationForecast.text.swellHeight")
+                    .accessibilityValue(Text(verbatim: "\(swellHeight.formatted(.number.precision(.fractionLength(0...1))))") + Text("m"))
                     
                     HStack(alignment: .lastTextBaseline, spacing: 0) {
                         Text(swellPeriod.formatted(.number.precision(.fractionLength(0))))
@@ -85,23 +92,30 @@ struct LocationForecastView: View {
                             .font(.system(size: 20))
                     }
                     .foregroundStyle(.primary)
+                    .accessibilityElement(children: .ignore)
+                    .accessibilityLabel("locationForecast.text.swellPeriod")
+                    .accessibilityValue("\(swellPeriod.formatted(.number.precision(.fractionLength(0))))sec")
                     
                     Image(systemName: "location.north.fill")
                         .rotationEffect(.degrees(swellDirection))
                         .foregroundStyle(.primary)
+                        .accessibilityHidden(true)
                 
                     HStack(spacing: 4.0) {
                         Text(swellDirection.formatted(.cardinalDirection))
                             .foregroundStyle(.primary)
-                        Text(swellDirection.formatted(.number.precision(.fractionLength(0))) + "°")
+                        Text(verbatim: "\(swellDirection.formatted(.number.precision(.fractionLength(0))))°")
                             .foregroundStyle(.secondary)
                     }
+                    .accessibilityElement(children: .ignore)
+                    .accessibilityLabel("locationForecast.text.swellDirection")
+                    .accessibilityValue(Text(verbatim: "\(swellDirection.formatted(.number.precision(.fractionLength(0))))°"))
                 }
+                .font(.system(size: 22))
+                .foregroundStyle(.white)
+                .shadow(radius: 8)
+                .opacity(swellDescriptionOpacity)
             }
-            .font(.system(size: 22))
-            .foregroundStyle(.white)
-            .shadow(radius: 8)
-            .opacity(swellDescriptionOpacity)
         }
         .bold()
         .offset(y: headerOffset)
@@ -113,6 +127,7 @@ struct LocationForecastView: View {
                 .font(.system(size: 30))
                 .foregroundStyle(.white)
                 .shadow(radius: 8)
+                .accessibilityAddTraits(.isHeader)
             
             VStack(spacing: 8.0) {
                 Text("locationForecast.text.loading")
@@ -135,6 +150,7 @@ struct LocationForecastView: View {
                 .font(.system(size: 30))
                 .foregroundStyle(.white)
                 .shadow(radius: 8)
+                .accessibilityAddTraits(.isHeader)
         }
         .bold()
     }
@@ -168,6 +184,7 @@ struct LocationForecastView: View {
             )
             .font(.callout)
             .foregroundStyle(.secondary)
+            .accessibilityAddTraits(.isHeader)
             Spacer()
         }
     }

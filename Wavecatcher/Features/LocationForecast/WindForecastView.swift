@@ -21,7 +21,8 @@ struct WindForecastView: View {
                 Image(systemName: "location.north.fill")
                     .rotationEffect(.degrees(weatherData.nowData()?.windDirection ?? 0))
                     .font(.subheadline)
-                Text(valueDescription)
+                    .accessibilityHidden(true)
+                (Text(verbatim: (weatherData.nowData()?.windSpeed ?? 0.0).formatted(.number.precision(.fractionLength(0)))) + Text(windUnit))
                     .font(.title)
             }
             .foregroundStyle(.primary)
@@ -30,23 +31,15 @@ struct WindForecastView: View {
             Spacer(minLength: 0.0)
                 .frame(maxWidth: .infinity)
             
-            Text(gustDescription)
+            (Text(verbatim: (weatherData.nowData()?.windGust ?? 0.0).formatted(.number.precision(.fractionLength(0)))) + Text(windUnit) + Text(verbatim: " ") + Text ("locationForecast.text.gust"))
                 .foregroundStyle(.primary)
                 .font(.caption)
                 .padding(.horizontal)
         }
+        .accessibilityElement(children: .combine)
     }
     
-    private var valueDescription: LocalizedStringKey {
-        let value = weatherData.nowData()?.windSpeed ?? 0.0
-        return "\(value.formatted(.number.precision(.fractionLength(0...1))))km/h"
-    }
-    
-    private var gustDescription: LocalizedStringKey {
-        let value = weatherData.nowData()?.windGust ?? 0.0
-        return "\(value.formatted(.number.precision(.fractionLength(0...1))))km/h gust"
-    }
-
+    private var windUnit: LocalizedStringKey { "km/h" }
     private var directionDescription: LocalizedStringKey {
         guard let windDirection = weatherData.nowData()?.windDirection else { return "" }
         let diff = (windDirection - offshorePerpendicular + 360).truncatingRemainder(dividingBy: 360)

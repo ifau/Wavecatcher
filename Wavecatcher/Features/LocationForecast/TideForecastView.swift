@@ -20,7 +20,8 @@ struct TideForecastView: View {
             HStack {
                 Image(systemName: (isRising ? "arrow.up" : "arrow.down"))
                     .font(.title3)
-                Text("\(currentHeight.formatted(.number.precision(.fractionLength(0...1))))m")
+                    .accessibilityHidden(true)
+                (Text(verbatim: "\(currentHeight.formatted(.number.precision(.fractionLength(0...1))))") + Text("m"))
                     .font(.title)
             }
             .foregroundStyle(.primary)
@@ -30,6 +31,7 @@ struct TideForecastView: View {
             
             chart
                 .frame(height: 40)
+                .accessibilityHidden(true)
             
             Spacer(minLength: 0.0)
             
@@ -38,6 +40,7 @@ struct TideForecastView: View {
                 .font(.caption)
                 .padding(.horizontal)
         }
+        .accessibilityElement(children: .combine)
     }
     
     private var chart: some View {

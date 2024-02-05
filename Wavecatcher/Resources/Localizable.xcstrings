@@ -4,32 +4,25 @@
     "" : {
 
     },
-    "%@km/h" : {
+    "%@" : {
+
+    },
+    "%@sec" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%@km/h"
+            "value" : "%@sec"
           }
         }
       }
     },
-    "%@km/h gust" : {
+    "°C" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%@km/h gust"
-          }
-        }
-      }
-    },
-    "%@m" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%@m"
+            "value" : "°C"
           }
         }
       }
@@ -94,6 +87,36 @@
         }
       }
     },
+    "from %@ to %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "from %1$@ to %2$@"
+          }
+        }
+      }
+    },
+    "km/h" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "km/h"
+          }
+        }
+      }
+    },
+    "locationForecast.accessibilityLabel.airTemperature" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Air temperature"
+          }
+        }
+      }
+    },
     "locationForecast.button.tryAgain" : {
       "localizations" : {
         "en" : {
@@ -104,12 +127,12 @@
         }
       }
     },
-    "locationForecast.text.airTemperature(°C)" : {
+    "locationForecast.text.airTemperature" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Air temp. (°C)"
+            "value" : "Air temp."
           }
         }
       }
@@ -140,6 +163,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Dropping tide"
+          }
+        }
+      }
+    },
+    "locationForecast.text.gust" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "gust"
           }
         }
       }
@@ -235,22 +268,32 @@
         }
       }
     },
-    "locationForecast.text.swellHeight(m)" : {
+    "locationForecast.text.swellDirection" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Swell height (m)"
+            "value" : "Swell direction"
           }
         }
       }
     },
-    "locationForecast.text.swellPeriod(s)" : {
+    "locationForecast.text.swellHeight" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Swell period (s)"
+            "value" : "Swell height"
+          }
+        }
+      }
+    },
+    "locationForecast.text.swellPeriod" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Swell period"
           }
         }
       }
@@ -266,12 +309,12 @@
         }
       }
     },
-    "locationForecast.text.waveHeight(m)" : {
+    "locationForecast.text.waveHeight" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Wave height (m)"
+            "value" : "Wave height"
           }
         }
       }
@@ -283,16 +326,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Wind"
-          }
-        }
-      }
-    },
-    "locationForecast.text.wind(km/h)" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Wind (km/h)"
           }
         }
       }
@@ -313,6 +346,26 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Hour"
+          }
+        }
+      }
+    },
+    "locationSettings.accessibilityLabel.auroraBackground" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aurora background"
+          }
+        }
+      }
+    },
+    "locationSettings.accessibilityLabel.videoBackground" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Video background"
           }
         }
       }
