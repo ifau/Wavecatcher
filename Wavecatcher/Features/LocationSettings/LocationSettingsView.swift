@@ -63,6 +63,10 @@ struct LocationSettingsView: View {
         .opacity(state.isLoadingPhotosPickerItem ? 0.5 : 1.0)
         .onTapGesture { store.send(.selectBackground(.aurora(variant)), animation: .smooth) }
         .frame(width: backgroundPreviewSize.width, height: backgroundPreviewSize.height)
+        .accessibilityElement(children: .ignore)
+        .accessibilityAddTraits(state.selectedBackground == .aurora(variant) ? [.isSelected, .isButton] : [.isButton])
+        .accessibilityLabel("locationSettings.accessibilityLabel.auroraBackground")
+        .accessibilityValue(variant.backgroundColor.description)
     }
     
     private func photosPicker(_ state: LocationSettingsFeature.State) -> some View {
@@ -91,6 +95,9 @@ struct LocationSettingsView: View {
             }
         }
         .frame(width: backgroundPreviewSize.width, height: backgroundPreviewSize.height)
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel("locationSettings.accessibilityLabel.videoBackground")
+        .accessibilityAddTraits(isVideo(state.selectedBackground) ? [.isSelected, .isButton] : [.isButton])
     }
     
     @ViewBuilder
@@ -99,6 +106,11 @@ struct LocationSettingsView: View {
             Text(withLabel ? "locationSettings.button.SelectVideo" : "")
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
         })
+    }
+    
+    private func isVideo(_ background: BackgroundVariant) -> Bool {
+        if case .video(_) = background { return true }
+        return false
     }
 }
 

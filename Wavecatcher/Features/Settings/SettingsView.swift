@@ -47,7 +47,9 @@ struct SettingsView: View {
             Spacer()
             Image(systemName: "line.3.horizontal")
                 .foregroundStyle(.secondary)
+                .accessibilityHidden(true)
         }
+        .accessibilityAddTraits(.isButton)
     }
 }
 
