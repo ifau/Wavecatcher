@@ -10,7 +10,7 @@ struct WidgetsDataProvider: AppIntentTimelineProvider {
     
     func placeholder(in context: Context) -> WeatherDataEntry {
         let locationTitle = "Uluwatu"
-        let startDate = Calendar.current.date(bySettingHour: 0, minute: 0, second: 0, of: .now, matchingPolicy: .previousTimePreservingSmallerComponents, direction: .backward) ?? .now
+        let startDate = Calendar.current.date(bySettingHour: 12, minute: 0, second: 0, of: .now, matchingPolicy: .previousTimePreservingSmallerComponents, direction: .backward) ?? .now
         
         let dates = (0..<24).map { hourOffset in
             return Calendar.current.date(byAdding: .hour, value: hourOffset, to: startDate)
@@ -26,7 +26,10 @@ struct WidgetsDataProvider: AppIntentTimelineProvider {
                         swellDirection: Double.random(in: 180...230),
                         swellPeriod: Double.random(in: 8...12),
                         swellHeight: Double.random(in: 1.2...2.5),
-                        tideHeight: sin(Double(index) / 2.2) + 2)
+                        tideHeight: sin(Double(index) / 2.2) + 2,
+                        waveHeightMin: Double.random(in: 1.1...1.8),
+                        waveHeightMax: Double.random(in: 1.8...2.5),
+                        surfRating: index < 14 ? .good : .poor)
         }
         
         return WeatherDataEntry(date: startDate, state: .configured(weatherData: weather, dateUpdated: .now, locationTitle: locationTitle))
