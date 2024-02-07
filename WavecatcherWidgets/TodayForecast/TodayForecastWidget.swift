@@ -76,7 +76,7 @@ struct TodayForecastEntryView: View {
                         .rotationEffect(.degrees(swellDirection))
                         .font(.system(size: 10, weight: .regular, design: .rounded))
                     Text(swellDirection.formatted(.cardinalDirection))
-                    Text(swellDirection.formatted(.number.precision(.fractionLength(0))) + "°")
+                    Text(verbatim: "\(swellDirection.formatted(.number.precision(.fractionLength(0))))°")
                         .foregroundStyle(.secondary)
                 }
                 .layoutPriority(1)
@@ -114,7 +114,7 @@ struct TodayForecastEntryView: View {
                         if index > 0 {
                             Spacer(minLength: 0)
                         }
-                        dataColumn(dataToDisplay[index])
+                        dataColumn(dataToDisplay[index], isCurrentHourConditions: index == 0)
                         
                         if index < dataToDisplay.count - 1 {
                             Spacer(minLength: 0)
@@ -147,9 +147,9 @@ struct TodayForecastEntryView: View {
         }
     }
     
-    private func dataColumn(_ weather: WeatherData) -> some View {
+    private func dataColumn(_ weather: WeatherData, isCurrentHourConditions: Bool) -> some View {
         VStack(spacing: 8.0) {
-            Text(timeString(weather.date))
+            (isCurrentHourConditions ? Text("todayForecast.text.now") : Text(timeString(weather.date)))
                 .foregroundStyle(.secondary)
                 .font(.caption2).fontDesign(.rounded).fontWeight(.semibold)
             
