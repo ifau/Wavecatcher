@@ -72,8 +72,7 @@ struct TodayForecastEntryView: View {
                let swellPeriod = weather.swellPeriod {
                 HStack(spacing: 4.0) {
                     Text("\(swellHeight.formatted(.number.precision(.fractionLength(0...1))))m \(swellPeriod.formatted(.number.precision(.fractionLength(0))))s")
-                    Image(systemName: "location.north.fill")
-                        .rotationEffect(.degrees(swellDirection))
+                    DirectionIndicatorView(degrees: swellDirection)
                         .font(.system(size: 10, weight: .regular, design: .rounded))
                     Text(swellDirection.formatted(.cardinalDirection))
                     Text(verbatim: "\(swellDirection.formatted(.number.precision(.fractionLength(0))))°")

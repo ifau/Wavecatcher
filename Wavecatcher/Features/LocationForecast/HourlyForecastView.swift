@@ -100,8 +100,7 @@ struct HourlyForecastView: View {
     
     private func windRow(_ data: WeatherData) -> some View {
         HStack(alignment: .center, spacing: 4.0) {
-            Image(systemName: "location.north.fill")
-                .rotationEffect(.degrees(data.windDirection ?? 0))
+            DirectionIndicatorView(degrees: data.windDirection ?? 0)
                 .font(.caption2)
             
             Text((data.windSpeed ?? 0).formatted(.number.precision(.fractionLength(0))))
@@ -128,8 +127,7 @@ struct HourlyForecastView: View {
     private func swellRow(_ data: WeatherData) -> some View {
         VStack(spacing: 0.0) {
             HStack(alignment: .center, spacing: 4.0) {
-                Image(systemName: "location.north.fill")
-                    .rotationEffect(.degrees(data.swellDirection ?? 0))
+                DirectionIndicatorView(degrees: data.swellDirection ?? 0)
                     .font(.caption2)
                 
                 Text((data.swellHeight ?? 0).formatted(.number.precision(.fractionLength(0...1))))

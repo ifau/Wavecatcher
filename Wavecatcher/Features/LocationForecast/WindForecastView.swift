@@ -18,10 +18,8 @@ struct WindForecastView: View {
                 .padding(.horizontal)
             
             HStack {
-                Image(systemName: "location.north.fill")
-                    .rotationEffect(.degrees(weatherData.nowData()?.windDirection ?? 0))
+                DirectionIndicatorView(degrees: (weatherData.nowData()?.windDirection ?? 0))
                     .font(.subheadline)
-                    .accessibilityHidden(true)
                 (Text(verbatim: (weatherData.nowData()?.windSpeed ?? 0.0).formatted(.number.precision(.fractionLength(0)))) + Text(windUnit))
                     .font(.title)
             }

@@ -96,10 +96,8 @@ struct LocationForecastView: View {
                     .accessibilityLabel("locationForecast.text.swellPeriod")
                     .accessibilityValue("\(swellPeriod.formatted(.number.precision(.fractionLength(0))))sec")
                     
-                    Image(systemName: "location.north.fill")
-                        .rotationEffect(.degrees(swellDirection))
+                    DirectionIndicatorView(degrees: swellDirection)
                         .foregroundStyle(.primary)
-                        .accessibilityHidden(true)
                 
                     HStack(spacing: 4.0) {
                         Text(swellDirection.formatted(.cardinalDirection))
