@@ -141,7 +141,7 @@ extension SurflineClient {
         }
         struct Wave: Codable {
             let timestamp: Int
-            let probability: Int?
+            let probability: Double?
             let utcOffset: Int
             let surf: Surf
             let power: Double
