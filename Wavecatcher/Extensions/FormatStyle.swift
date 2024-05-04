@@ -18,3 +18,13 @@ struct CardinalDirectionFormat: FormatStyle {
 extension FormatStyle where Self == Decimal.FormatStyle {
     static var cardinalDirection: CardinalDirectionFormat { .init() }
 }
+
+extension FormatStyle where Self == FloatingPointFormatStyle<Double> {
+    static func coordinates(precision: Int) -> FloatingPointFormatStyle<Double> {
+        FloatingPointFormatStyle<Double>(locale: Locale(identifier: "en_US"))
+            .grouping(.never)
+            .decimalSeparator(strategy: .always)
+            .rounded(rule: .down)
+            .precision(.fractionLength(precision...precision))
+    }
+}

@@ -26,4 +26,12 @@ final class FormatStyleTests: XCTestCase {
         XCTAssertEqual(315.formatted(.cardinalDirection), "NW")
         XCTAssertEqual(338.formatted(.cardinalDirection), "NNW")
     }
+    
+    func testCoordinatesFormat() {
+        let precision = 5
+        XCTAssertEqual(0.formatted(.coordinates(precision: precision)), "0.00000")
+        XCTAssertEqual(8.48776.formatted(.coordinates(precision: precision)), "8.48776")
+        XCTAssertEqual((-8.48776).formatted(.coordinates(precision: precision)), "-8.48776")
+        XCTAssertEqual(8.487767777777.formatted(.coordinates(precision: precision)), "8.48776")
+    }
 }
