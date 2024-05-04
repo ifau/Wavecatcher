@@ -21,8 +21,7 @@ extension SurflineClient {
         }
         
         guard let spotId else {
-            struct GetSpotIdFailed: Error {}
-            throw GetSpotIdFailed()
+            throw AppError.failedGetSpotId
         }
         
         try? spotId.write(to: spotIdCacheURL, atomically: true, encoding: .utf8)
@@ -43,7 +42,7 @@ extension SurflineClient {
         ]
         
         guard let url = urlComponents.url else {
-            throw URLError(.badURL)
+            throw AppError.failedBuildURL(host: urlComponents.host)
         }
         
         let (data, _) = try await urlSession.data(for: urlRequestWithHeaders(url: url))

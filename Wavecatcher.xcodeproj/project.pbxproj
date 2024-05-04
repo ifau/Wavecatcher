@@ -39,6 +39,8 @@
 		A2243BDC2AFE40620072EE8C /* AddLocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2243BDB2AFE40620072EE8C /* AddLocationView.swift */; };
 		A23EACF92B173EDE00752AAC /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A23EACF82B173EDE00752AAC /* OnboardingView.swift */; };
 		A23EACFB2B175A1300752AAC /* OnboardingFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = A23EACFA2B175A1300752AAC /* OnboardingFeature.swift */; };
+		A240F0302BE6862C009BB2CC /* AppError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A240F02F2BE6862C009BB2CC /* AppError.swift */; };
+		A240F0322BE68755009BB2CC /* AppError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A240F02F2BE6862C009BB2CC /* AppError.swift */; };
 		A245FB772B0C6EEE00E2C614 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = A26356AA2B036843008DC7E6 /* Color.swift */; };
 		A245FB792B0C6F2400E2C614 /* Tagged in Frameworks */ = {isa = PBXBuildFile; productRef = A245FB782B0C6F2400E2C614 /* Tagged */; };
 		A245FB7C2B0C940500E2C614 /* WidgetsConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = A245FB7B2B0C940500E2C614 /* WidgetsConfiguration.swift */; };
@@ -166,6 +168,7 @@
 		A2243BDB2AFE40620072EE8C /* AddLocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddLocationView.swift; sourceTree = "<group>"; };
 		A23EACF82B173EDE00752AAC /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		A23EACFA2B175A1300752AAC /* OnboardingFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingFeature.swift; sourceTree = "<group>"; };
+		A240F02F2BE6862C009BB2CC /* AppError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppError.swift; sourceTree = "<group>"; };
 		A245FB7B2B0C940500E2C614 /* WidgetsConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetsConfiguration.swift; sourceTree = "<group>"; };
 		A245FB7D2B0C946B00E2C614 /* WidgetsDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetsDataProvider.swift; sourceTree = "<group>"; };
 		A245FB7F2B0C967E00E2C614 /* TodayForecastWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayForecastWidget.swift; sourceTree = "<group>"; };
@@ -466,6 +469,7 @@
 				A2CD15092AF8A05B001AEDE5 /* SavedLocation.swift */,
 				A2B6F12E2AF21C3600B48C66 /* WeatherData.swift */,
 				A26356A52B034C8A008DC7E6 /* BackgroundVariant.swift */,
+				A240F02F2BE6862C009BB2CC /* AppError.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -721,6 +725,7 @@
 				A2ABEC432B4D3C2E0012F5CF /* SurflineClient+GetSpotId.swift in Sources */,
 				A245FB772B0C6EEE00E2C614 /* Color.swift in Sources */,
 				A21FF6C62B0B5B70005B7F26 /* BackgroundVariant.swift in Sources */,
+				A240F0322BE68755009BB2CC /* AppError.swift in Sources */,
 				A254D2C62B11AE1700DC0E25 /* WeatherDataProvider.swift in Sources */,
 				A21FF6C12B0B5AB7005B7F26 /* LocalStorage.swift in Sources */,
 				A21FF6C92B0B632C005B7F26 /* URL.swift in Sources */,
@@ -775,6 +780,7 @@
 				A26356AB2B036843008DC7E6 /* Color.swift in Sources */,
 				A27A2AF12AF7420F00C56FA9 /* WindForecastView.swift in Sources */,
 				A2A336EB2AFC8AAF00518A2D /* OffsetObservingScrollView.swift in Sources */,
+				A240F0302BE6862C009BB2CC /* AppError.swift in Sources */,
 				A26356AD2B03699C008DC7E6 /* LocationSettingsFeature.swift in Sources */,
 				A2E36D422B73CB2300400A56 /* DirectionIndicatorView.swift in Sources */,
 				A2A336E92AFC89B000518A2D /* PositionObservingView.swift in Sources */,

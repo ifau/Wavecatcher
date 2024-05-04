@@ -87,6 +87,50 @@
         }
       }
     },
+    "ErrorDescriptionFailedBuildURL %@" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Could not build valid url for the host %@. Probably some of the parameters was not properly encoded"
+          }
+        }
+      }
+    },
+    "ErrorDescriptionFailedGetSpotId" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Could not load SpotId"
+          }
+        }
+      }
+    },
+    "ErrorDescriptionFailedLoadAsset" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Could not load asset"
+          }
+        }
+      }
+    },
+    "ErrorDescriptionReceivedEmptyResponse" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The host responded with empty data"
+          }
+        }
+      }
+    },
     "from %@ to %@" : {
       "localizations" : {
         "en" : {

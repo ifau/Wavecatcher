@@ -35,8 +35,7 @@ extension PhotosAssetsLoader: DependencyKey {
             guard !FileManager.default.fileExists(atPath: fileURL.path()) else { return fileURL }
             
             guard let movie = try await pickerItem.loadTransferable(type: Movie.self) else {
-                struct LoadTransferableError: Error {}
-                throw LoadTransferableError()
+                throw AppError.failedLoadAsset
             }
             
             try FileManager.default.moveItem(at: movie.url, to: fileURL)

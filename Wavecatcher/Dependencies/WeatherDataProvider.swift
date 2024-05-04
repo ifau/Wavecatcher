@@ -96,8 +96,7 @@ extension WeatherDataProvider: DependencyKey {
                 }
                 
                 guard !newWeather.isEmpty else {
-                    struct EmptyResponse: Error {}
-                    throw EmptyResponse()
+                    throw AppError.receivedEmptyResponse
                 }
                 
                 var mutableLocation = location

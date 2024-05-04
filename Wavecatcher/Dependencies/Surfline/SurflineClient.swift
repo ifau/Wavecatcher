@@ -28,7 +28,7 @@ final class SurflineClient {
         ]
         
         guard let url = urlComponents.url else {
-            throw URLError(.badURL)
+            throw AppError.failedBuildURL(host: urlComponents.host)
         }
         
         let (data, _) = try await urlSession.data(for: urlRequestWithHeaders(url: url))
@@ -54,7 +54,7 @@ final class SurflineClient {
         ]
         
         guard let url = urlComponents.url else {
-            throw URLError(.badURL)
+            throw AppError.failedBuildURL(host: urlComponents.host)
         }
         
         let (data, _) = try await urlSession.data(for: urlRequestWithHeaders(url: url))
@@ -80,7 +80,7 @@ final class SurflineClient {
         ]
         
         guard let url = urlComponents.url else {
-            throw URLError(.badURL)
+            throw AppError.failedBuildURL(host: urlComponents.host)
         }
         
         let (data, _) = try await urlSession.data(for: urlRequestWithHeaders(url: url))
