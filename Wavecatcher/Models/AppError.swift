@@ -9,6 +9,7 @@ enum AppError: Error {
     case failedLoadAsset
     case failedGetSpotId
     case failedBuildURL(host: String?)
+    case receivedErrorResponse(host: String?, response: String?)
     case receivedEmptyResponse
 }
 
@@ -22,6 +23,8 @@ extension AppError: LocalizedError {
             return String(localized: "ErrorDescriptionFailedGetSpotId")
         case .failedBuildURL(let host):
             return String(localized: "ErrorDescriptionFailedBuildURL \(host ?? "")")
+        case .receivedErrorResponse(let host, let response):
+            return String(localized: "ErrorDescriptionReceivedErrorResponse \(host ?? "") \(response ?? "")")
         case .receivedEmptyResponse:
             return String(localized: "ErrorDescriptionReceivedEmptyResponse")
         }

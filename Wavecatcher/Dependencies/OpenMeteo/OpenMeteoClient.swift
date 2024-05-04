@@ -28,7 +28,13 @@ final class OpenMeteoClient {
         }
         
         let (data, _) = try await urlSession.data(from: url)
-        return try JSONDecoder().decode(MarineResponse.self, from: data)
+        
+        do {
+            return try JSONDecoder().decode(MarineResponse.self, from: data)
+        } catch {
+            guard let errorResponse = try? JSONDecoder().decode(ErrorResponse.self, from: data) else { throw error }
+            throw AppError.receivedErrorResponse(host: urlComponents.host, response: errorResponse.reason)
+        }
     }
     
     func getWeatherForecast(latitude: Double, longitude: Double) async throws -> ForecastResponse {
@@ -50,6 +56,11 @@ final class OpenMeteoClient {
         }
         
         let (data, _) = try await urlSession.data(from: url)
-        return try JSONDecoder().decode(ForecastResponse.self, from: data)
+        do {
+            return try JSONDecoder().decode(ForecastResponse.self, from: data)
+        }  catch {
+            guard let errorResponse = try? JSONDecoder().decode(ErrorResponse.self, from: data) else { throw error }
+            throw AppError.receivedErrorResponse(host: urlComponents.host, response: errorResponse.reason)
+        }
     }
 }

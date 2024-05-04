@@ -131,6 +131,17 @@
         }
       }
     },
+    "ErrorDescriptionReceivedErrorResponse %@ %@" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The host %@ responded with the following error: \"%@\""
+          }
+        }
+      }
+    },
     "from %@ to %@" : {
       "localizations" : {
         "en" : {
