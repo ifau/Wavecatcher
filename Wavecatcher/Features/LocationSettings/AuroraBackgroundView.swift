@@ -10,6 +10,7 @@ struct AuroraBackgroundView: View {
     let variant: BackgroundVariant.AuroraVariant
     @State private var animate: Bool = false
     @Environment(\.colorScheme) var colorScheme
+    @Environment(\.accessibilityReduceMotion) var reduceMotion
     
     var body: some View {
         GeometryReader { geometry in
@@ -24,7 +25,7 @@ struct AuroraBackgroundView: View {
                             .frame(width: size(backgroundSize: geometry.size), height: size(backgroundSize: geometry.size))
                             .offset(offset(backgroundSize: geometry.size))
                             .rotationEffect(self.rotation(at: index))
-                            .animation(Animation.linear(duration: animationDuration(at: index)).repeatForever(autoreverses: true), value: animate)
+                            .animation(reduceMotion ? nil : Animation.linear(duration: animationDuration(at: index)).repeatForever(autoreverses: true), value: animate)
                             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: self.aligment(at: index))
                             .opacity(0.8)
                     }

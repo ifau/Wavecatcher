@@ -13,6 +13,7 @@ struct VideoPlayerView: View {
     @State private var videoPlayerLooper: AVPlayerLooper
     @State private var isOverlayVisible = false
     private let fadeDuration: TimeInterval = 0.5
+    @Environment(\.accessibilityReduceMotion) var reduceMotion
     
     init(videoURL: URL) {
         let playerItem = AVPlayerItem(url: videoURL)
@@ -30,12 +31,14 @@ struct VideoPlayerView: View {
                 .aspectRatio(contentMode: .fill)
                 .frame(width: proxy.size.width, height: proxy.size.height)
                 .onAppear {
+                    guard !reduceMotion else { return }
                     videoPlayer.play()
                 }
                 .onDisappear {
                     videoPlayer.pause()
                 }
                 .onReceive(applicationBecomeActiveNotificationPublisher) { _ in
+                    guard !reduceMotion else { return }
                     videoPlayer.play()
                 }
                 .onReceive(applicationResignActiveNotificationPublisher) { _ in
