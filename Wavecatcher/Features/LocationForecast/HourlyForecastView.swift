@@ -7,7 +7,8 @@ import SwiftUI
 
 struct HourlyForecastView: View {
     
-    private let rowFrameHeight: CGFloat = 20.0
+    @ScaledMetric(relativeTo: .body) var rowFrameHeight = 20.0
+    @ScaledMetric(relativeTo: .body) var surfRatingIndicatorFrameHeight = 8.0
     
     let weatherData: [WeatherData]
     private var visibleWeather: [WeatherData] {
@@ -41,7 +42,7 @@ struct HourlyForecastView: View {
                         
                         Circle()
                             .fill(surfRatingColor(for: weatherData.surfRating))
-                            .frame(width: 8)
+                            .frame(width: surfRatingIndicatorFrameHeight)
                             .shadow(radius: 8)
                             .padding(.trailing, 8)
                         
@@ -73,7 +74,7 @@ struct HourlyForecastView: View {
             Spacer()
                 .frame(height: rowFrameHeight)
             Spacer()
-                .frame(height: 8 + 8)
+                .frame(height: surfRatingIndicatorFrameHeight + 8)
             
             (Text("locationForecast.text.waveHeight") + Text(verbatim: " (") + Text(waveHeightUnit) + Text(verbatim: ")"))
                 .font(.caption)

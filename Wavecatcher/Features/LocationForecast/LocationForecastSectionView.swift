@@ -9,17 +9,21 @@ struct LocationForecastSectionView<Title: View, Content: View>: View {
     
     var titleView: Title
     var contentView: Content
+    var globalYStopperCoordinate: CGFloat
     
-    private var globalYStopperCoordinate: CGFloat { safeAreaInsets.top + LocationForecastView.distanceToStartCollapseSectionHeaders }
     private var topOffset: CGFloat { globalFrame.minY }
     private var bottomOffset: CGFloat { globalFrame.maxY - globalYStopperCoordinate }
     @State private var globalFrame: CGRect = .zero
     @Environment(\.safeAreaInsets) var safeAreaInsets
+    @Environment(\.dynamicTypeSize) var dynamicTypeSize
+    @ScaledMetric(relativeTo: .title) var titleViewHeight = 38.0
     
     init(@ViewBuilder titleView: @escaping () -> Title,
-         @ViewBuilder contentView: @escaping () -> Content) {
+         @ViewBuilder contentView: @escaping () -> Content,
+         globalYStopperCoordinate: CGFloat = 0.0) {
         self.titleView = titleView()
         self.contentView = contentView()
+        self.globalYStopperCoordinate = globalYStopperCoordinate
     }
     
     var body: some View {
@@ -44,10 +48,6 @@ struct LocationForecastSectionView<Title: View, Content: View>: View {
         .readGlobalFrame { globalFrame = $0 }
         .opacity(opacity)
         .clipShape(RoundedRectangle(cornerRadius: cornerRadius, style: .continuous))
-    }
-    
-    private var titleViewHeight: CGFloat {
-        return 38.0
     }
     
     private var opacity: CGFloat {

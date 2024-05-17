@@ -30,24 +30,19 @@ struct OnboardingView: View {
                     }
                 }
                 .tabViewStyle(PageTabViewStyle(indexDisplayMode: .automatic))
-                .overlay {
-                    VStack {
-                        Spacer()
-                        Button(action: { viewStore.send(.addLocation) }, label: {
-                            Text("onboarding.button.addLocation")
-                                .font(.headline)
-                                .bold()
-                                .foregroundStyle(.black)
-                                .frame(maxWidth: horizontalSizeClass == .compact ? .infinity : 320)
-                                .padding()
-                                .background(.thinMaterial, in: RoundedRectangle(cornerRadius: 12))
-                        })
-                        .disabled(!viewStore.addLocationsButtonVisible)
-                        .opacity(viewStore.addLocationsButtonVisible ? 1 : 0)
+                Spacer()
+                Button(action: { viewStore.send(.addLocation) }, label: {
+                    Text("onboarding.button.addLocation")
+                        .font(.headline)
+                        .bold()
+                        .foregroundStyle(.black)
+                        .frame(maxWidth: horizontalSizeClass == .compact ? .infinity : 320)
                         .padding()
-                        .padding(.bottom, verticalSizeClass == .compact ? 24 : 36)
-                    }
-                }
+                        .background(.thinMaterial, in: RoundedRectangle(cornerRadius: 12))
+                })
+                .disabled(!viewStore.addLocationsButtonVisible)
+                .opacity(viewStore.addLocationsButtonVisible ? 1 : 0)
+                .padding()
             }
             .background {
                 AuroraBackgroundView(variant: .variant1).ignoresSafeArea()
@@ -80,7 +75,8 @@ struct OnboardingView: View {
                 .bold()
                 .blendMode(.overlay)
         }
-        .padding()
+        .padding(.horizontal)
+        .minimumScaleFactor(0.1)
     }
     
     private var getStartedPage: some View {
@@ -95,7 +91,8 @@ struct OnboardingView: View {
                 .bold()
                 .blendMode(.overlay)
         }
-        .padding()
+        .padding(.horizontal)
+        .minimumScaleFactor(0.1)
     }
 }
 

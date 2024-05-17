@@ -12,6 +12,8 @@ struct LocationForecastView: View {
     @State private var scrollViewOffset: CGPoint = .zero
     @Environment(\.safeAreaInsets) var safeAreaInsets
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
+    @Environment(\.dynamicTypeSize) var dynamicTypeSize
+    @ScaledMetric(relativeTo: .largeTitle) var locationTitleFontSize = 30.0
     
     init(store: StoreOf<LocationForecastFeature>) {
         self.store = store
@@ -50,7 +52,7 @@ struct LocationForecastView: View {
     private func header(_ state: LocationForecastFeature.State) -> some View {
         VStack(alignment: .center, spacing: 8) {
             Text(state.location.title)
-                .font(.system(size: 30))
+                .font(.system(size: 30 * locationTitleScaleFactor))
                 .foregroundStyle(.white)
                 .shadow(radius: 8)
                 .offset(y: locationTitleOffset)
@@ -58,9 +60,9 @@ struct LocationForecastView: View {
             
             HStack(alignment: .lastTextBaseline, spacing: 2) {
                 Text((state.location.weather.nowData()?.waveHeightMax ?? 0.0).formatted(.number.precision(.fractionLength(0...1))))
-                    .font(.system(size: 64))
+                    .font(.system(size: 64 * locationTitleScaleFactor))
                 Text("m")
-                    .font(.system(size: 42))
+                    .font(.system(size: 42 * locationTitleScaleFactor))
             }
             .foregroundStyle(.white)
             .shadow(radius: 8)
@@ -76,9 +78,9 @@ struct LocationForecastView: View {
                 HStack {
                     HStack(alignment: .lastTextBaseline, spacing: 0) {
                         Text(swellHeight.formatted(.number.precision(.fractionLength(0...1))))
-                            .font(.system(size: 22))
+                            .font(.system(size: 22 * locationTitleScaleFactor))
                         Text("m")
-                            .font(.system(size: 20))
+                            .font(.system(size: 20 * locationTitleScaleFactor))
                     }
                     .foregroundStyle(.primary)
                     .accessibilityElement(children: .ignore)
@@ -87,9 +89,9 @@ struct LocationForecastView: View {
                     
                     HStack(alignment: .lastTextBaseline, spacing: 0) {
                         Text(swellPeriod.formatted(.number.precision(.fractionLength(0))))
-                            .font(.system(size: 22))
+                            .font(.system(size: 22 * locationTitleScaleFactor))
                         Text("s")
-                            .font(.system(size: 20))
+                            .font(.system(size: 20 * locationTitleScaleFactor))
                     }
                     .foregroundStyle(.primary)
                     .accessibilityElement(children: .ignore)
@@ -109,7 +111,7 @@ struct LocationForecastView: View {
                     .accessibilityLabel("locationForecast.text.swellDirection")
                     .accessibilityValue(Text(verbatim: "\(swellDirection.formatted(.number.precision(.fractionLength(0))))°"))
                 }
-                .font(.system(size: 22))
+                .font(.system(size: 22 * locationTitleScaleFactor))
                 .foregroundStyle(.white)
                 .shadow(radius: 8)
                 .opacity(swellDescriptionOpacity)
@@ -122,19 +124,19 @@ struct LocationForecastView: View {
     private func loadingHeader(_ state: LocationForecastFeature.State) -> some View {
         VStack(alignment: .center, spacing: 32) {
             Text(state.location.title)
-                .font(.system(size: 30))
+                .font(.system(size: 30 * locationTitleScaleFactor))
                 .foregroundStyle(.white)
                 .shadow(radius: 8)
                 .accessibilityAddTraits(.isHeader)
             
             VStack(spacing: 8.0) {
                 Text("locationForecast.text.loading")
-                    .font(.system(size: 22))
+                    .font(.system(size: 22 * locationTitleScaleFactor))
                     .foregroundStyle(.white)
                     .shadow(radius: 8)
                 
                 Text("locationForecast.text.lastUpdated \(state.location.dateUpdated.formatted(.relative(presentation: .named, unitsStyle: .spellOut)))")
-                    .font(.system(size: 16))
+                    .font(.system(size: 16 * locationTitleScaleFactor))
                     .foregroundStyle(.white)
                     .shadow(radius: 8)
             }
@@ -145,7 +147,7 @@ struct LocationForecastView: View {
     private func errorHeader(_ state: LocationForecastFeature.State) -> some View {
         VStack(alignment: .center, spacing: 32) {
             Text(state.location.title)
-                .font(.system(size: 30))
+                .font(.system(size: 30 * locationTitleScaleFactor))
                 .foregroundStyle(.white)
                 .shadow(radius: 8)
                 .accessibilityAddTraits(.isHeader)
@@ -160,16 +162,27 @@ struct LocationForecastView: View {
             LocationForecastSectionView(titleView: { sectionHeader(title: "locationForecast.text.hourlyForecast", systemImageName: "clock")}, contentView: {
                 HourlyForecastView(weatherData: state.location.weather)
                     .padding([.horizontal, .bottom])
-            })
-            HStack {
+            }, globalYStopperCoordinate: safeAreaInsets.top + distanceToStartCollapseSectionHeaders)
+            if horizontalSizeClass == .compact && dynamicTypeSize > .xxLarge {
                 LocationForecastSectionView(titleView: { sectionHeader(title: "locationForecast.text.tide", systemImageName: "water.waves")}, contentView: {
                     TideForecastView(weatherData: state.location.weather)
-                        .padding(.bottom)
-                })
+                        .padding([.horizontal, .bottom])
+                }, globalYStopperCoordinate: safeAreaInsets.top + distanceToStartCollapseSectionHeaders)
                 LocationForecastSectionView(titleView: { sectionHeader(title: "locationForecast.text.wind", systemImageName: "wind")}, contentView: {
                     WindForecastView(weatherData: state.location.weather, offshorePerpendicular: state.location.offshorePerpendicular)
-                        .padding(.bottom)
-                })
+                        .padding([.horizontal, .bottom])
+                }, globalYStopperCoordinate: safeAreaInsets.top + distanceToStartCollapseSectionHeaders)
+            } else {
+                HStack {
+                    LocationForecastSectionView(titleView: { sectionHeader(title: "locationForecast.text.tide", systemImageName: "water.waves")}, contentView: {
+                        TideForecastView(weatherData: state.location.weather)
+                            .padding(.bottom)
+                    }, globalYStopperCoordinate: safeAreaInsets.top + distanceToStartCollapseSectionHeaders)
+                    LocationForecastSectionView(titleView: { sectionHeader(title: "locationForecast.text.wind", systemImageName: "wind")}, contentView: {
+                        WindForecastView(weatherData: state.location.weather, offshorePerpendicular: state.location.offshorePerpendicular)
+                            .padding(.bottom)
+                    }, globalYStopperCoordinate: safeAreaInsets.top + distanceToStartCollapseSectionHeaders)
+                }
             }
         }
     }
@@ -215,10 +228,11 @@ struct LocationForecastView: View {
 }
 
 extension LocationForecastView {
-    static let distanceToStartCollapseSectionHeaders: CGFloat = 64.0
-    private var maximumAllowedDragDistanceForLocationTitle: CGFloat { 16.0 }
-    private var dragDistanceToCompletelyHideWaveHeight: CGFloat { 48.0 }
-    private var dragDistanceToCompletelyHideSwellDescription: CGFloat { 128.0 }
+    private var locationTitleScaleFactor: CGFloat { locationTitleFontSize / 30 }
+    private var distanceToStartCollapseSectionHeaders: CGFloat { 64.0 * locationTitleScaleFactor }
+    private var maximumAllowedDragDistanceForLocationTitle: CGFloat { 16.0 * locationTitleScaleFactor }
+    private var dragDistanceToCompletelyHideWaveHeight: CGFloat { 48.0 * locationTitleScaleFactor }
+    private var dragDistanceToCompletelyHideSwellDescription: CGFloat { 128.0 * locationTitleScaleFactor }
     
     private var headerOffset: CGFloat {
         guard scrollViewOffset.y < 0 else { return 0.0 } // affect only drag from top to bottom

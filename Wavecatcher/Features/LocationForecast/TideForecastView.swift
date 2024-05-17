@@ -9,6 +9,8 @@ import Charts
 struct TideForecastView: View {
     
     @Environment(\.colorScheme) var colorScheme
+    @ScaledMetric(relativeTo: .title) var chartFrameHeight = 40.0
+    
     let weatherData: [WeatherData]
     
     var body: some View {
@@ -30,7 +32,7 @@ struct TideForecastView: View {
             Spacer(minLength: 0.0)
             
             chart
-                .frame(height: 40)
+                .frame(height: chartFrameHeight)
                 .accessibilityHidden(true)
             
             Spacer(minLength: 0.0)
