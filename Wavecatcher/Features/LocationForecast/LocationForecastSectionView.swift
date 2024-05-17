@@ -16,6 +16,7 @@ struct LocationForecastSectionView<Title: View, Content: View>: View {
     @State private var globalFrame: CGRect = .zero
     @Environment(\.safeAreaInsets) var safeAreaInsets
     @Environment(\.dynamicTypeSize) var dynamicTypeSize
+    @Environment(\.accessibilityReduceTransparency) var reduceTransparency
     @ScaledMetric(relativeTo: .title) var titleViewHeight = 38.0
     
     init(@ViewBuilder titleView: @escaping () -> Title,
@@ -32,7 +33,7 @@ struct LocationForecastSectionView<Title: View, Content: View>: View {
                 .frame(height: titleViewHeight)
                 .frame(maxWidth: .infinity)
                 .padding(.horizontal)
-                .background(.ultraThinMaterial, in: RoundedCorner(corners: bottomOffset < titleViewHeight ? [.allCorners] : [.topLeft, .topRight], radius: cornerRadius))
+                .background(reduceTransparency ? .thinMaterial : .ultraThinMaterial, in: RoundedCorner(corners: bottomOffset < titleViewHeight ? [.allCorners] : [.topLeft, .topRight], radius: cornerRadius))
                 .zIndex(1)
             
             VStack {
@@ -40,7 +41,7 @@ struct LocationForecastSectionView<Title: View, Content: View>: View {
                 contentView
             }
             .offset(y: topOffset > globalYStopperCoordinate ? 0 : -(-topOffset + globalYStopperCoordinate))
-            .background(.ultraThinMaterial)
+            .background(reduceTransparency ? .thinMaterial : .ultraThinMaterial)
             .zIndex(0)
             .clipped()
         }
