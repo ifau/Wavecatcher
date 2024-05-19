@@ -44,6 +44,7 @@ struct LocationForecastView: View {
                     viewStore.send(.viewAppear)
                 }
             }
+            .tag(viewStore.id as SavedLocation.ID?)
         }
     }
     

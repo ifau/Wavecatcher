@@ -22,10 +22,9 @@ struct LocationsListView: View {
         WithViewStore(self.store, observe: { $0 }) { viewStore in
             VStack {
                 TabView(selection: viewStore.binding(get: \.selectedLocationID, send: LocationsListFeature.Action.selectLocation).animation(.smooth) ) {
-                    ForEach(viewStore.state.locations) { location in
-                        LocationForecastView(state: .init(location: location))
-                            .tag((location.id as SavedLocation.ID?))
-                    }
+                    ForEachStore(self.store.scope(state: \.locationForecasts, action: { .locationForecast(id: $0, action: $1) }), content: ({ store in
+                        LocationForecastView(store: store)
+                    }))
                 }
                 .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
                 

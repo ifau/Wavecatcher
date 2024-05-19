@@ -16,7 +16,7 @@ final class LocationsListFeatureTests: XCTestCase {
         var requestedLocationIdToDelete: Location.ID? = nil
         
         let store = TestStore(initialState: LocationsListFeature.State.init(
-            locations: .init(uniqueElements: [location]), selectedLocationID: location.id)) {
+            locationForecasts: .init(uniqueElements: [LocationForecastFeature.State(location: location)]), selectedLocationID: location.id)) {
             LocationsListFeature()
         } withDependencies: {
             $0.localStorage.deleteLocation = { requestedLocationIdToDelete = $0.id }
@@ -31,7 +31,7 @@ final class LocationsListFeatureTests: XCTestCase {
         let location = SavedLocation.previewData.first!
         
         let store = TestStore(initialState: LocationsListFeature.State.init(
-            locations: .init(uniqueElements: [location]), selectedLocationID: nil)) {
+            locationForecasts: .init(uniqueElements: [LocationForecastFeature.State(location: location)]), selectedLocationID: nil)) {
             LocationsListFeature()
         }
         

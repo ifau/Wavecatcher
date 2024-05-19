@@ -10,8 +10,12 @@ struct LocationsListFeature: Reducer {
     
     struct State: Equatable {
         @PresentationState var destination: Destination.State?
-        var locations: IdentifiedArrayOf<SavedLocation> = .init()
+        var locationForecasts: IdentifiedArrayOf<LocationForecastFeature.State> = .init()
         var selectedLocationID: SavedLocation.ID? = nil
+        
+        var locations: IdentifiedArrayOf<SavedLocation> {
+            .init(uniqueElements: locationForecasts.map({ $0.location }))
+        }
     }
     
     enum Action: Equatable {
@@ -20,6 +24,7 @@ struct LocationsListFeature: Reducer {
         case addLocation
         case openSettings
         case destination(PresentationAction<Destination.Action>)
+        case locationForecast(id: LocationForecastFeature.State.ID, action: LocationForecastFeature.Action)
     }
     
     @Dependency(\.localStorage) var localStorage
@@ -49,10 +54,16 @@ struct LocationsListFeature: Reducer {
                 
             case .destination:
                 return .none
+                
+            case .locationForecast:
+                return .none
             }
         }
         .ifLet(\.$destination, action: /Action.destination) {
             Destination()
+        }
+        .forEach(\.locationForecasts, action: /Action.locationForecast) {
+            LocationForecastFeature()
         }
     }
 }

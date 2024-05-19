@@ -66,7 +66,7 @@ final class AppFeatureTests: XCTestCase {
         await store.receive(.reloadLocations)
         await store.receive(.reloadLocationsResponse(.success(locations))) {
             $0.locations = .init(uniqueElements: locations)
-            $0.destination = .locationsList(.init(locations: $0.locations, selectedLocationID: locations.first?.id))
+            $0.destination = .locationsList(.init(locationForecasts: .init(uniqueElements: $0.locations.map ({ LocationForecastFeature.State(location: $0)})), selectedLocationID: locations.first?.id))
         }
     }
 }

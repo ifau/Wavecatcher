@@ -8,7 +8,8 @@ import ComposableArchitecture
 
 struct LocationForecastFeature: Reducer {
     
-    struct State: Equatable {
+    struct State: Equatable, Identifiable {
+        var id: SavedLocation.ID { location.id }
         var location: SavedLocation
         var displayState: DisplayState = .loaded
         

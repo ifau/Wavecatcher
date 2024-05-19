@@ -51,12 +51,13 @@ struct AppFeature: Reducer {
             case .reloadLocationsResponse(.success(let locations)):
                 let hadAtLeastOneLocationBefore = !state.locations.isEmpty
                 state.locations = IdentifiedArrayOf<SavedLocation>(uniqueElements: locations)
+                let locationForecasts = IdentifiedArrayOf<LocationForecastFeature.State>(uniqueElements: state.locations.map({ LocationForecastFeature.State(location: $0)}))
                 
                 if state.locations.isEmpty {
                     state.destination = .onboarding(hadAtLeastOneLocationBefore ? .secondLaunchState : .firstLaunchState)
                 }
                 else if case .locationsList(var locationsListState) = state.destination {
-                    locationsListState.locations = state.locations
+                    locationsListState.locationForecasts = locationForecasts
                     if let selectedLocationID = locationsListState.selectedLocationID, state.locations[id: selectedLocationID] == nil {
                         locationsListState.selectedLocationID = locations.first?.id
                     }
@@ -69,7 +70,7 @@ struct AppFeature: Reducer {
                     }
                     state.destination = .locationsList(locationsListState)
                 } else {
-                    state.destination = .locationsList(.init(locations: state.locations, selectedLocationID: state.locations.first?.id))
+                    state.destination = .locationsList(.init(locationForecasts: locationForecasts, selectedLocationID: state.locations.first?.id))
                 }
                 return .none
                 
